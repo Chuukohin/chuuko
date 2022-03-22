@@ -1,6 +1,8 @@
 package fiber
 
 import (
+	"chuukohin/deliveries/fiber/middlewares"
+	"chuukohin/endpoints"
 	"chuukohin/types/responder"
 	"github.com/gofiber/fiber/v2"
 	"time"
@@ -26,8 +28,14 @@ func Init() {
 		})
 	})
 
-	// Register API endpoints
-	//apiGroup := app.Group("api/")
+	//Register API endpoints
+	apiGroup := app.Group("api/")
+
+	apiGroup.Use(middlewares.Cors())
+
+	endpoints.Router(apiGroup)
+
+	app.Use(notFound)
 
 	err := app.Listen(":8080")
 	if err != nil {
