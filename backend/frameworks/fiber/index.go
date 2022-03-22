@@ -1,8 +1,8 @@
 package fiber
 
 import (
-	"chuukohin/deliveries/fiber/middlewares"
 	"chuukohin/endpoints"
+	"chuukohin/frameworks/fiber/middlewares"
 	"chuukohin/types/responder"
 	"github.com/gofiber/fiber/v2"
 	"time"

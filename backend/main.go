@@ -2,7 +2,7 @@ package main
 
 import (
 	"chuukohin/database"
-	"chuukohin/deliveries/fiber"
+	"chuukohin/frameworks/fiber"
 )
 
 func main() {
