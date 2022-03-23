@@ -37,6 +37,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return n.Text("Chuukohin");
+    return n.Column([n.Text("Chuukohin")..color = Colors.blue])..padding = const EdgeInsets.all(8);
   }
 }
