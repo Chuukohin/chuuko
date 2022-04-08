@@ -6,3 +6,7 @@
 
 # local
 /local
+
+# Swagger generates
+frameworks/swagger/*
+!frameworks/swagger/index.go

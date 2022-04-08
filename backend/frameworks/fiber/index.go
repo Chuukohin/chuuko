@@ -3,6 +3,7 @@ package fiber
 import (
 	"chuukohin/endpoints"
 	"chuukohin/frameworks/fiber/middlewares"
+	"chuukohin/frameworks/swagger"
 	"chuukohin/types/responder"
 	"github.com/gofiber/fiber/v2"
 	"time"
@@ -30,6 +31,10 @@ func Init() {
 
 	//Register API endpoints
 	apiGroup := app.Group("api/")
+
+	//Swagger endpoint
+	swaggerGroup := app.Group("/swagger")
+	swagger.Init(swaggerGroup)
 
 	apiGroup.Use(middlewares.Cors())
 
