@@ -1,42 +1,24 @@
-import 'package:flutter/material.dart';
+import 'package:chuukohin/screens/test_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:niku/namespace.dart' as n;
+import 'package:chuukohin/screens/homepage_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Chuuko());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Chuuko extends StatelessWidget {
+  const Chuuko({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return const CupertinoApp(
+      theme: CupertinoThemeData(
+          brightness: Brightness.light, primaryColor: Color(0xffB89476)),
+      home: CupertinoPageScaffold(
+        child: TestScreen(),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Chuukohin"),
-          backgroundColor: Colors.pink[200],
-        ),
-        body: const MyHomePage(),
-      ),
+      debugShowCheckedModeBanner: false,
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return n.Column([n.Text("Chuukohin")..color = Colors.blue])..padding = const EdgeInsets.all(8);
   }
 }
