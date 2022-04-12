@@ -1,5 +1,6 @@
 import 'package:chuukohin/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:chuukohin/widgets/layout/product_card.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
@@ -22,7 +23,9 @@ class _TestScreenState extends State<TestScreen> {
               //put testing code here
               const Text("Test"),
               const Text("Hello World"),
-              MainButton('test', 50, 50)
+              MainButton('test', 50, 50),
+              ProductCard("Shirt", "Uniqol", 3500, 'assets/images/pic1.jpg'),
+              Text("Test"),
             ],
           ),
         ),
