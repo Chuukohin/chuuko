@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
-  String title;
-  double height;
-  double width;
-  MainButton(this.title, this.height, this.width);
+  final String title;
+  final double height;
+  final double width;
+  const MainButton(this.title, this.height, this.width, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         height: height,
         width: width,
-        decoration: BoxDecoration(
-            borderRadius: new BorderRadius.all(Radius.circular(39)),
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(39)),
             color: Color(0xFFB89476)),
         child: Center(
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 17,
               color: Colors.white,
             ),

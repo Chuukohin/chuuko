@@ -17,17 +17,14 @@ class _TestScreenState extends State<TestScreen> {
         appBar: AppBar(
           title: const Text("Test Screen"),
         ),
-        body: Container(
-          child: Column(
-            children: [
-              //put testing code here
-              const Text("Test"),
-              const Text("Hello World"),
-              MainButton('test', 50, 50),
-              ProductCard("Shirt", "Uniqol", 3500, 'assets/images/pic1.jpg'),
-              Text("Test"),
-            ],
-          ),
+        body: Column(
+          children: const [
+            //put testing code here
+            Text("Test"),
+            Text("Hello World"),
+            MainButton('test', 50, 50),
+            ProductCard("Shirt", "Uniqol", 3500, 'assets/images/pic1.jpg'),
+          ],
         ),
       ),
       debugShowCheckedModeBanner: false,

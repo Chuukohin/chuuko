@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ProductCard extends StatelessWidget {
-  String productname;
-  String band;
-  double price;
-  String image;
+  final String productname;
+  final String band;
+  final double price;
+  final String image;
 
-  ProductCard(this.productname, this.band, this.price, this.image);
+  const ProductCard(this.productname, this.band, this.price, this.image,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +18,15 @@ class ProductCard extends StatelessWidget {
       height: 209,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         boxShadow: [
           //background color of box
           BoxShadow(
-            color: Color(0xff000000).withOpacity(0.25),
+            color: const Color(0xff000000).withOpacity(0.25),
 
             blurRadius: 4, // soften the shadow
             //extend the shadow
-            offset: Offset(
+            offset: const Offset(
               0, // Move to right 10  horizontally
               1, // Move to bottom 10 Vertically
             ),
@@ -38,7 +40,7 @@ class ProductCard extends StatelessWidget {
           //  height: 164,
           //  width: 170,
           // ),
-          SizedBox(height: 164),
+          const SizedBox(height: 164),
           Padding(
             padding: const EdgeInsets.only(right: 7, left: 10),
             child: Row(
@@ -49,14 +51,14 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         productname,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: Color(0xff434343),
                         ),
                       ),
                       Text(
                         band,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: Color(0xffC4C4C4),
                         ),
@@ -65,7 +67,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   Text(
                     '${NumberFormat("#,###").format(price)}',
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 14,
                         color: Color(0xff434343),
                         fontWeight: FontWeight.bold),
