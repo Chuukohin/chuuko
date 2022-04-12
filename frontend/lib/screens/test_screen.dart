@@ -1,3 +1,4 @@
+import 'package:chuukohin/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 class TestScreen extends StatefulWidget {
@@ -17,9 +18,11 @@ class _TestScreenState extends State<TestScreen> {
         ),
         body: Container(
           child: Column(
-            children: const [
+            children: [
               //put testing code here
-              Text("Test"),
+              const Text("Test"),
+              const Text("Hello World"),
+              MainButton('test', 50, 50)
             ],
           ),
         ),

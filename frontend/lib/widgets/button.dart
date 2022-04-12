@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Mainbotton extends StatelessWidget {
+class MainButton extends StatelessWidget {
   String title;
   double height;
   double width;
-  Mainbotton(this.title, this.height, this.width);
+  MainButton(this.title, this.height, this.width);
 
   @override
   Widget build(BuildContext context) {
