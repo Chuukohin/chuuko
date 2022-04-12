@@ -7,7 +7,7 @@ import (
 
 // PostHandler
 // @ID           account.login.post
-// @Summary      Generic Login
+// @Summary      Login
 // @Description  Default login handler with email and password
 // @Tags         account
 // @Accept       json
