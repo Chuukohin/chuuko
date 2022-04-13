@@ -3,12 +3,12 @@ package register
 import (
 	"chuukohin/database"
 	"chuukohin/models"
+	"chuukohin/types/fiber/jwt_claim"
 	"chuukohin/types/responder"
 	"chuukohin/utils/check"
-	"chuukohin/utils/config"
 	"chuukohin/utils/crypto"
+	"chuukohin/utils/header"
 	"github.com/gofiber/fiber/v2"
-	"github.com/golang-jwt/jwt/v4"
 	"time"
 )
 
@@ -83,27 +83,21 @@ func PostHandler(c *fiber.Ctx) error {
 		}
 	}
 
-	// Create the Claims
-	claims := jwt.MapClaims{
-		"user_id": *user.Id,
+	// * Create Claims
+	claims := &jwt_claim.UserClaim{
+		UserId: user.Id,
 	}
 
-	// Create token
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	// Generate encoded token and send it as response.
-	t, err := token.SignedString([]byte(config.C.JwtSecret))
+	// * Sign JWT
+	token, err := header.SignJwt(claims)
 	if err != nil {
-		return &responder.GenericError{
-			Message: "Unable to generate token",
-			Err:     err,
-		}
+		return nil
 	}
 
 	return c.JSON(&responder.InfoResponse{
 		Success: true,
 		Data: &response{
-			Token: t,
+			Token: token,
 		},
 	})
 }
