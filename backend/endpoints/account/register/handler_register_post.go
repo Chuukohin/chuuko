@@ -9,7 +9,7 @@ import (
 	"chuukohin/utils/crypto"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
-	"strconv"
+	"time"
 )
 
 // PostHandler
@@ -42,6 +42,11 @@ func PostHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	// * Validate Password
+	if err := check.ValidatePassword(*body.Password); err != nil {
+		return err
+	}
+
 	// * Check Duplicated Email
 	var checkDuplicateUser *models.User
 	if result := database.Gorm.First(&checkDuplicateUser, "email = ?", body.Email); result.Error == nil {
@@ -60,15 +65,14 @@ func PostHandler(c *fiber.Ctx) error {
 	// * Hash Password
 	hashedPassword, _ := crypto.HashPassword(*body.Password)
 
-	// * Set Default PictureID
-	defaultPictureId, _ := strconv.ParseUint("1", 10, 32)
+	currentDate := time.Now()
 
 	user := &models.User{
 		Firstname: body.Firstname,
 		Lastname:  body.Lastname,
 		Password:  &hashedPassword,
 		Email:     body.Email,
-		PictureId: &defaultPictureId,
+		JoinDate:  &currentDate,
 	}
 
 	// * Create User
