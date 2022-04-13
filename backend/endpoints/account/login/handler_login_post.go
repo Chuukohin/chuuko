@@ -1,7 +1,12 @@
 package login
 
 import (
+	"chuukohin/database"
+	"chuukohin/models"
+	"chuukohin/types/fiber/jwt_claim"
 	"chuukohin/types/responder"
+	"chuukohin/utils/crypto"
+	"chuukohin/utils/header"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -30,10 +35,37 @@ func PostHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	// * Get User
+	var user *models.User
+	if result := database.Gorm.First(&user, "email = ?", body.Email); result.RowsAffected == 0 {
+		return &responder.GenericError{
+			Message: "User not found",
+			Err:     result.Error,
+		}
+	}
+
+	// * Check password
+	if !crypto.ComparePassword(*user.Password, *body.Password) {
+		return &responder.GenericError{
+			Message: "Password is incorrect",
+		}
+	}
+
+	// * Create claims
+	claims := &jwt_claim.UserClaim{
+		UserId: user.Id,
+	}
+
+	// * Sign JWT
+	token, err := header.SignJwt(claims)
+	if err != nil {
+		return nil
+	}
+
 	return c.JSON(&responder.InfoResponse{
 		Success: true,
 		Data: &response{
-			Token: "Chuukohin!",
+			Token: token,
 		},
 	})
 }
