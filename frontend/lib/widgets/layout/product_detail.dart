@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class Product_Detail extends StatelessWidget {
   final String productname;
@@ -21,6 +22,14 @@ class Product_Detail extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 47, right: 35),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          // ImageSlideshow(
+          //   width: 343,
+          //   height: 207,
+          //   indicatorColor: Colors.white,
+          //   indicatorBackgroundColor: Color(0xffE8CEBD),
+          //   children:
+          //       Image.asset('frontend/images/shirt.jpeg', fit: BoxFit.cover),
+          // ),
           Text(
             productname,
             style: const TextStyle(
