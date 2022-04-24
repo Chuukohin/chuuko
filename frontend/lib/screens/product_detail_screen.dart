@@ -1,10 +1,9 @@
 import 'package:chuukohin/widgets/button.dart';
+import 'package:chuukohin/widgets/layout/product_detail.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/layout/product_detail.dart';
-
-class Productdetail_screen extends StatelessWidget {
-  const Productdetail_screen({Key? key}) : super(key: key);
+class ProductDetailScreen extends StatelessWidget {
+  const ProductDetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +14,13 @@ class Productdetail_screen extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            color: Color(0xffB89476),
+            color: const Color(0xffB89476),
             height: 207,
             width: 343,
-            margin: EdgeInsets.only(top: 15, bottom: 14),
+            margin: const EdgeInsets.only(top: 15, bottom: 14),
           ),
-          Product_Detail("Product name", "uniqol", "Shrit", "Bangkok", 5000,
-              "white shirt sdcsdcdscvdsvdsvcvdscfedewdewfewfewfewfewf"),
+          const ProductDetail("Product name", "uniqol", "Shrit", "Bangkok",
+              5000, "white shirt sdcsdcdscvdsvdsvcvdscfedewdewfewfewfewfewf"),
           Padding(
             padding: const EdgeInsets.only(bottom: 60, left: 41, top: 229),
             child: Row(
@@ -29,23 +28,24 @@ class Productdetail_screen extends StatelessWidget {
                 Container(
                   height: 48,
                   width: 158,
-                  margin: EdgeInsets.only(right: 20),
+                  margin: const EdgeInsets.only(right: 20),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(39)),
+                      borderRadius: const BorderRadius.all(Radius.circular(39)),
                       color: Colors.white,
-                      border: Border.all(width: 1, color: Color(0xffB89476))),
+                      border:
+                          Border.all(width: 1, color: const Color(0xffB89476))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.favorite_outline,
                         color: Color(0xffB89476),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: EdgeInsets.only(left: 10),
                         child: Text(
                           "Favorite",
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 17,
                             color: Color(0xffB89476),
                           ),
@@ -54,7 +54,7 @@ class Productdetail_screen extends StatelessWidget {
                     ],
                   ),
                 ),
-                MainButton("Add To Cart", 48, 158),
+                const MainButton("Add To Cart", 48, 158),
               ],
             ),
           )
