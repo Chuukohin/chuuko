@@ -1,42 +1,32 @@
+import 'package:chuukohin/constant/color.dart';
+import 'package:chuukohin/screens/start/splash.dart';
+import 'package:chuukohin/screens/start/welcome.dart';
 import 'package:flutter/material.dart';
-import 'package:niku/namespace.dart' as n;
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Chuuko());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Chuuko extends StatelessWidget {
+  const Chuuko({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Chuuko',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: ThemeConstant.primaryColor,
+        primarySwatch: ThemeConstant.materialColorSwatch,
+        appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0xffF9F9F9), foregroundColor: Colors.black),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Chuukohin"),
-          backgroundColor: Colors.pink[200],
-        ),
-        body: const MyHomePage(),
-      ),
+      routes: {
+        '/': (_) => const SplashScreen(),
+        '/welcome': (_) => const WelcomeScreen(),
+      },
+      initialRoute: "/",
     );
   }
 }
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return n.Column([n.Text("Chuukohin")..color = Colors.blue])..padding = const EdgeInsets.all(8);
-  }
-}
+//0xffB89476
