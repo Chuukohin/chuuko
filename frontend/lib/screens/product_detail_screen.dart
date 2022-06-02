@@ -1,7 +1,5 @@
 import 'package:chuukohin/widgets/product_detail.dart';
-
 import 'package:chuukohin/widgets/button.dart';
-
 import 'package:flutter/material.dart';
 
 class ProductDetailScreen extends StatelessWidget {
