@@ -3,16 +3,14 @@ import 'package:chuukohin/screens/core/homepage_screen.dart';
 import 'package:chuukohin/screens/start/splash.dart';
 import 'package:chuukohin/screens/start/welcome.dart';
 import 'package:flutter/material.dart';
-import 'package:niku/namespace.dart' as n;
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Chuuko());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Chuuko extends StatelessWidget {
+  const Chuuko({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,20 +24,5 @@ class MyApp extends StatelessWidget {
       },
       initialRoute: "/home",
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return n.Column([n.Text("Chuukohin")..color = Colors.blue])
-      ..padding = const EdgeInsets.all(8);
   }
 }

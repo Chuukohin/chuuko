@@ -1,5 +1,7 @@
-// import 'package:chuukohin/widgets/button.dart';
 import 'package:chuukohin/widgets/product_detail.dart';
+
+import 'package:chuukohin/widgets/button.dart';
+
 import 'package:flutter/material.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -54,7 +56,7 @@ class ProductDetailScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                // const MainButton("Add To Cart", 48, 158),
+                const MainButton("Add To Cart", 48, 158),
               ],
             ),
           )
