@@ -1,4 +1,4 @@
-package models
+package model_shop
 
 import (
 	"time"

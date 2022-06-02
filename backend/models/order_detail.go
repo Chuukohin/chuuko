@@ -1,14 +1,11 @@
 package models
 
-import "chuukohin/types/models"
+import "chuukohin/types/model_shop"
 
 type OrderDetail struct {
-	OrderId    *uint64               `gorm:"not null"`
-	Order      *Order                `gorm:"foreignKey:OrderId"`
-	ProductId  *uint64               `gorm:"not null"`
-	Product    *Product              `gorm:"foreignKey:ProductId"`
-	Quantity   *uint64               `gorm:"not null"`
-	TrackingNo *string               `gorm:"type:VARCHAR(12)"`
-	IsReceived *bool                 `gorm:"not null; default:false"`
-	Status     *[]models.OrderDetail `gorm:"type:jsonb"`
+	OrderId    *uint64                   `gorm:"not null"`
+	Order      *Order                    `gorm:"foreignKey:OrderId"`
+	TrackingNo *string                   `gorm:"type:VARCHAR(12)"`
+	IsReceived *bool                     `gorm:"not null; default:false"`
+	Status     *[]model_shop.OrderDetail `gorm:"type:jsonb"`
 }

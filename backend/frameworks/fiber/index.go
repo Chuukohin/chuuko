@@ -6,6 +6,7 @@ import (
 	"chuukohin/frameworks/swagger"
 	"chuukohin/types/responder"
 	"github.com/gofiber/fiber/v2"
+	"log"
 	"time"
 )
 
@@ -41,9 +42,9 @@ func Init() {
 	endpoints.Router(apiGroup)
 
 	app.Use(notFound)
-
+	
 	err := app.Listen(":8080")
 	if err != nil {
-		return
+		log.Fatal(err.Error())
 	}
 }

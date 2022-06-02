@@ -11,8 +11,7 @@ type Product struct {
 	Name        *string            `gorm:"type:VARCHAR(255); not null"`
 	Brand       *string            `gorm:"type:VARCHAR(80); not null"`
 	Price       *uint64            `gorm:"not null"`
-	Quantity    *uint64            `gorm:"not null"`
 	Description *string            `gorm:"type:text; not null"`
-	PictureId   *uint64            `gorm:"type:integer[]"`
+	PictureId   []*uint64          `gorm:"type:integer[]"`
 	Status      *enum.ProductState `gorm:"type:VARCHAR(40)"`
 }

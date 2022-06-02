@@ -35,7 +35,6 @@ func Init() {
 			&models.Favorite{},
 			&models.Order{},
 			&models.OrderDetail{},
-			&models.Cart{},
 		)
 		if err != nil {
 			log.Fatal("Unable to migrate database", err)

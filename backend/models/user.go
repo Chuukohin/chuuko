@@ -10,7 +10,7 @@ type User struct {
 	Password  *string    `gorm:"type:VARCHAR(255); not null"`
 	Firstname *string    `gorm:"type:VARCHAR(80); not null"`
 	Lastname  *string    `gorm:"type:VARCHAR(80); not null"`
-	PictureId *uint64    `gorm:"default:1;not null"`
+	PictureId *uint64    `gorm:"default:1"`
 	Picture   *Picture   `gorm:"foreignKey:PictureId"`
-	JoinDate  *time.Time `gorm:"not null"`
+	JoinDate  *time.Time `gorm:"default:current_timestamp; not null"`
 }

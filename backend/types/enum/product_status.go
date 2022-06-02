@@ -3,17 +3,14 @@ package enum
 type ProductState string
 
 const (
-	visible    ProductState = "visible"
-	hidden     ProductState = "hidden"
-	outOfStock ProductState = "outOfStock"
+	selling ProductState = "selling"
+	sold    ProductState = "sold"
 )
 
 var ProductStatus = struct {
-	Visible    ProductState
-	Hidden     ProductState
-	OutOfStock ProductState
+	Selling ProductState
+	Sold    ProductState
 }{
-	Visible:    visible,
-	Hidden:     hidden,
-	OutOfStock: outOfStock,
+	Selling: selling,
+	Sold:    sold,
 }
