@@ -32,7 +32,6 @@ func Init() {
 			&models.Card{},
 			&models.Category{},
 			&models.Product{},
-			&models.Favorite{},
 			&models.Order{},
 			&models.OrderDetail{},
 		)

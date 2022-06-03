@@ -7,7 +7,7 @@ import (
 type OrderDetail struct {
 	ProductId      *uint64
 	TrackingNumber *string
-	Status         *[]deliveryDetail
+	Status         []*deliveryDetail
 }
 
 type deliveryDetail struct {

@@ -3,14 +3,6 @@ package enum
 type ProductState string
 
 const (
-	selling ProductState = "selling"
-	sold    ProductState = "sold"
+	Selling ProductState = "selling"
+	Sold    ProductState = "sold"
 )
-
-var ProductStatus = struct {
-	Selling ProductState
-	Sold    ProductState
-}{
-	Selling: selling,
-	Sold:    sold,
-}
