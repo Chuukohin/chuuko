@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:chuukohin/widgets/category/category_icon.dart';
+import 'package:chuukohin/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:niku/namespace.dart' as n;
@@ -34,16 +35,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-      width: double.infinity,
       child: n.Column(
         [
           Container(
+            width: double.infinity,
             margin: const EdgeInsets.only(bottom: 20, left: 20),
             child: n.Text("Categories")
               ..fontWeight = FontWeight.bold
               ..fontSize = 16,
           ),
           Container(
+            margin: const EdgeInsets.only(bottom: 10),
             height: 80,
             child: ListView(
               scrollDirection: Axis.horizontal,
@@ -70,6 +72,29 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   ),
                 );
               }).toList(),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(bottom: 20, left: 20),
+            child: n.Text("Best Seller")
+              ..fontWeight = FontWeight.bold
+              ..fontSize = 16,
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.only(left: 12, right: 12),
+              child: GridView.builder(
+                itemCount: 6,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.74,
+                  crossAxisSpacing: 10.0,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return const ProductCard(
+                      "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png');
+                },
+              ),
             ),
           ),
         ],
