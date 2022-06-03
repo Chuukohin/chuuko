@@ -1,69 +1,78 @@
+import 'dart:convert';
+import 'package:chuukohin/widgets/category/category_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:niku/namespace.dart' as n;
+import 'package:collection/collection.dart';
 
-class HomepageScreen extends StatefulWidget {
-  const HomepageScreen({Key? key}) : super(key: key);
+class HomePageScreen extends StatefulWidget {
+  const HomePageScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomepageScreen> createState() => _HomepageScreenState();
+  State<HomePageScreen> createState() => _HomePageScreenState();
 }
 
-class _HomepageScreenState extends State<HomepageScreen> {
-  var bottomBarItems = <Map<String, dynamic>>[
-    {'icon': Icons.home, 'label': 'Home'},
-    {'icon': Icons.person, 'label': 'Me'},
-  ];
+class _HomePageScreenState extends State<HomePageScreen> {
+  List _categories = [];
+
+  _loadCategories() async {
+    final String response =
+        await rootBundle.loadString('assets/json/category.json');
+    final data = await json.decode(response);
+    setState(() {
+      _categories = data;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCategories();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(
-        items: <BottomNavigationBarItem>[
-          ...bottomBarItems.map(
-            (item) => BottomNavigationBarItem(
-              icon: Icon(item['icon'], size: 25),
-              label: item['label'],
-            ),
-          )
-        ],
-      ),
-      tabBuilder: (BuildContext context, int index) {
-        return CupertinoTabView(
-          builder: (BuildContext context) {
-            return CupertinoPageScaffold(
-              navigationBar: CupertinoNavigationBar(
-                  middle: index == 0 ? n.Text("Home") : n.Text("Me")),
-              child: Center(
-                child: CupertinoButton(
-                  child: const Text('Next page'),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      CupertinoPageRoute<void>(
-                        builder: (BuildContext context) {
-                          return CupertinoPageScaffold(
-                            navigationBar: CupertinoNavigationBar(
-                              middle: Text('Page 2 of tab $index'),
-                            ),
-                            child: Center(
-                              child: CupertinoButton(
-                                child: const Text('Back'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
-                          );
-                        },
+    return Container(
+      padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+      width: double.infinity,
+      child: n.Column(
+        [
+          Container(
+            margin: const EdgeInsets.only(bottom: 20, left: 20),
+            child: n.Text("Categories")
+              ..fontWeight = FontWeight.bold
+              ..fontSize = 16,
+          ),
+          Container(
+            height: 80,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: _categories.mapIndexed((index, category) {
+                return Container(
+                  width: 65,
+                  margin: index == 0
+                      ? const EdgeInsets.only(left: 20)
+                      : index == _categories.length - 1
+                          ? const EdgeInsets.only(right: 20)
+                          : null,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        child: CategoryIcon(url: category['icon']),
                       ),
-                    );
-                  },
-                ),
-              ),
-            );
-          },
-        );
-      },
+                      n.Text(category['name'])
+                        ..fontWeight = FontWeight.w500
+                        ..textAlign = TextAlign.center
+                        ..overflow = TextOverflow.ellipsis,
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
+      )..crossAxisAlignment = CrossAxisAlignment.start,
     );
   }
 }

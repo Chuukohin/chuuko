@@ -1,5 +1,5 @@
 import 'package:chuukohin/constant/color.dart';
-import 'package:chuukohin/screens/core/homepage_screen.dart';
+import 'package:chuukohin/screens/core/index.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
 
@@ -68,7 +68,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const HomepageScreen(),
+                          builder: (context) => const MainScreen(),
                         ),
                       );
                     },

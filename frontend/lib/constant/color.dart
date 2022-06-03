@@ -11,7 +11,7 @@ class ThemeConstant {
     primaryColor: ThemeConstant.primaryColor,
     primarySwatch: ThemeConstant.materialColorSwatch,
     appBarTheme: const AppBarTheme(
-        backgroundColor: Color(0xffF9F9F9), foregroundColor: Colors.black),
+        backgroundColor: Color(0xf2F9F9F9), foregroundColor: Colors.black),
     scaffoldBackgroundColor: Colors.white,
   );
 }

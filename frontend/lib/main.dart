@@ -1,5 +1,5 @@
 import 'package:chuukohin/constant/color.dart';
-import 'package:chuukohin/screens/core/homepage_screen.dart';
+import 'package:chuukohin/screens/core/index.dart';
 import 'package:chuukohin/screens/start/splash.dart';
 import 'package:chuukohin/screens/start/welcome.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class Chuuko extends StatelessWidget {
       routes: {
         '/': (_) => const SplashScreen(),
         '/welcome': (_) => const WelcomeScreen(),
-        '/home': (_) => const HomepageScreen(),
+        '/home': (_) => const MainScreen(),
       },
       initialRoute: "/home",
     );
