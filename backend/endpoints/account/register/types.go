@@ -1,6 +1,6 @@
 package register
 
-type request struct {
+type registerRequest struct {
 	Firstname       *string `json:"firstname"`
 	Lastname        *string `json:"lastname"`
 	Email           *string `json:"email" validate:"required,email,max=255"`
@@ -8,6 +8,6 @@ type request struct {
 	ConfirmPassword *string `json:"confirm_password"`
 }
 
-type response struct {
+type registerResponse struct {
 	Token string `json:"token"`
 }

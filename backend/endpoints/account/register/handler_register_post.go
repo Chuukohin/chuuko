@@ -26,7 +26,7 @@ import (
 func PostHandler(c *fiber.Ctx) error {
 
 	// * Parse Body
-	body := new(request)
+	body := new(registerRequest)
 	if err := c.BodyParser(&body); err != nil {
 		return &responder.GenericError{
 			Message: "Unable to parse body",
@@ -94,10 +94,7 @@ func PostHandler(c *fiber.Ctx) error {
 		return nil
 	}
 
-	return c.JSON(&responder.InfoResponse{
-		Success: true,
-		Data: &response{
-			Token: token,
-		},
-	})
+	return c.JSON(responder.NewInfoResponse(&registerResponse{
+		Token: token,
+	}))
 }
