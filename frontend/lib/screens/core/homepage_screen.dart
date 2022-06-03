@@ -51,7 +51,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 return Container(
                   width: 65,
                   margin: index == 0
-                      ? const EdgeInsets.only(left: 20)
+                      ? const EdgeInsets.only(left: 16)
                       : index == _categories.length - 1
                           ? const EdgeInsets.only(right: 20)
                           : null,
@@ -62,6 +62,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         child: CategoryIcon(url: category['icon']),
                       ),
                       n.Text(category['name'])
+                        ..fontSize = 12
                         ..fontWeight = FontWeight.w500
                         ..textAlign = TextAlign.center
                         ..overflow = TextOverflow.ellipsis,
