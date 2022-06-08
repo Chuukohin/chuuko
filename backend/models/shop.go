@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-type Seller struct {
+type Shop struct {
 	Id              *uint64    `gorm:"primaryKey"`
 	UserId          *uint64    `gorm:"not null"`
 	User            *User      `gorm:"foreignKey:UserId"`
@@ -15,5 +15,5 @@ type Seller struct {
 	Phone           *string    `gorm:"type:VARCHAR(10); not null"`
 	PictureId       *uint64    `gorm:"not null"`
 	Picture         *Picture   `gorm:"foreignKey:PictureId"`
-	JoinDate        *time.Time `gorm:"not null"`
+	JoinDate        *time.Time `gorm:"default:current_timestamp; not null"`
 }

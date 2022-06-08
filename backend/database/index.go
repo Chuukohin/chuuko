@@ -27,7 +27,7 @@ func Init() {
 			&models.Picture{},
 			&models.User{},
 			&models.Address{},
-			&models.Seller{},
+			&models.Shop{},
 			&models.BankAccount{},
 			&models.Card{},
 			&models.Category{},

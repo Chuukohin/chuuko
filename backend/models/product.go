@@ -5,7 +5,7 @@ import "chuukohin/types/enum"
 type Product struct {
 	Id          *uint64            `gorm:"primaryKey"`
 	SellerId    *uint64            `gorm:"not null"`
-	Seller      *Seller            `gorm:"foreignKey:SellerId"`
+	Seller      *Shop              `gorm:"foreignKey:SellerId"`
 	CategoryId  *uint64            `gorm:"not null"`
 	Category    *Category          `gorm:"foreignKey:CategoryId"`
 	Name        *string            `gorm:"type:VARCHAR(255); not null"`
