@@ -19,8 +19,8 @@ import (
 // @Tags         account
 // @Accept       json
 // @Produce      json
-// @Param        payload  body      request  true  "register.request"
-// @Success      200      {object}  response
+// @Param        payload  body      registerRequest  true  "register.registerRequest"
+// @Success      200      {object}  register.registerResponse
 // @Failure      400      {object}  responder.ErrorResponse
 // @Router       /account/register [post]
 func PostHandler(c *fiber.Ctx) error {
