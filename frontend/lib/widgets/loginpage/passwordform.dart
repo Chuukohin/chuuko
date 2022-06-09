@@ -1,3 +1,4 @@
+import 'package:chuukohin/constant/color.dart';
 import 'package:flutter/material.dart';
 
 class Password extends StatefulWidget {
@@ -19,9 +20,9 @@ class _PasswordState extends State<Password> {
               labelText: 'Password',
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(13.0),
-                  borderSide: BorderSide(color: Color(0xffB89476))),
+                  borderSide: BorderSide(color: ThemeConstant.primaryColor)),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xffB89476)),
+                borderSide: BorderSide(color: ThemeConstant.primaryColor),
                 borderRadius: BorderRadius.circular(13.0),
               ),
               suffixIcon: IconButton(

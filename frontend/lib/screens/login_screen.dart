@@ -1,11 +1,10 @@
 import 'package:chuukohin/widgets/button.dart';
 import 'package:chuukohin/widgets/loginpage/passwordform.dart';
 import 'package:chuukohin/widgets/loginpage/signupclick.dart';
-import 'package:chuukohin/widgets/loginpage/textform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:chuukohin/widgets/loginpage/textform.dart';
-import 'package:chuukohin/widgets/loginpage/passwordform.dart';
+import 'package:chuukohin/constant/color.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -27,11 +26,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     "assets/images/loginpic.png",
                   ),
                   Container(
-                    width: 307,
+                    padding: const EdgeInsets.only(right: 80),
                     child: Text(
                       'Welcome back!',
                       style: TextStyle(
-                          color: Color(0xff6C4E37),
+                          color: ThemeConstant.secondaryColor,
                           fontSize: 30,
                           fontWeight: FontWeight.bold),
                     ),
@@ -44,19 +43,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 9,
                   ),
                   Container(
-                    width: 307,
+                    padding: const EdgeInsets.only(left: 180),
                     child: Text(
-                      'Forgot password ? ',
-                      style: TextStyle(color: Color(0xff826751), fontSize: 14),
+                      'Forgot password? ',
+                      style: TextStyle(
+                          color: ThemeConstant.secondaryColor, fontSize: 14),
                       textAlign: TextAlign.end,
                     ),
                   ),
                   SizedBox(
                     height: 17,
                   ),
-                  MainButton('Login', 48, 307),
+                  MainButton('Login', 48, 307, '/home'),
                   SizedBox(
-                    height: 200,
+                    height: 100,
                   ),
                   SingupClick(),
                 ],

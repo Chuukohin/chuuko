@@ -54,7 +54,7 @@ class ProductDetailScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const MainButton("Add To Cart", 48, 158),
+                const MainButton("Add To Cart", 48, 158, ''),
               ],
             ),
           )

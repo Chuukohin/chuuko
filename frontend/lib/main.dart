@@ -26,7 +26,7 @@ class Chuuko extends StatelessWidget {
         '/login': (_) => const LoginScreen(),
         '/signup': (_) => const SignupScreen()
       },
-      initialRoute: "/login",
+      initialRoute: "/signup",
     );
   }
 }
