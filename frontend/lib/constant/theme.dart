@@ -15,7 +15,14 @@ class ThemeConstant {
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
       centerTitle: true,
-      iconTheme: IconThemeData(color: primaryColor),
+      titleTextStyle: const TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.w500,
+        color: Colors.black,
+      ),
+      iconTheme: IconThemeData(
+        color: primaryColor,
+      ),
     ),
     scaffoldBackgroundColor: Colors.white,
     splashColor: Colors.transparent,

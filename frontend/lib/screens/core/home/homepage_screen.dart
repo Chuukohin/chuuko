@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/screens/core/category/category_screen.dart';
 import 'package:chuukohin/widgets/category/category_icon.dart';
 import 'package:chuukohin/widgets/product_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -84,15 +85,28 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             return Container(
                               width: 65,
                               margin: index == 0
-                                  ? const EdgeInsets.only(left: 16)
+                                  ? const EdgeInsets.only(left: 14)
                                   : index == _categories.length - 1
                                       ? const EdgeInsets.only(right: 20)
                                       : null,
                               child: Column(
                                 children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(bottom: 8),
-                                    child: CategoryIcon(url: category['icon']),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => CategoryScreen(
+                                            title: category['name'],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.only(bottom: 8),
+                                      child:
+                                          CategoryIcon(url: category['icon']),
+                                    ),
                                   ),
                                   n.Text(category['name'])
                                     ..fontSize = 12
