@@ -18,6 +18,7 @@ func Router(router fiber.Router) {
 	// Seller Account
 	sellerAccount := router.Group("account/", middlewares.Jwt)
 	sellerAccount.Patch("/seller/picture", seller.SellerPicturePostHandler)
+	sellerAccount.Post("/seller/bank", seller.SellerBankPostHandler)
 
 	// Admin
 	adminRouter := router.Group("/admin")

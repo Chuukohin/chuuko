@@ -12,3 +12,8 @@ type sellerRegisterRequest struct {
 	SubDistrict     string `json:"sub_district"`
 	PostalCode      string `json:"postal_code"`
 }
+
+type sellerBankRequest struct {
+	BankName  string `json:"bank_name" validate:"required"`
+	AccountNo string `json:"account_no" validate:"required,eq=10"`
+}

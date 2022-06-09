@@ -202,6 +202,22 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	accountNo := "1234567890"
+	bankName := "KTB"
+
+	bank := &models.BankAccount{
+		AccountNo: &accountNo,
+		BankName:  &bankName,
+		SellerId:  &beginningId,
+	}
+
+	if result := database.Gorm.Create(&bank); result.Error != nil {
+		return &responder.GenericError{
+			Message: "Unable to create a bank account",
+			Err:     result.Error,
+		}
+	}
+
 	// * Open jsonFile
 	jsonFile, err := os.Open("./data/categories_setup.json")
 	if err != nil {
@@ -259,6 +275,13 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 	if result := database.Gorm.Raw("ALTER SEQUENCE users_id_seq RESTART WITH 2").Row(); result.Err() != nil {
 		return &responder.GenericError{
 			Message: "Unable set the sequence of user's AUTO_INCREMENT",
+			Err:     err,
+		}
+	}
+
+	if result := database.Gorm.Raw("ALTER SEQUENCE bank_accounts_id_seq RESTART WITH 2").Row(); result.Err() != nil {
+		return &responder.GenericError{
+			Message: "Unable set the sequence of bank_account's AUTO_INCREMENT",
 			Err:     err,
 		}
 	}
