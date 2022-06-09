@@ -1,4 +1,4 @@
-import 'package:chuukohin/constant/color.dart';
+import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/homepage_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

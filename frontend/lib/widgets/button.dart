@@ -1,4 +1,4 @@
-import 'package:chuukohin/constant/color.dart';
+import 'package:chuukohin/constant/theme.dart';
 import 'package:flutter/material.dart';
 
 class MainButton extends StatefulWidget {
@@ -19,17 +19,17 @@ class _MainButtonState extends State<MainButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          onSurface: (ThemeConstant.primaryColor),
-          fixedSize: Size(widget.width, widget.height),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(39),
-          )),
+        fixedSize: Size(widget.width, widget.height),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40),
+        ),
+      ),
       onPressed: () {
         Navigator.pushNamed(context, widget.navigator);
       },
       child: Text(
         widget.title,
-        style: TextStyle(color: Colors.white, fontSize: 17),
+        style: const TextStyle(color: Colors.white, fontSize: 17),
         textAlign: TextAlign.center,
       ),
     );

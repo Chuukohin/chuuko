@@ -1,5 +1,5 @@
-import 'package:chuukohin/constant/color.dart';
-import 'package:chuukohin/screens/core/index.dart';
+import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/screens/start/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
 
@@ -68,7 +68,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const MainScreen(),
+                          builder: (context) => const LoginScreen(),
                         ),
                       );
                     },
