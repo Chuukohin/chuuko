@@ -5,6 +5,7 @@ import (
 	"chuukohin/endpoints/account/register"
 	"chuukohin/endpoints/account/seller"
 	"chuukohin/endpoints/admin"
+	"chuukohin/endpoints/me/address"
 	"chuukohin/endpoints/product"
 	"chuukohin/frameworks/fiber/middlewares"
 	"github.com/gofiber/fiber/v2"
@@ -28,4 +29,8 @@ func Router(router fiber.Router) {
 	// Product
 	productRouter := router.Group("/product", middlewares.Jwt)
 	productRouter.Post("/add", product.ProductDetailPostHandler)
+
+	// Me
+	meRouter := router.Group("/me", middlewares.Jwt)
+	meRouter.Post("/address/add", address.AddressPostHandler)
 }
