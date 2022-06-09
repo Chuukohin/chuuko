@@ -33,4 +33,5 @@ func Router(router fiber.Router) {
 	// Me
 	meRouter := router.Group("/me", middlewares.Jwt)
 	meRouter.Post("/address/add", address.AddressPostHandler)
+	meRouter.Patch("/address/edit", address.AddressPatchHandler)
 }
