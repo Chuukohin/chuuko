@@ -30,30 +30,6 @@ class _MainScreenState extends State<MainScreen> {
         },
         behavior: HitTestBehavior.translucent,
         child: Scaffold(
-          appBar: _currentIndex == 0
-              ? AppBar(
-                  automaticallyImplyLeading: false,
-                  elevation: 1,
-                  leading: Container(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                    ),
-                  ),
-                  leadingWidth: 40,
-                  title: SizedBox(
-                    child: n.Column(
-                      [
-                        CupertinoSearchTextField(
-                          controller: _textController,
-                          style: const TextStyle(fontSize: 14),
-                          itemColor: ThemeConstant.primaryColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              : null,
           body: SizedBox(
             child: _currentIndex == 0 ? const HomePageScreen() : n.Text("Me"),
           ),

@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/widgets/category/category_icon.dart';
 import 'package:chuukohin/widgets/product_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:niku/namespace.dart' as n;
@@ -15,6 +17,7 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   List _categories = [];
+  final _textController = TextEditingController(text: '');
 
   _loadCategories() async {
     final String response =
@@ -33,72 +36,100 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-      child: n.Column(
-        [
-          Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 20, left: 20),
-            child: n.Text("Categories")
-              ..fontWeight = FontWeight.bold
-              ..fontSize = 16,
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        leading: Container(
+          padding: const EdgeInsets.only(left: 16),
+          child: Image.asset(
+            'assets/images/logo.png',
           ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            height: 80,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: _categories.mapIndexed((index, category) {
-                return Container(
-                  width: 65,
-                  margin: index == 0
-                      ? const EdgeInsets.only(left: 16)
-                      : index == _categories.length - 1
-                          ? const EdgeInsets.only(right: 20)
-                          : null,
-                  child: Column(
-                    children: [
+        ),
+        leadingWidth: 40,
+        title: SizedBox(
+          child: n.Column(
+            [
+              CupertinoSearchTextField(
+                controller: _textController,
+                style: const TextStyle(fontSize: 14),
+                itemColor: ThemeConstant.primaryColor,
+              ),
+            ],
+          ),
+        ),
+      ),
+      body: Container(
+        padding: const EdgeInsets.only(top: 16),
+        child: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  n.Column(
+                    [
                       Container(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        child: CategoryIcon(url: category['icon']),
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(bottom: 20, left: 20),
+                        child: n.Text("Categories")
+                          ..fontWeight = FontWeight.bold
+                          ..fontSize = 16,
                       ),
-                      n.Text(category['name'])
-                        ..fontSize = 12
-                        ..fontWeight = FontWeight.w500
-                        ..textAlign = TextAlign.center
-                        ..overflow = TextOverflow.ellipsis,
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        height: 80,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: _categories.mapIndexed((index, category) {
+                            return Container(
+                              width: 65,
+                              margin: index == 0
+                                  ? const EdgeInsets.only(left: 16)
+                                  : index == _categories.length - 1
+                                      ? const EdgeInsets.only(right: 20)
+                                      : null,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 8),
+                                    child: CategoryIcon(url: category['icon']),
+                                  ),
+                                  n.Text(category['name'])
+                                    ..fontSize = 12
+                                    ..fontWeight = FontWeight.w500
+                                    ..textAlign = TextAlign.center
+                                    ..overflow = TextOverflow.ellipsis,
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
                     ],
-                  ),
-                );
-              }).toList(),
+                  )..crossAxisAlignment = CrossAxisAlignment.start,
+                ],
+              ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 20, left: 20),
-            child: n.Text("Best Seller")
-              ..fontWeight = FontWeight.bold
-              ..fontSize = 16,
-          ),
-          Expanded(
-            child: Container(
+            SliverPadding(
               padding: const EdgeInsets.only(left: 12, right: 12),
-              child: GridView.builder(
-                itemCount: 6,
+              sliver: SliverGrid(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 0.74,
                   crossAxisSpacing: 10.0,
                 ),
-                itemBuilder: (BuildContext context, int index) {
-                  return const ProductCard(
-                      "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png');
-                },
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return const ProductCard(
+                        "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png');
+                  },
+                  childCount: 10,
+                ),
               ),
             ),
-          ),
-        ],
-      )..crossAxisAlignment = CrossAxisAlignment.start,
+          ],
+        ),
+      ),
     );
   }
 }

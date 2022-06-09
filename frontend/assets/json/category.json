@@ -1,33 +1,41 @@
 [
   {
+    "id": "11",
     "name": "Men",
     "icon": "assets/images/categories/suit-icon.png"
   },
   {
+    "id": "12",
     "name": "Women",
     "icon": "assets/images/categories/skirt-icon.png"
   },
   {
+    "id": "13",
     "name": "Tops",
     "icon": "assets/images/categories/t-shirt-icon.png"
   },
   {
+    "id": "14",
     "name": "Bottoms",
     "icon": "assets/images/categories/bottom-icon.png"
   },
   {
+    "id": "15",
     "name": "Shoes",
     "icon": "assets/images/categories/shoe-icon.png"
   },
   {
+    "id": "16",
     "name": "Innerwear",
     "icon": "assets/images/categories/innerwear-icon.png"
   },
   {
+    "id": "17",
     "name": "Sport",
     "icon": "assets/images/categories/sport-icon.png"
   },
   {
+    "id": "18",
     "name": "Accessories",
     "icon": "assets/images/categories/accessories-icon.png"
   }
