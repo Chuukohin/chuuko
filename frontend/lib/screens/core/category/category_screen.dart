@@ -1,4 +1,4 @@
-import 'package:chuukohin/widgets/product_card.dart';
+import 'package:chuukohin/widgets/product/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
 

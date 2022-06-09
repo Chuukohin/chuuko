@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/category/category_screen.dart';
+import 'package:chuukohin/screens/core/product/product_detail_screen.dart';
 import 'package:chuukohin/widgets/category/category_icon.dart';
-import 'package:chuukohin/widgets/product_card.dart';
+import 'package:chuukohin/widgets/product/product_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -102,6 +103,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         ),
                                       );
                                     },
+                                    behavior: HitTestBehavior.translucent,
                                     child: Container(
                                       margin: const EdgeInsets.only(bottom: 8),
                                       child:
@@ -134,8 +136,18 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 ),
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    return const ProductCard(
-                        "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png');
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ProductDetailScreen(),
+                          ),
+                        );
+                      },
+                      child: const ProductCard(
+                          "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png'),
+                    );
                   },
                   childCount: 10,
                 ),
