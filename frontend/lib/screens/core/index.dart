@@ -1,6 +1,5 @@
 import 'package:chuukohin/constant/theme.dart';
-import 'package:chuukohin/screens/core/homepage_screen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:chuukohin/screens/core/home/homepage_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -14,7 +13,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
-  final _textController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
