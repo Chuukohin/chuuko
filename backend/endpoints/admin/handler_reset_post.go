@@ -4,11 +4,15 @@ import (
 	"chuukohin/database"
 	"chuukohin/models"
 	"chuukohin/types/responder"
+	"chuukohin/types/setup"
 	"chuukohin/utils/check"
 	"chuukohin/utils/config"
 	"chuukohin/utils/crypto"
+	"encoding/json"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
+	"io/ioutil"
+	"os"
 )
 
 // AdminResetPostHandler
@@ -19,7 +23,7 @@ import (
 // @Accept       json
 // @Produce      json
 // @Param        payload  body      adminRequest  true  "admin.adminRequest"
-// @Success      200      {object}  responder.Info
+// @Success      200      {object}  responder.InfoResponse
 // @Failure      400      {object}  responder.ErrorResponse
 // @Router       /admin/reset [post]
 func AdminResetPostHandler(c *fiber.Ctx) error {
@@ -42,17 +46,6 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 			Message: "Authorization failed",
 		}
 	}
-
-	//	&models.Picture{},
-	//			&models.User{},
-	//			&models.Address{},
-	//			&models.Seller{},
-	//			&models.BankAccount{},
-	//			&models.Card{},
-	//			&models.Category{},
-	//			&models.Product{},
-	//			&models.Order{},
-	//			&models.OrderDetail{},
 
 	// * Delete all data
 	if result := database.Gorm.Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(&models.OrderDetail{}); result.Error != nil {
@@ -208,6 +201,48 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 			Err:     result.Error,
 		}
 	}
+
+	// * Open jsonFile
+	jsonFile, err := os.Open("./data/categories_setup.json")
+	if err != nil {
+		return &responder.GenericError{
+			Message: "Cannot open JSON file",
+			Err:     err,
+		}
+	}
+
+	// * read our opened jsonFile as a byte array.
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	var categories []*setup.Category
+
+	// we unmarshal our byteArray which contains our
+	// jsonFile's content into 'categories' which we defined above
+	json.Unmarshal(byteValue, &categories)
+
+	for _, category := range categories {
+		if result := database.Gorm.Create(&models.Picture{
+			Id:         category.Id,
+			PictureUrl: category.PicUrl,
+		}); result.Error != nil {
+			return &responder.GenericError{
+				Message: "Cannot create category pictures",
+				Err:     err,
+			}
+		}
+		if result := database.Gorm.Create(&models.Category{
+			Id:        category.Id,
+			Name:      category.Name,
+			PictureId: category.Id,
+		}); result.Error != nil {
+			return &responder.GenericError{
+				Message: "Cannot setup categories",
+				Err:     err,
+			}
+		}
+	}
+
+	defer jsonFile.Close()
 
 	return c.JSON(responder.NewInfoResponse("Delete all data successful"))
 }

@@ -59,8 +59,10 @@ func PostHandler(c *fiber.Ctx) error {
 	// * Check Seller
 	var shop *models.Shop
 	if result := database.Gorm.First(&shop, "user_id = ?", user.Id); result.RowsAffected != 0 {
-		isSeller := true
-		claims.IsSeller = &isSeller
+		claims.SellerId = shop.Id
+	} else {
+		sellerId := uint64(0)
+		claims.SellerId = &sellerId
 	}
 
 	// * Sign JWT

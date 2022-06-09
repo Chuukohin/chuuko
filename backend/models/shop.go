@@ -13,7 +13,7 @@ type Shop struct {
 	Firstname       *string    `gorm:"type:VARCHAR(80); not null"`
 	Lastname        *string    `gorm:"type:VARCHAR(80); not null"`
 	Phone           *string    `gorm:"type:VARCHAR(10); not null"`
-	PictureId       *uint64    `gorm:"not null"`
+	PictureId       *uint64    `gorm:""`
 	Picture         *Picture   `gorm:"foreignKey:PictureId"`
 	JoinDate        *time.Time `gorm:"default:current_timestamp; not null"`
 }
