@@ -18,15 +18,15 @@ import (
 )
 
 // SellerPicturePostHandler
-// @ID           seller.picture.post
-// @Summary      Insert shop image
-// @Description  Insert shop image
+// @ID           seller.picture.patch
+// @Summary      Insert & Edit shop image
+// @Description  Insert & Edit shop image
 // @Tags         account
 // @Accept       json
 // @Produce      json
 // @Success      200  {object}  responder.InfoResponse
 // @Failure      400  {object}  responder.ErrorResponse
-// @Router       /account/seller/picture [post]
+// @Router       /account/seller/picture [patch]
 func SellerPicturePostHandler(c *fiber.Ctx) error {
 	// * Parse user JWT token
 	token := c.Locals("user").(*jwt.Token)
