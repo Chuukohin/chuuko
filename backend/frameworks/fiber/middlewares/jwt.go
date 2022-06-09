@@ -12,6 +12,7 @@ var Jwt = func() fiber.Handler {
 	conf := jwtware.Config{
 		SigningKey:  []byte(config.C.JwtSecret),
 		TokenLookup: "header:Authorization",
+		AuthScheme:  "Bearer",
 		ContextKey:  "user",
 		Claims:      &jwt_claim.UserClaim{},
 		ErrorHandler: func(c *fiber.Ctx, err error) error {

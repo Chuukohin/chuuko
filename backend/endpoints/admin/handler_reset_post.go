@@ -242,6 +242,27 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	if result := database.Gorm.Raw("ALTER SEQUENCE pictures_id_seq RESTART WITH 21").Row(); result.Err() != nil {
+		return &responder.GenericError{
+			Message: "Unable set the sequence of picture's AUTO_INCREMENT",
+			Err:     err,
+		}
+	}
+
+	if result := database.Gorm.Raw("ALTER SEQUENCE shops_id_seq RESTART WITH 2").Row(); result.Err() != nil {
+		return &responder.GenericError{
+			Message: "Unable set the sequence of shop's AUTO_INCREMENT",
+			Err:     err,
+		}
+	}
+
+	if result := database.Gorm.Raw("ALTER SEQUENCE users_id_seq RESTART WITH 2").Row(); result.Err() != nil {
+		return &responder.GenericError{
+			Message: "Unable set the sequence of user's AUTO_INCREMENT",
+			Err:     err,
+		}
+	}
+
 	defer jsonFile.Close()
 
 	return c.JSON(responder.NewInfoResponse("Delete all data successful"))

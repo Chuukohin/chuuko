@@ -39,10 +39,13 @@ func Init() {
 
 	apiGroup.Use(middlewares.Cors())
 
+	// * Register static server
+	app.Static("static/", "./static")
+
 	endpoints.Router(apiGroup)
 
 	app.Use(notFound)
-	
+
 	err := app.Listen(":8080")
 	if err != nil {
 		log.Fatal(err.Error())
