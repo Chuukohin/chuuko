@@ -4,7 +4,7 @@ import 'package:chuukohin/screens/start/login_screen.dart';
 import 'package:chuukohin/screens/start/splash.dart';
 import 'package:chuukohin/screens/start/welcome.dart';
 import 'package:flutter/material.dart';
-import 'package:chuukohin/screens/start/singup_screen.dart';
+import 'package:chuukohin/screens/start/signup_screen.dart';
 
 void main() {
   runApp(const Chuuko());

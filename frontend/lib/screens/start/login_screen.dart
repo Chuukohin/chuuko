@@ -1,4 +1,6 @@
+import 'package:chuukohin/types/widget/placement.dart';
 import 'package:chuukohin/widgets/button.dart';
+import 'package:chuukohin/widgets/typography/header_text.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/constant/theme.dart';
 
@@ -47,14 +49,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             Container(
                               margin: const EdgeInsets.only(bottom: 16),
                               width: double.infinity,
-                              child: Text(
-                                'Welcome back!',
-                                style: TextStyle(
-                                  color: ThemeConstant.secondaryColor,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.start,
+                              child: HeaderText(
+                                text: 'Welcome Back!',
+                                size: Size.large,
+                                color: ThemeConstant.secondaryColor,
                               ),
                             ),
                             Container(

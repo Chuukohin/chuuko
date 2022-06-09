@@ -1,3 +1,5 @@
+import 'package:chuukohin/types/widget/placement.dart';
+import 'package:chuukohin/widgets/typography/header_text.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/widgets/button.dart';
 import 'package:chuukohin/constant/theme.dart';
@@ -7,10 +9,10 @@ class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignupScreen> createState() => _SingupState();
+  State<SignupScreen> createState() => _SignUpState();
 }
 
-class _SingupState extends State<SignupScreen> {
+class _SignUpState extends State<SignupScreen> {
   bool _checked = false;
 
   @override
@@ -38,12 +40,10 @@ class _SingupState extends State<SignupScreen> {
                 children: [
                   Container(
                     margin: const EdgeInsets.only(bottom: 24),
-                    child: Text(
-                      'Create an account',
-                      style: TextStyle(
-                          color: ThemeConstant.secondaryColor,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold),
+                    child: HeaderText(
+                      text: 'Create an account',
+                      size: Size.large,
+                      color: ThemeConstant.secondaryColor,
                     ),
                   ),
                   Container(
@@ -53,11 +53,10 @@ class _SingupState extends State<SignupScreen> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(bottom: 8),
-                          child: const Text(
+                          child: Text(
                             'Firstname - Lastname',
                             style: TextStyle(
-                              color: Color(0xff665A5A),
-                              fontSize: 14,
+                              color: ThemeConstant.textSecondaryColor,
                             ),
                           ),
                         ),
@@ -108,11 +107,10 @@ class _SingupState extends State<SignupScreen> {
                         children: [
                           Container(
                             margin: const EdgeInsets.only(bottom: 8),
-                            child: const Text(
+                            child: Text(
                               'Email',
                               style: TextStyle(
-                                color: Color(0xff665A5A),
-                                fontSize: 14,
+                                color: ThemeConstant.textSecondaryColor,
                               ),
                             ),
                           ),
@@ -143,11 +141,10 @@ class _SingupState extends State<SignupScreen> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(bottom: 8),
-                          child: const Text(
+                          child: Text(
                             'Password',
                             style: TextStyle(
-                              color: Color(0xff665A5A),
-                              fontSize: 14,
+                              color: ThemeConstant.textSecondaryColor,
                             ),
                           ),
                         ),
@@ -194,8 +191,7 @@ class _SingupState extends State<SignupScreen> {
                     ),
                   ),
                   CheckboxListTile(
-                    title: n.Text('I agree to the terms and conditions')
-                      ..fontSize = 14,
+                    title: n.Text('I agree to the terms and conditions'),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 8),
                     value: _checked,
                     onChanged: (value) {

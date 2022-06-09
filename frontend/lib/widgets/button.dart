@@ -1,4 +1,3 @@
-import 'package:chuukohin/constant/theme.dart';
 import 'package:flutter/material.dart';
 
 class MainButton extends StatefulWidget {
