@@ -25,7 +25,7 @@ func ProfilePatchHandler(c *fiber.Ctx) error {
 	token := c.Locals("user").(*jwt.Token)
 	claims := token.Claims.(*jwt_claim.UserClaim)
 
-	// * Parse bosy
+	// * Parse body
 	body := new(profilePatchRequest)
 	if err := c.BodyParser(&body); err != nil {
 		return &responder.GenericError{

@@ -36,4 +36,5 @@ func Router(router fiber.Router) {
 	meRouter.Patch("/address/edit", address.AddressPatchHandler)
 	meRouter.Get("/address/info", address.AddressGetHandler)
 	meRouter.Patch("/profile/edit", profile.ProfilePatchHandler)
+	meRouter.Get("/profile/info", profile.ProfileGetHandler)
 }

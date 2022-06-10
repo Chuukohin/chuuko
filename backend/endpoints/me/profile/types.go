@@ -5,3 +5,9 @@ type profilePatchRequest struct {
 	Lastname  *string `json:"lastname" validate:"required"`
 	Email     *string `json:"email" validate:"required,email"`
 }
+
+type profileGetResponse struct {
+	Firstname *string `json:"firstname"`
+	Lastname  *string `json:"lastname"`
+	Email     *string `json:"email"`
+}
