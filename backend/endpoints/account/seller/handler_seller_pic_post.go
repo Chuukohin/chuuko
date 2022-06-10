@@ -73,7 +73,7 @@ func SellerPicturePostHandler(c *fiber.Ctx) error {
 		}
 	}
 
-	// * Remove old user avatar
+	// * Remove old shop picture
 	for _, match := range matches {
 		if err = os.Remove(match); err != nil {
 			return &responder.GenericError{

@@ -1,9 +1,9 @@
 package product
 
 type productDetailRequest struct {
-	Category    *uint64 `json:"category"`
-	Name        *string `json:"name"`
-	Description *string `json:"description"`
-	Brand       *string `json:"brand"`
-	Price       *uint64 `json:"price"`
+	CategoryId  *uint64 `json:"category_id" validate:"required"`
+	Name        *string `json:"name" validate:"required"`
+	Description *string `json:"description" validate:"required"`
+	Brand       *string `json:"brand" validate:"required"`
+	Price       *uint64 `json:"price" validate:"required"`
 }
