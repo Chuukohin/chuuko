@@ -6,6 +6,7 @@ import (
 	"chuukohin/endpoints/account/seller"
 	"chuukohin/endpoints/admin"
 	"chuukohin/endpoints/me/address"
+	"chuukohin/endpoints/me/password"
 	"chuukohin/endpoints/me/profile"
 	"chuukohin/endpoints/product"
 	"chuukohin/frameworks/fiber/middlewares"
@@ -37,4 +38,5 @@ func Router(router fiber.Router) {
 	meRouter.Get("/address/info", address.AddressGetHandler)
 	meRouter.Patch("/profile/edit", profile.ProfilePatchHandler)
 	meRouter.Get("/profile/info", profile.ProfileGetHandler)
+	meRouter.Patch("/password/edit", password.PasswordPatchHandler)
 }
