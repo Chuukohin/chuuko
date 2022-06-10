@@ -11,6 +11,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 	"image"
 	"image/jpeg"
+	_ "image/png"
 	"os"
 	"path"
 	"path/filepath"
