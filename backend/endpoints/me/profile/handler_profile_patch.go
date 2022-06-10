@@ -41,7 +41,7 @@ func ProfilePatchHandler(c *fiber.Ctx) error {
 	}
 
 	// * Update the user profile
-	if result := database.Gorm.First(new(models.User), "id", claims.UserId).Updates(&user); result.Error != nil {
+	if result := database.Gorm.First(new(models.User), "id = ?", claims.UserId).Updates(&user); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to update the user profile",
 			Err:     result.Error,

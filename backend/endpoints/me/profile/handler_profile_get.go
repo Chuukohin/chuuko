@@ -26,7 +26,7 @@ func ProfileGetHandler(c *fiber.Ctx) error {
 
 	// * Fetch the user data
 	var user *models.User
-	if result := database.Gorm.First(&user, "id", claims.UserId); result.Error != nil {
+	if result := database.Gorm.First(&user, "id = ?", claims.UserId); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to find the user",
 			Err:     result.Error,
