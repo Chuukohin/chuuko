@@ -15,3 +15,7 @@ type sellerRegisterRequest struct {
 	BankName        string `json:"bank_name" validate:"required"`
 	AccountNo       string `json:"account_no" validate:"required,eq=10"`
 }
+
+type sellerRegisterResponse struct {
+	NewToken string `json:"new_token"`
+}

@@ -22,10 +22,6 @@ import (
 // @Failure      400      {object}  responder.ErrorResponse
 // @Router       /account/login [post]
 func PostHandler(c *fiber.Ctx) error {
-	// * Parse JWT
-	//user := c.Locals("user").(*jwt.Token)
-	//claims := user.Claims.(*jwt_claim.UserClaim)
-
 	// * Parse Body
 	body := new(loginRequest)
 	if err := c.BodyParser(&body); err != nil {

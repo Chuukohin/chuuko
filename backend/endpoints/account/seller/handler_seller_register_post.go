@@ -5,6 +5,7 @@ import (
 	"chuukohin/models"
 	"chuukohin/types/fiber/jwt_claim"
 	"chuukohin/types/responder"
+	"chuukohin/utils/header"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 )
@@ -83,5 +84,18 @@ func SellerRegisterPostHandler(c *fiber.Ctx) error {
 		}
 	}
 
-	return c.JSON(responder.NewInfoResponse("Create shop successful"))
+	newClaims := &jwt_claim.UserClaim{
+		UserId:   claims.UserId,
+		SellerId: shop.Id,
+	}
+
+	// * Sign a new JWT
+	newToken, err := header.SignJwt(newClaims)
+	if err != nil {
+		return nil
+	}
+
+	return c.JSON(responder.NewInfoResponse(&sellerRegisterResponse{
+		NewToken: newToken,
+	}))
 }
