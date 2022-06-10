@@ -1,7 +1,9 @@
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/index.dart';
+import 'package:chuukohin/screens/start/createproduct_screen.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
 import 'package:chuukohin/screens/start/me_screen.dart';
+import 'package:chuukohin/screens/start/preview_screen.dart';
 import 'package:chuukohin/screens/start/splash.dart';
 import 'package:chuukohin/screens/start/welcome.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,8 @@ class Chuuko extends StatelessWidget {
         '/signup': (_) => const SignupScreen(),
         '/sellersignup': (_) => const SellerSignupScreen(),
         '/me': (_) => const MeScreen(),
+        '/createproduct': (_) => const CreateProductScreen(),
+        '/preview': (_) => const PreviewScreen(),
       },
       initialRoute: "/sellersignup",
     );

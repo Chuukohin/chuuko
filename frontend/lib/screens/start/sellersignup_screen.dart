@@ -302,7 +302,10 @@ class _SellerSignupState extends State<SellerSignupScreen> {
                           ],
                         ),
                       ),
-                      const MainButton('Register as seller', 50, 300, '/home')
+                      Container(
+                          margin: const EdgeInsets.only(top: 30),
+                          child: const MainButton(
+                              'Register as seller', 50, 300, '/home'))
                     ]),
               )),
             )));
