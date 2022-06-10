@@ -1,10 +1,12 @@
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/index.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
+import 'package:chuukohin/screens/start/me_screen.dart';
 import 'package:chuukohin/screens/start/splash.dart';
 import 'package:chuukohin/screens/start/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/screens/start/signup_screen.dart';
+import 'package:chuukohin/screens/start/sellersignup_screen.dart';
 
 void main() {
   runApp(const Chuuko());
@@ -24,9 +26,11 @@ class Chuuko extends StatelessWidget {
         '/welcome': (_) => const WelcomeScreen(),
         '/home': (_) => const MainScreen(),
         '/login': (_) => const LoginScreen(),
-        '/signup': (_) => const SignupScreen()
+        '/signup': (_) => const SignupScreen(),
+        '/sellersignup': (_) => const SellerSignupScreen(),
+        '/me': (_) => const MeScreen(),
       },
-      initialRoute: "/home",
+      initialRoute: "/sellersignup",
     );
   }
 }
