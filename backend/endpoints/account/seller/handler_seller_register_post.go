@@ -38,7 +38,8 @@ func SellerRegisterPostHandler(c *fiber.Ctx) error {
 		UserId:       claims.UserId,
 		Name:         &body.ShopName,
 		Phone:        &body.Phone,
-		AddressLine1: &body.AddressLine,
+		AddressLine1: &body.AddressLine1,
+		AddressLine2: &body.AddressLine2,
 		Province:     &body.Province,
 		District:     &body.District,
 		SubDistrict:  &body.SubDistrict,
@@ -60,9 +61,24 @@ func SellerRegisterPostHandler(c *fiber.Ctx) error {
 		Phone:           &body.Phone,
 	}
 
+	// * Create shop
 	if result := database.Gorm.Create(&shop); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to create shop",
+			Err:     result.Error,
+		}
+	}
+
+	bank := &models.BankAccount{
+		SellerId:  shop.Id,
+		BankName:  &body.BankName,
+		AccountNo: &body.AccountNo,
+	}
+
+	// * Create bank account
+	if result := database.Gorm.Create(&bank); result.Error != nil {
+		return &responder.GenericError{
+			Message: "Unable to parse body",
 			Err:     result.Error,
 		}
 	}

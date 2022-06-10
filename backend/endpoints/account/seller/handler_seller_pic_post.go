@@ -114,5 +114,13 @@ func SellerPicturePostHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	// * Update shop's picture
+	if result := database.Gorm.First(&models.Shop{}, "id = ?", claims.SellerId).Update("picture_id", shopPicture.Id); result.Error != nil {
+		return &responder.GenericError{
+			Message: "Unable to update shop's picture",
+			Err:     result.Error,
+		}
+	}
+
 	return c.JSON(responder.NewInfoResponse("Added shop's picture successfully"))
 }

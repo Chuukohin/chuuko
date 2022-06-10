@@ -15,12 +15,11 @@ func Router(router fiber.Router) {
 	account := router.Group("account/")
 	account.Post("/login", login.PostHandler)
 	account.Post("/register", register.PostHandler)
-	account.Post("/seller/register", seller.SellerRegisterPostHandler)
 
 	// Seller Account
 	sellerAccount := router.Group("account/", middlewares.Jwt)
 	sellerAccount.Patch("/seller/picture", seller.SellerPicturePostHandler)
-	sellerAccount.Post("/seller/bank", seller.SellerBankPostHandler)
+	sellerAccount.Post("/seller/register", seller.SellerRegisterPostHandler)
 
 	// Admin
 	adminRouter := router.Group("/admin")
