@@ -11,7 +11,7 @@ type sellerRegisterRequest struct {
 	Province        string `json:"province"  validate:"required"`
 	District        string `json:"district"  validate:"required"`
 	SubDistrict     string `json:"sub_district"  validate:"required"`
-	PostalCode      string `json:"postal_code"  validate:"required"`
+	PostalCode      string `json:"postal_code"  validate:"required,eq=5"`
 	BankName        string `json:"bank_name" validate:"required"`
 	AccountNo       string `json:"account_no" validate:"required,eq=10"`
 }

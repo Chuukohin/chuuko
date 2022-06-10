@@ -5,6 +5,7 @@ import (
 	"chuukohin/models"
 	"chuukohin/types/fiber/jwt_claim"
 	"chuukohin/types/responder"
+	"chuukohin/utils/check"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 )
@@ -30,6 +31,14 @@ func ProfilePatchHandler(c *fiber.Ctx) error {
 	if err := c.BodyParser(&body); err != nil {
 		return &responder.GenericError{
 			Message: "Unable to parse body",
+			Err:     err,
+		}
+	}
+
+	// * Validate Body
+	if err := check.Validator.Struct(body); err != nil {
+		return &responder.GenericError{
+			Message: "Validate body failed",
 			Err:     err,
 		}
 	}

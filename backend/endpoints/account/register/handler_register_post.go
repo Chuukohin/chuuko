@@ -24,7 +24,6 @@ import (
 // @Failure      400      {object}  responder.ErrorResponse
 // @Router       /account/register [post]
 func PostHandler(c *fiber.Ctx) error {
-
 	// * Parse Body
 	body := new(registerRequest)
 	if err := c.BodyParser(&body); err != nil {

@@ -5,6 +5,7 @@ import (
 	"chuukohin/models"
 	"chuukohin/types/fiber/jwt_claim"
 	"chuukohin/types/responder"
+	"chuukohin/utils/check"
 	"chuukohin/utils/crypto"
 	"chuukohin/utils/header"
 	"github.com/gofiber/fiber/v2"
@@ -29,6 +30,11 @@ func PostHandler(c *fiber.Ctx) error {
 			Message: "Unable to parse body",
 			Err:     err,
 		}
+	}
+
+	// * Validate body
+	if err := check.Validator.Struct(body); err != nil {
+		return err
 	}
 
 	// * Get User
