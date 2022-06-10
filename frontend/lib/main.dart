@@ -2,13 +2,13 @@ import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/index.dart';
 import 'package:chuukohin/screens/start/createproduct_screen.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
-import 'package:chuukohin/screens/start/me_screen.dart';
 import 'package:chuukohin/screens/start/preview_screen.dart';
+import 'package:chuukohin/screens/core/me/me_screen.dart';
 import 'package:chuukohin/screens/start/splash.dart';
 import 'package:chuukohin/screens/start/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/screens/start/signup_screen.dart';
-import 'package:chuukohin/screens/start/sellersignup_screen.dart';
+import 'package:chuukohin/screens/core/seller/sellersignup_screen.dart';
 
 void main() {
   runApp(const Chuuko());
@@ -34,7 +34,7 @@ class Chuuko extends StatelessWidget {
         '/createproduct': (_) => const CreateProductScreen(),
         '/preview': (_) => const PreviewScreen(),
       },
-      initialRoute: "/sellersignup",
+      initialRoute: "/home",
     );
   }
 }

@@ -15,7 +15,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 1,
+        elevation: 0,
         title: n.Text(
           widget.title,
         ),

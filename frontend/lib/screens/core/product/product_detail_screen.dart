@@ -1,7 +1,4 @@
-import 'package:chuukohin/constant/theme.dart';
-import 'package:chuukohin/types/widget/placement.dart';
 import 'package:chuukohin/widgets/product/product_detail.dart';
-import 'package:chuukohin/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
 

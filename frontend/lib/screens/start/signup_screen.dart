@@ -1,6 +1,5 @@
 import 'package:chuukohin/types/widget/placement.dart';
 import 'package:chuukohin/widgets/typography/header_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/widgets/button.dart';
 import 'package:chuukohin/constant/theme.dart';
@@ -28,25 +27,8 @@ class _SignUpState extends State<SignupScreen> {
       },
       behavior: HitTestBehavior.translucent,
       child: Scaffold(
-        appBar: CupertinoNavigationBar(
-          middle: const Text('Seller Register'),
-          leading: GestureDetector(
-            child: Row(
-              children: [
-                Icon(
-                  CupertinoIcons.back,
-                  color: Color(0xff007AFF),
-                ),
-                Text(
-                  'Back',
-                  style: TextStyle(color: Color(0xff007AFF)),
-                )
-              ],
-            ),
-            onTap: () {
-              Navigator.pushNamed(context, '/me');
-            },
-          ),
+        appBar: AppBar(
+          elevation: 0,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -57,7 +39,7 @@ class _SignUpState extends State<SignupScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(bottom: 24, top: 31),
+                    margin: const EdgeInsets.only(bottom: 24),
                     child: HeaderText(
                       text: 'Create an account',
                       size: Size.large,
@@ -208,18 +190,21 @@ class _SignUpState extends State<SignupScreen> {
                       ],
                     ),
                   ),
-                  CheckboxListTile(
-                    title: n.Text('I agree to the terms and conditions'),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-                    value: _checked,
-                    onChanged: (value) {
-                      setState(() {
-                        _checked = !_checked;
-                      });
-                    },
-                    activeColor: ThemeConstant.primaryColor,
-                    checkColor: Colors.white,
-                    controlAffinity: ListTileControlAffinity.leading,
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 8),
+                    child: CheckboxListTile(
+                      title: n.Text('I agree to the terms and conditions'),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                      value: _checked,
+                      onChanged: (value) {
+                        setState(() {
+                          _checked = !_checked;
+                        });
+                      },
+                      activeColor: ThemeConstant.primaryColor,
+                      checkColor: Colors.white,
+                      controlAffinity: ListTileControlAffinity.leading,
+                    ),
                   ),
                   const MainButton('Sign Up', 50, 300, '/login')
                 ],
