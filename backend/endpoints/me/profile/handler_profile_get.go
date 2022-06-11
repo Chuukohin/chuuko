@@ -13,7 +13,7 @@ import (
 // @ID           me.profile.get
 // @Summary      Get user info
 // @Description  Get user info
-// @Tags         me
+// @Tags         me_profile
 // @Accept       json
 // @Produce      json
 // @Success      200  {object}  profile.profileGetResponse

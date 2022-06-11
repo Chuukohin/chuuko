@@ -14,7 +14,7 @@ import (
 // @ID           address.post
 // @Summary      Add an address
 // @Description  Add am address
-// @Tags         me
+// @Tags         me_address
 // @Accept       json
 // @Produce      json
 // @Param        payload  body      addressPostRequest  true  "address.addressPostRequest"

@@ -1,4 +1,4 @@
-package profile
+package card
 
 import (
 	"chuukohin/database"
@@ -10,24 +10,24 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-// ProfilePatchHandler
-// @ID           me.profile.patch
-// @Summary      Update user information
-// @Description  Update user information
-// @Tags         me_profile
+// CardPostHandler
+// @ID           card.post
+// @Summary      Add a card
+// @Description  Add a card
+// @Tags         me_card
 // @Accept       json
 // @Produce      json
-// @Param        payload  body      profilePatchRequest  true  "profile.profilePatchRequest"
+// @Param        payload  body      cardPostRequest  true  "card.cardPostRequest"
 // @Success      200      {object}  responder.InfoResponse
 // @Failure      400      {object}  responder.ErrorResponse
-// @Router       /me/profile/edit [patch]
-func ProfilePatchHandler(c *fiber.Ctx) error {
+// @Router       /me/card/add [post]
+func CardPostHandler(c *fiber.Ctx) error {
 	// * Parse user JWT token
 	token := c.Locals("user").(*jwt.Token)
 	claims := token.Claims.(*jwt_claim.UserClaim)
 
-	// * Parse body
-	body := new(profilePatchRequest)
+	// * Parse Body
+	body := new(cardPostRequest)
 	if err := c.BodyParser(&body); err != nil {
 		return &responder.GenericError{
 			Message: "Unable to parse body",
@@ -43,19 +43,20 @@ func ProfilePatchHandler(c *fiber.Ctx) error {
 		}
 	}
 
-	user := &models.User{
-		Firstname: body.Firstname,
-		Lastname:  body.Lastname,
-		Email:     body.Email,
+	card := models.Card{
+		UserId:      claims.UserId,
+		Name:        body.Name,
+		MonthExpire: body.MonthExpire,
+		YearExpire:  body.YearExpire,
 	}
 
-	// * Update the user profile
-	if result := database.Gorm.First(new(models.User), "id = ?", claims.UserId).Updates(&user); result.Error != nil {
+	// * Create a card record
+	if result := database.Gorm.Create(&card); result.Error != nil {
 		return &responder.GenericError{
-			Message: "Unable to update the user profile",
+			Message: "Unable to create a card record",
 			Err:     result.Error,
 		}
 	}
 
-	return c.JSON(responder.NewInfoResponse("Update the user information successfully"))
+	return c.JSON(responder.NewInfoResponse("Added a card successfully"))
 }

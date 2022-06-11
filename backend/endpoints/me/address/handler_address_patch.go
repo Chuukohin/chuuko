@@ -14,7 +14,7 @@ import (
 // @ID           address.patch
 // @Summary      Update an address
 // @Description  Update am address
-// @Tags         me
+// @Tags         me_address
 // @Accept       json
 // @Produce      json
 // @Param        payload  body      addressPatchRequest  true  "address.addressPatchRequest"

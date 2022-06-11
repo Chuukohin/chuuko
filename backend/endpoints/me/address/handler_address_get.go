@@ -13,7 +13,7 @@ import (
 // @ID           address.get
 // @Summary      Get the address
 // @Description  Get the address
-// @Tags         me
+// @Tags         me_address
 // @Accept       json
 // @Produce      json
 // @Success      200  {object}  address.addressGetResponse
