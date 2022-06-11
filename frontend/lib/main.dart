@@ -2,6 +2,7 @@ import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/index.dart';
 import 'package:chuukohin/screens/start/createproduct_screen.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
+import 'package:chuukohin/screens/start/myprofile_screen.dart';
 import 'package:chuukohin/screens/start/preview_screen.dart';
 import 'package:chuukohin/screens/core/me/me_screen.dart';
 import 'package:chuukohin/screens/start/splash.dart';
@@ -33,6 +34,7 @@ class Chuuko extends StatelessWidget {
         '/me': (_) => const MeScreen(),
         '/createproduct': (_) => const CreateProductScreen(),
         '/preview': (_) => const PreviewScreen(),
+        '/myprofile': (_) => const MyProfileScreen(),
       },
       initialRoute: "/home",
     );
