@@ -30,6 +30,7 @@ func Router(router fiber.Router) {
 	// Product
 	productRouter := router.Group("/product", middlewares.Jwt)
 	productRouter.Post("/add", product.ProductDetailPostHandler)
+	productRouter.Get("/info/:product_id", product.ProductDetailGetHandler)
 
 	// Me
 	meRouter := router.Group("/me", middlewares.Jwt)
