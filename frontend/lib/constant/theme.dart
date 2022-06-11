@@ -6,6 +6,8 @@ class ThemeConstant {
   static Color secondaryColor = const Color(0xff6C4E37);
   static Color textSecondaryColor = const Color(0xff826751);
   static Color productTextColor = const Color(0xffDCB9A3);
+  static Color dividerColor = const Color(0xffC1C1C1);
+  static Color logOutBtnColor = const Color(0xffFF3838);
 
   static MaterialColor materialColorSwatch =
       color.createMaterialColor(primaryColor);

@@ -13,14 +13,14 @@ class CreateProductScreen extends StatefulWidget {
 class _CreateProductScreenState extends State<CreateProductScreen> {
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Men"), value: "Men"),
-      DropdownMenuItem(child: Text("Woman"), value: "Woman"),
-      DropdownMenuItem(child: Text("Tops"), value: "Tops"),
-      DropdownMenuItem(child: Text("Bottoms"), value: "Bottoms"),
-      DropdownMenuItem(child: Text("Shoes"), value: "Shoes"),
-      DropdownMenuItem(child: Text("Innerwear"), value: "Innerwear"),
-      DropdownMenuItem(child: Text("Sport"), value: "Sport"),
-      DropdownMenuItem(child: Text("Accessories"), value: "Accessories"),
+      const DropdownMenuItem(child: Text("Men"), value: "Men"),
+      const DropdownMenuItem(child: Text("Woman"), value: "Woman"),
+      const DropdownMenuItem(child: Text("Tops"), value: "Tops"),
+      const DropdownMenuItem(child: Text("Bottoms"), value: "Bottoms"),
+      const DropdownMenuItem(child: Text("Shoes"), value: "Shoes"),
+      const DropdownMenuItem(child: Text("Innerwear"), value: "Innerwear"),
+      const DropdownMenuItem(child: Text("Sport"), value: "Sport"),
+      const DropdownMenuItem(child: Text("Accessories"), value: "Accessories"),
     ];
     return menuItems;
   }
@@ -44,11 +44,11 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
           leading: GestureDetector(
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   CupertinoIcons.back,
                   color: Color(0xff007AFF),
                 ),
-                Text(
+                const Text(
                   'Back',
                   style: TextStyle(color: Color(0xff007AFF)),
                 )
@@ -69,7 +69,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(bottom: 18),
-                      child: Text(
+                      child: const Text(
                         'Add your product images',
                         style: TextStyle(fontSize: 12),
                       ),
