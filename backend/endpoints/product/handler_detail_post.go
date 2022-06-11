@@ -3,8 +3,10 @@ package product
 import (
 	"chuukohin/database"
 	"chuukohin/models"
+	"chuukohin/types/enum"
 	"chuukohin/types/fiber/jwt_claim"
 	"chuukohin/types/responder"
+	"chuukohin/utils/check"
 	"chuukohin/utils/storage"
 	"chuukohin/utils/text"
 	"github.com/gofiber/fiber/v2"
@@ -49,6 +51,16 @@ func ProductDetailPostHandler(c *fiber.Ctx) error {
 		CategoryId:  &productCategory,
 	}
 
+	// * Validate Body
+	if err := check.Validator.Struct(body); err != nil {
+		return &responder.GenericError{
+			Message: "Validate body failed",
+			Err:     err,
+		}
+	}
+
+	selling := enum.Selling
+
 	product := &models.Product{
 		SellerId:    claims.SellerId,
 		Name:        body.Name,
@@ -56,6 +68,7 @@ func ProductDetailPostHandler(c *fiber.Ctx) error {
 		Brand:       body.Brand,
 		Price:       body.Price,
 		CategoryId:  body.CategoryId,
+		Status:      (*string)(&selling),
 	}
 
 	// * Create product
@@ -136,12 +149,23 @@ func ProductDetailPostHandler(c *fiber.Ctx) error {
 		PictureUrl: &productLocation,
 	}
 
+	// * Add an image's location to database
 	if result := database.Gorm.Create(&productPicture); result.Error != nil {
 		if err := deleteProduct(product.Id); err != nil {
 			return err
 		}
 		return &responder.GenericError{
 			Message: "Unable to add product picture",
+			Err:     result.Error,
+		}
+	}
+
+	product.PictureId = productPicture.Id
+
+	// * Update an image to product
+	if result := database.Gorm.Updates(&product); result.Error != nil {
+		return &responder.GenericError{
+			Message: "Unable to update an image to the product",
 			Err:     result.Error,
 		}
 	}

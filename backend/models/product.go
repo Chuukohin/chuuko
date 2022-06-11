@@ -11,5 +11,5 @@ type Product struct {
 	Price       *uint64   `gorm:"not null"`
 	Description *string   `gorm:"type:text; not null"`
 	PictureId   *uint64   `gorm:"not null; default:1"`
-	Status      *string   `gorm:"type:VARCHAR(40)"`
+	Status      *string   `gorm:"type:VARCHAR(40); not null"`
 }
