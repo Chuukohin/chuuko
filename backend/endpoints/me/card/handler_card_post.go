@@ -11,7 +11,7 @@ import (
 )
 
 // CardPostHandler
-// @ID           card.post
+// @ID           me.card.post
 // @Summary      Add a card
 // @Description  Add a card
 // @Tags         me_card
