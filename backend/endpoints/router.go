@@ -51,4 +51,5 @@ func Router(router fiber.Router) {
 	// Me Card
 	meRouter.Post("/card/add", card.CardPostHandler)
 	meRouter.Get("/card/info", card.CardGetHandler)
+	meRouter.Post("/card/edit", card.CardPatchHandler)
 }
