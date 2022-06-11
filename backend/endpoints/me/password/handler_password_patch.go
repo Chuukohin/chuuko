@@ -15,7 +15,7 @@ import (
 // @ID           me.password.patch
 // @Summary      Update user password
 // @Description  Update user password
-// @Tags         me
+// @Tags         me_password
 // @Accept       json
 // @Produce      json
 // @Param        payload  body      passwordPatchRequest  true  "password.passwordPatchRequest"
