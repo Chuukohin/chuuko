@@ -2,7 +2,6 @@ import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/home/homepage_screen.dart';
 import 'package:chuukohin/screens/core/me/me_screen.dart';
 import 'package:flutter/material.dart';
-// import 'package:niku/namespace.dart' as n;
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MainScreen extends StatefulWidget {

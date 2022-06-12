@@ -13,11 +13,11 @@ class MeScreen extends StatefulWidget {
 }
 
 class _MeScreenState extends State<MeScreen> {
-  final List account = [
-    "My Profile",
-    "Order Status",
-    "My Address",
-    "Payment Method"
+  final List<Map<String, dynamic>> accountDetail = [
+    {"name": "My Profile", "path": "/myprofile"},
+    {"name": "Order Status", "path": "/"},
+    {"name": "My Address", "path": "/"},
+    {"name": "Payment Method", "path": "/"},
   ];
   final List seller = [
     "My Shop",
@@ -87,26 +87,32 @@ class _MeScreenState extends State<MeScreen> {
                 ),
                 child: n.Column(
                   dividerInsert(
-                    account
+                    accountDetail
                         .mapIndexed(
                           (index, element) => Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 10),
-                            child: n.Row(
-                              [
-                                n.Text(element)
-                                  ..fontSize = 12
-                                  ..fontWeight = FontWeight.w500,
-                                Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  size: 14,
-                                  color: ThemeConstant.dividerColor,
-                                ),
-                              ],
-                            )
-                              ..mainAxisAlignment =
-                                  MainAxisAlignment.spaceBetween
-                              ..crossAxisAlignment = CrossAxisAlignment.center,
+                            child: GestureDetector(
+                              onTap: () =>
+                                  Navigator.pushNamed(context, element['path']),
+                              behavior: HitTestBehavior.translucent,
+                              child: n.Row(
+                                [
+                                  n.Text(element['name'])
+                                    ..fontSize = 12
+                                    ..fontWeight = FontWeight.w500,
+                                  Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    size: 14,
+                                    color: ThemeConstant.dividerColor,
+                                  ),
+                                ],
+                              )
+                                ..mainAxisAlignment =
+                                    MainAxisAlignment.spaceBetween
+                                ..crossAxisAlignment =
+                                    CrossAxisAlignment.center,
+                            ),
                           ),
                         )
                         .toList(),
