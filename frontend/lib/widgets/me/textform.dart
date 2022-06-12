@@ -15,15 +15,16 @@ class _TextFiledState extends State<TextForm> {
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: widget.title,
-      style: const TextStyle(fontWeight: FontWeight.bold),
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
       readOnly: _isRead,
       decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(top: 23),
           suffixIcon: IconButton(
-        icon: const Icon(Icons.edit),
-        onPressed: () {
-          _isRead = !_isRead;
-        },
-      )),
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              _isRead = !_isRead;
+            },
+          )),
     );
   }
 }

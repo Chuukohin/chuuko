@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/widgets/me/textform.dart';
 
-class MyProfileScreen extends StatefulWidget {
-  const MyProfileScreen({Key? key}) : super(key: key);
+class MyAddressScreen extends StatefulWidget {
+  const MyAddressScreen({Key? key}) : super(key: key);
 
   @override
-  State<MyProfileScreen> createState() => _LoginScreenState();
+  State<MyAddressScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<MyProfileScreen> {
+class _LoginScreenState extends State<MyAddressScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,7 +27,7 @@ class _LoginScreenState extends State<MyProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text('My profile'),
+          title: Text('My adress'),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -42,10 +42,10 @@ class _LoginScreenState extends State<MyProfileScreen> {
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
-                          title: 'Firstname',
+                          title: 'Firstname - Lastname',
                         )),
                     const Text(
-                      'Firstname ',
+                      'Fullname',
                       style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
                     )
                   ],
@@ -57,55 +57,100 @@ class _LoginScreenState extends State<MyProfileScreen> {
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
-                          title: 'Lastname',
+                          title: '082-000-0000',
                         )),
-                    const Text(
-                      'Lastname ',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
-                  ],
-                )),
-                Container(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
                     Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
-                          title: 'email@gmail.com',
-                        )),
-                    const Text(
-                      'Email',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
-                  ],
-                )),
-                Container(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
-                          title: '1234',
-                        )),
-                    const Text(
-                      'Password',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
-                  ],
-                )),
-                Container(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(title: '1234')),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 230),
+                      margin: EdgeInsets.only(bottom: 25),
                       child: const Text(
-                        'Confirm password',
+                        'Phone number',
+                        style:
+                            TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
+                      ),
+                    )
+                  ],
+                )),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 5),
+                    child: Text(
+                      'My Address',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Container(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        margin: const EdgeInsets.only(bottom: 5),
+                        child: TextForm(
+                          title: 'Phracha uthit',
+                        )),
+                    const Text(
+                      'Street',
+                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
+                    )
+                  ],
+                )),
+                Container(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        margin: const EdgeInsets.only(bottom: 5),
+                        child: TextForm(
+                          title: 'Bangkok',
+                        )),
+                    const Text(
+                      'Province',
+                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
+                    )
+                  ],
+                )),
+                Container(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        margin: const EdgeInsets.only(bottom: 5),
+                        child: TextForm(
+                          title: 'Thung Kru',
+                        )),
+                    const Text(
+                      'District',
+                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
+                    )
+                  ],
+                )),
+                Container(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        margin: const EdgeInsets.only(bottom: 5),
+                        child: TextForm(
+                          title: 'Bangmod',
+                        )),
+                    const Text(
+                      'Sub-District',
+                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
+                    )
+                  ],
+                )),
+                Container(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        margin: const EdgeInsets.only(bottom: 5),
+                        child: TextForm(title: '10140')),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 40),
+                      child: const Text(
+                        'Postal Code',
                         style:
                             TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
                       ),

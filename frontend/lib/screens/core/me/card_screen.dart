@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/widgets/me/textform.dart';
 
-class MyProfileScreen extends StatefulWidget {
-  const MyProfileScreen({Key? key}) : super(key: key);
+class CardScreen extends StatefulWidget {
+  const CardScreen({Key? key}) : super(key: key);
 
   @override
-  State<MyProfileScreen> createState() => _LoginScreenState();
+  State<CardScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<MyProfileScreen> {
+class _LoginScreenState extends State<CardScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,7 +27,7 @@ class _LoginScreenState extends State<MyProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text('My profile'),
+          title: Text('Card'),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -42,10 +42,10 @@ class _LoginScreenState extends State<MyProfileScreen> {
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
-                          title: 'Firstname',
+                          title: 'Card holder name',
                         )),
                     const Text(
-                      'Firstname ',
+                      'Fullname in your credit card',
                       style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
                     )
                   ],
@@ -57,10 +57,10 @@ class _LoginScreenState extends State<MyProfileScreen> {
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
-                          title: 'Lastname',
+                          title: 'Card No.',
                         )),
                     const Text(
-                      'Lastname ',
+                      'Card No.',
                       style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
                     )
                   ],
@@ -72,10 +72,10 @@ class _LoginScreenState extends State<MyProfileScreen> {
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
-                          title: 'email@gmail.com',
+                          title: 'MM/YY',
                         )),
                     const Text(
-                      'Email',
+                      'Expire date',
                       style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
                     )
                   ],
@@ -86,26 +86,11 @@ class _LoginScreenState extends State<MyProfileScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
-                          title: '1234',
-                        )),
-                    const Text(
-                      'Password',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
-                  ],
-                )),
-                Container(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                        child: TextForm(title: 'CVC')),
                     Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(title: '1234')),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 230),
+                      margin: const EdgeInsets.only(bottom: 300),
                       child: const Text(
-                        'Confirm password',
+                        'CVC',
                         style:
                             TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
                       ),
