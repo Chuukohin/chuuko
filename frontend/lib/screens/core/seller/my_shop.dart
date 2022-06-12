@@ -33,6 +33,7 @@ class _MyShopScreenState extends State<MyShopScreen> {
                           Image.asset(
                             'assets/images/shop-bg.png',
                             height: 140,
+                            width: double.infinity,
                             fit: BoxFit.cover,
                             color: Colors.white.withOpacity(0.4),
                             colorBlendMode: BlendMode.modulate,
