@@ -1,4 +1,5 @@
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/widgets/product/product_card.dart';
 import 'package:flutter/material.dart';
 
 class ProductManagementScreen extends StatefulWidget {
@@ -12,6 +13,8 @@ class ProductManagementScreen extends StatefulWidget {
 class _ProductManagementScreenState extends State<ProductManagementScreen> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -32,11 +35,45 @@ class _ProductManagementScreenState extends State<ProductManagementScreen> {
             ],
           ),
         ),
-        body: const TabBarView(
-          children: [
-            Text('Flight'),
-            Text('Transit'),
-          ],
+        body: Container(
+          padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+          child: TabBarView(
+            children: [
+              GridView.builder(
+                itemCount: 10,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: screenHeight / 1100,
+                  crossAxisSpacing: 10.0,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return const ProductCard(
+                      "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png');
+                },
+              ),
+              GridView.builder(
+                itemCount: 10,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: screenHeight / 1100,
+                  crossAxisSpacing: 10.0,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return const Opacity(
+                    opacity: .6,
+                    child: ProductCard(
+                        "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png'),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/product/create');
+          },
+          child: const Icon(Icons.add),
         ),
       ),
     );

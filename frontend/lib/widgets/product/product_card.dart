@@ -14,7 +14,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 170,
+      width: double.infinity,
       height: 220,
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(

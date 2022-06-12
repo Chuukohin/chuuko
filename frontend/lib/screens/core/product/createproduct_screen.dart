@@ -14,7 +14,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
       const DropdownMenuItem(child: Text("Men"), value: "Men"),
-      const DropdownMenuItem(child: Text("Woman"), value: "Woman"),
+      const DropdownMenuItem(child: Text("Women"), value: "Women"),
       const DropdownMenuItem(child: Text("Tops"), value: "Tops"),
       const DropdownMenuItem(child: Text("Bottoms"), value: "Bottoms"),
       const DropdownMenuItem(child: Text("Shoes"), value: "Shoes"),
@@ -25,7 +25,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
     return menuItems;
   }
 
-  String selectedValue = "Men";
+  String selectedValue = "";
 
   @override
   Widget build(BuildContext context) {
@@ -39,25 +39,8 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
       },
       behavior: HitTestBehavior.translucent,
       child: Scaffold(
-        appBar: CupertinoNavigationBar(
-          middle: const Text('Create an item'),
-          leading: GestureDetector(
-            child: Row(
-              children: const [
-                Icon(
-                  CupertinoIcons.back,
-                  color: Color(0xff007AFF),
-                ),
-                Text(
-                  'Back',
-                  style: TextStyle(color: Color(0xff007AFF)),
-                )
-              ],
-            ),
-            onTap: () {
-              Navigator.pushNamed(context, '/me');
-            },
-          ),
+        appBar: AppBar(
+          elevation: 0,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -184,7 +167,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                           Container(
                             margin: const EdgeInsets.only(bottom: 8),
                             child: Text(
-                              'Catecory',
+                              'Category',
                               style: TextStyle(
                                 color: ThemeConstant.textSecondaryColor,
                               ),
@@ -197,10 +180,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                                 selectedValue = newValue!;
                               });
                             },
-                            style: TextStyle(color: ThemeConstant.primaryColor),
                             dropdownColor: Colors.white,
                             decoration: InputDecoration(
-                              hintText: 'Catecory',
+                              hintText: 'Category',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12.0),
                                 borderSide: BorderSide(
@@ -255,7 +237,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                     Container(
                         margin: const EdgeInsets.only(top: 30),
                         child: const MainButton(
-                            'Next', 50, 300, '/product/preview'))
+                            'Publish', 50, 300, '/product/preview'))
                   ]),
             ),
           ),
