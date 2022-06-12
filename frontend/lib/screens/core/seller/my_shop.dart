@@ -48,17 +48,17 @@ class _MyShopScreenState extends State<MyShopScreen> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(120),
                                     child: Image.network(
-                                      'https://www.pcgamesn.com/wp-content/uploads/2021/07/genshin-impact-kokomi-release-date.jpg',
+                                      'https://cdn.discordapp.com/attachments/749662268576497855/985587737866432594/8FDC299C-4D29-4D66-BFD9-DE106D0E9967.jpg',
                                       width: 80,
                                       height: 80,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
-                                Container(
+                                SizedBox(
                                   height: 60,
                                   child: n.Column([
-                                    Container(
+                                    SizedBox(
                                       width: screenWidth * 0.5,
                                       child: n.Text("Chuukohin Shop")
                                         ..fontWeight = FontWeight.bold

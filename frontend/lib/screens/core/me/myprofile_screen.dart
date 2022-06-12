@@ -180,7 +180,9 @@ class _LoginScreenState extends State<MyProfileScreen> {
                         borderRadius: BorderRadius.circular(40),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: const Text(
                       "Save",
                       style: TextStyle(color: Colors.white, fontSize: 16),
