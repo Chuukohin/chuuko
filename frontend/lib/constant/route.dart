@@ -1,4 +1,5 @@
 import 'package:chuukohin/screens/core/index.dart';
+import 'package:chuukohin/screens/core/me/card.dart';
 import 'package:chuukohin/screens/core/me/me_screen.dart';
 import 'package:chuukohin/screens/core/me/myprofile_screen.dart';
 import 'package:chuukohin/screens/core/product/createproduct_screen.dart';
@@ -25,6 +26,7 @@ class RouteConstant {
       '/product/preview': (_) => const PreviewScreen(),
       '/profile': (_) => const MyProfileScreen(),
       '/profile/shop': (_) => const MyShopScreen(),
+      '/card': (_) => const CardScreen(),
     };
   }
 }
