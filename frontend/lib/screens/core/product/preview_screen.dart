@@ -1,3 +1,4 @@
+import 'package:chuukohin/constant/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
 import 'package:chuukohin/widgets/product/product_detail.dart';
@@ -19,7 +20,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: n.Text('Kokomi shirt'),
+        title: n.Text('Preview'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -49,19 +50,37 @@ class _PreviewScreenState extends State<PreviewScreen> {
                       "Kokomi shirt Kokomi shirtKokomi shirtKokomi shirtKokomi shirt Kokomi shirt"),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                    ),
-                    child: n.Text("Buy now")..fontSize = 16,
-                    onPressed: () {}),
-              )
+              n.Row([
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    height: 50,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: ThemeConstant.logOutBtnColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                        child: n.Text("Delete")..fontSize = 16,
+                        onPressed: () {}),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    height: 50,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                        child: n.Text("Done")..fontSize = 16,
+                        onPressed: () {}),
+                  ),
+                ),
+              ])
             ],
           ),
         ),

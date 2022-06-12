@@ -5,7 +5,9 @@ import 'package:chuukohin/screens/core/me/myaddress_screen.dart';
 import 'package:chuukohin/screens/core/me/myprofile_screen.dart';
 import 'package:chuukohin/screens/core/product/createproduct_screen.dart';
 import 'package:chuukohin/screens/core/product/preview_screen.dart';
+import 'package:chuukohin/screens/core/seller/income.dart';
 import 'package:chuukohin/screens/core/seller/my_shop.dart';
+import 'package:chuukohin/screens/core/seller/order_report.dart';
 import 'package:chuukohin/screens/core/seller/product_manage.dart';
 import 'package:chuukohin/screens/core/seller/sellersignup_screen.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
@@ -22,15 +24,17 @@ class RouteConstant {
       '/home': (_) => const MainScreen(),
       '/login': (_) => const LoginScreen(),
       '/signup': (_) => const SignupScreen(),
-      '/seller/signup': (_) => const SellerSignupScreen(),
-      '/me': (_) => const MeScreen(),
       '/product/create': (_) => const CreateProductScreen(),
       '/product/preview': (_) => const PreviewScreen(),
+      '/me': (_) => const MeScreen(),
       '/profile': (_) => const MyProfileScreen(),
-      '/profile/shop': (_) => const MyShopScreen(),
-      '/card': (_) => const CardScreen(),
-      '/profile/product/manage': (_) => const ProductManagementScreen(),
-      '/myaddress': (_) => const MyAddressScreen(),
+      '/profile/card': (_) => const CardScreen(),
+      '/profile/address': (_) => const MyAddressScreen(),
+      '/seller/signup': (_) => const SellerSignupScreen(),
+      '/seller/shop': (_) => const MyShopScreen(),
+      '/seller/product/manage': (_) => const ProductManagementScreen(),
+      '/seller/income': (_) => const IncomeScreen(),
+      '/seller/order': (_) => const OrderReportScreen(),
     };
   }
 }

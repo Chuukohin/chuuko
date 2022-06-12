@@ -16,14 +16,14 @@ class _MeScreenState extends State<MeScreen> {
   final List<Map<String, dynamic>> accountDetail = [
     {"name": "My Profile", "path": "/profile"},
     {"name": "Order Status", "path": "/"},
-    {"name": "My Address", "path": "/myaddress"},
-    {"name": "My Card", "path": "/card"},
+    {"name": "My Address", "path": "/profile/address"},
+    {"name": "My Card", "path": "/profile/card"},
   ];
   final List<Map<String, dynamic>> sellerDetail = [
-    {"name": "My Shop", "path": "/profile/shop"},
-    {"name": "Your Product / Management", "path": "/profile/product/manage"},
-    {"name": "Order Report", "path": "/"},
-    {"name": "Income", "path": "/"},
+    {"name": "My Shop", "path": "/seller/shop"},
+    {"name": "Your Product / Management", "path": "/seller/product/manage"},
+    {"name": "Order Report", "path": "/seller/order"},
+    {"name": "Income", "path": "/seller/income"},
   ];
 
   final String userType = 'seller';
