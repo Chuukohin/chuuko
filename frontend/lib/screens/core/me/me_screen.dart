@@ -14,17 +14,18 @@ class MeScreen extends StatefulWidget {
 
 class _MeScreenState extends State<MeScreen> {
   final List<Map<String, dynamic>> accountDetail = [
-    {"name": "My Profile", "path": "/myprofile"},
+    {"name": "My Profile", "path": "/profile"},
     {"name": "Order Status", "path": "/"},
     {"name": "My Address", "path": "/"},
-    {"name": "Payment Method", "path": "/"},
+    {"name": "My Card", "path": "/"},
   ];
-  final List seller = [
-    "My Shop",
-    "Your Product / Management",
-    "Order Report",
-    "Income"
+  final List<Map<String, dynamic>> sellerDetail = [
+    {"name": "My Shop", "path": "/profile/shop"},
+    {"name": "Your Product / Management", "path": "/"},
+    {"name": "Order Report", "path": "/"},
+    {"name": "Income", "path": "/"},
   ];
+
   final String userType = 'seller';
   @override
   Widget build(BuildContext context) {
@@ -91,7 +92,7 @@ class _MeScreenState extends State<MeScreen> {
                         .mapIndexed(
                           (index, element) => Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 10),
+                                horizontal: 16, vertical: 12),
                             child: GestureDetector(
                               onTap: () =>
                                   Navigator.pushNamed(context, element['path']),
@@ -151,27 +152,32 @@ class _MeScreenState extends State<MeScreen> {
                           ),
                           child: n.Column(
                             dividerInsert(
-                              seller
+                              sellerDetail
                                   .mapIndexed(
                                     (index, element) => Container(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 10),
-                                      child: n.Row(
-                                        [
-                                          n.Text(element)
-                                            ..fontSize = 12
-                                            ..fontWeight = FontWeight.w500,
-                                          Icon(
-                                            Icons.arrow_forward_ios_rounded,
-                                            size: 14,
-                                            color: ThemeConstant.dividerColor,
-                                          ),
-                                        ],
-                                      )
-                                        ..mainAxisAlignment =
-                                            MainAxisAlignment.spaceBetween
-                                        ..crossAxisAlignment =
-                                            CrossAxisAlignment.center,
+                                          horizontal: 16, vertical: 12),
+                                      child: GestureDetector(
+                                        onTap: () => Navigator.pushNamed(
+                                            context, element['path']),
+                                        behavior: HitTestBehavior.translucent,
+                                        child: n.Row(
+                                          [
+                                            n.Text(element['name'])
+                                              ..fontSize = 12
+                                              ..fontWeight = FontWeight.w500,
+                                            Icon(
+                                              Icons.arrow_forward_ios_rounded,
+                                              size: 14,
+                                              color: ThemeConstant.dividerColor,
+                                            ),
+                                          ],
+                                        )
+                                          ..mainAxisAlignment =
+                                              MainAxisAlignment.spaceBetween
+                                          ..crossAxisAlignment =
+                                              CrossAxisAlignment.center,
+                                      ),
                                     ),
                                   )
                                   .toList(),
@@ -212,21 +218,27 @@ class _MeScreenState extends State<MeScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 14),
-                            child: n.Row(
-                              [
-                                n.Text("Register")
-                                  ..fontSize = 12
-                                  ..fontWeight = FontWeight.w500,
-                                Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  size: 14,
-                                  color: ThemeConstant.dividerColor,
-                                ),
-                              ],
-                            )
-                              ..mainAxisAlignment =
-                                  MainAxisAlignment.spaceBetween
-                              ..crossAxisAlignment = CrossAxisAlignment.center,
+                            child: GestureDetector(
+                              onTap: () => Navigator.pushNamed(
+                                  context, '/seller/signup'),
+                              behavior: HitTestBehavior.translucent,
+                              child: n.Row(
+                                [
+                                  n.Text("Register")
+                                    ..fontSize = 12
+                                    ..fontWeight = FontWeight.w500,
+                                  Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    size: 14,
+                                    color: ThemeConstant.dividerColor,
+                                  ),
+                                ],
+                              )
+                                ..mainAxisAlignment =
+                                    MainAxisAlignment.spaceBetween
+                                ..crossAxisAlignment =
+                                    CrossAxisAlignment.center,
+                            ),
                           ),
                         ),
                       ],

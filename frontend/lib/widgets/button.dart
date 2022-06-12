@@ -28,7 +28,7 @@ class _MainButtonState extends State<MainButton> {
       },
       child: Text(
         widget.title,
-        style: const TextStyle(color: Colors.white, fontSize: 17),
+        style: const TextStyle(color: Colors.white, fontSize: 16),
         textAlign: TextAlign.center,
       ),
     );

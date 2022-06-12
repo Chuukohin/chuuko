@@ -20,7 +20,7 @@ class ProductDetailScreen extends StatelessWidget {
         child: Container(
           width: double.infinity,
           height: screenHeight - 56,
-          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+          padding: const EdgeInsets.only(top: 6, left: 16, right: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -54,7 +54,7 @@ class ProductDetailScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(40),
                       ),
                     ),
-                    child: n.Text("Buy now")..fontSize = 17,
+                    child: n.Text("Buy now")..fontSize = 16,
                     onPressed: () {}),
               )
             ],

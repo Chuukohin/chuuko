@@ -16,7 +16,6 @@ class _LoginScreenState extends State<MyProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -30,8 +29,8 @@ class _LoginScreenState extends State<MyProfileScreen> {
         appBar: AppBar(elevation: 0),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(
-                top: screenHeight / 8, left: 30, right: 30, bottom: 20),
+            padding:
+                const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 20),
             child: Column(
               children: [
                 Container(
@@ -172,7 +171,23 @@ class _LoginScreenState extends State<MyProfileScreen> {
                         )
                       ],
                     )),
-                const MainButton('Sign Up', 50, 300, '/Save')
+                Container(
+                  width: 300,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: const Text(
+                      "Save",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
               ],
             ),
           ),

@@ -43,12 +43,12 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
           middle: const Text('Create an item'),
           leading: GestureDetector(
             child: Row(
-              children: [
-                const Icon(
+              children: const [
+                Icon(
                   CupertinoIcons.back,
                   color: Color(0xff007AFF),
                 ),
-                const Text(
+                Text(
                   'Back',
                   style: TextStyle(color: Color(0xff007AFF)),
                 )
@@ -254,7 +254,8 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                     ),
                     Container(
                         margin: const EdgeInsets.only(top: 30),
-                        child: const MainButton('Next', 50, 300, '/preview'))
+                        child: const MainButton(
+                            'Next', 50, 300, '/product/preview'))
                   ]),
             ),
           ),

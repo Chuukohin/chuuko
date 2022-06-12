@@ -286,7 +286,7 @@ class _SellerSignupState extends State<SellerSignupScreen> {
                     ],
                   ),
                 ),
-                const MainButton('Register as seller', 50, 300, '/home')
+                const MainButton('Register as a seller', 50, 300, '/home')
               ],
             ),
           ),

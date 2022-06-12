@@ -8,6 +8,7 @@ class ThemeConstant {
   static Color productTextColor = const Color(0xffDCB9A3);
   static Color dividerColor = const Color(0xffC1C1C1);
   static Color logOutBtnColor = const Color(0xffFF3838);
+  static Color profileTextColor = const Color(0xff434343);
 
   static MaterialColor materialColorSwatch =
       color.createMaterialColor(primaryColor);
@@ -20,7 +21,7 @@ class ThemeConstant {
       foregroundColor: Colors.black,
       centerTitle: true,
       titleTextStyle: const TextStyle(
-        fontSize: 17,
+        fontSize: 16,
         fontWeight: FontWeight.w500,
         color: Colors.black,
       ),
