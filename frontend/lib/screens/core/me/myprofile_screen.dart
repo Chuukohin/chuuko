@@ -3,6 +3,7 @@ import 'package:chuukohin/widgets/button.dart';
 import 'package:chuukohin/widgets/typography/header_text.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/widgets/me/textform.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -39,20 +40,10 @@ class _LoginScreenState extends State<MyProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(bottom: 5),
-                          child: TextFormField(
-                            initialValue: 'Firstname',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            readOnly: _isRead,
-                            decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                _isRead = !_isRead;
-                              },
+                            margin: const EdgeInsets.only(bottom: 5),
+                            child: TextForm(
+                              title: 'Firstname',
                             )),
-                          ),
-                        ),
                         const Text(
                           'Firstname ',
                           style:
@@ -66,20 +57,10 @@ class _LoginScreenState extends State<MyProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(bottom: 5),
-                          child: TextFormField(
-                            initialValue: 'Lastname',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            readOnly: _isRead,
-                            decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                _isRead = !_isRead;
-                              },
+                            margin: const EdgeInsets.only(bottom: 5),
+                            child: TextForm(
+                              title: 'Lastname',
                             )),
-                          ),
-                        ),
                         const Text(
                           'Lastname ',
                           style:
@@ -93,20 +74,10 @@ class _LoginScreenState extends State<MyProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(bottom: 5),
-                          child: TextFormField(
-                            initialValue: 'email@gmail.com',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            readOnly: _isRead,
-                            decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                _isRead = !_isRead;
-                              },
+                            margin: const EdgeInsets.only(bottom: 5),
+                            child: TextForm(
+                              title: 'email@gmail.com',
                             )),
-                          ),
-                        ),
                         const Text(
                           'Email',
                           style:
@@ -120,20 +91,10 @@ class _LoginScreenState extends State<MyProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(bottom: 5),
-                          child: TextFormField(
-                            initialValue: '1234',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            readOnly: _isRead,
-                            decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                _isRead = !_isRead;
-                              },
+                            margin: const EdgeInsets.only(bottom: 5),
+                            child: TextForm(
+                              title: '1234',
                             )),
-                          ),
-                        ),
                         const Text(
                           'Password',
                           style:
@@ -147,20 +108,8 @@ class _LoginScreenState extends State<MyProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(bottom: 5),
-                          child: TextFormField(
-                            initialValue: '1234',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            readOnly: _isRead,
-                            decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                _isRead = !_isRead;
-                              },
-                            )),
-                          ),
-                        ),
+                            margin: const EdgeInsets.only(bottom: 5),
+                            child: TextForm(title: '1234')),
                         Container(
                           margin: const EdgeInsets.only(bottom: 40),
                           child: const Text(
