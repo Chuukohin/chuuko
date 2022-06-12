@@ -6,7 +6,7 @@ type Product struct {
 	Seller      *Shop     `gorm:"foreignKey:SellerId"`
 	CategoryId  *uint64   `gorm:"not null"`
 	Category    *Category `gorm:"foreignKey:CategoryId"`
-	Name        *string   `gorm:"type:VARCHAR(255); not null"`
+	Name        *string   `gorm:"type:text; not null"`
 	Brand       *string   `gorm:"type:VARCHAR(80); not null"`
 	Price       *uint64   `gorm:"not null"`
 	Description *string   `gorm:"type:text; not null"`

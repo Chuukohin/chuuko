@@ -8,6 +8,9 @@
 /local
 /static
 
+# data
+/data/mock_products
+
 # Swagger generates
 frameworks/swagger/*
 !frameworks/swagger/index.go

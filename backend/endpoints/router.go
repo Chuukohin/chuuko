@@ -27,6 +27,7 @@ func Router(router fiber.Router) {
 	// Admin
 	adminRouter := router.Group("/admin")
 	adminRouter.Post("/reset", admin.AdminResetPostHandler)
+	adminRouter.Post("/product/mock/add", admin.AdminAddMockProductPostHandler)
 
 	// Product
 	productRouter := router.Group("/product", middlewares.Jwt)
