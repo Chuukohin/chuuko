@@ -38,6 +38,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -129,9 +131,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
             SliverPadding(
               padding: const EdgeInsets.only(left: 12, right: 12),
               sliver: SliverGrid(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 0.74,
+                  childAspectRatio: screenHeight / 1100,
                   crossAxisSpacing: 10.0,
                 ),
                 delegate: SliverChildBuilderDelegate(

@@ -5,6 +5,7 @@ import 'package:chuukohin/screens/core/me/myprofile_screen.dart';
 import 'package:chuukohin/screens/core/product/createproduct_screen.dart';
 import 'package:chuukohin/screens/core/product/preview_screen.dart';
 import 'package:chuukohin/screens/core/seller/my_shop.dart';
+import 'package:chuukohin/screens/core/seller/product_manage.dart';
 import 'package:chuukohin/screens/core/seller/sellersignup_screen.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
 import 'package:chuukohin/screens/start/signup_screen.dart';
@@ -27,6 +28,7 @@ class RouteConstant {
       '/profile': (_) => const MyProfileScreen(),
       '/profile/shop': (_) => const MyShopScreen(),
       '/card': (_) => const CardScreen(),
+      '/profile/product/manage': (_) => const ProductManagementScreen(),
     };
   }
 }

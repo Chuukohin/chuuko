@@ -21,7 +21,7 @@ class _MeScreenState extends State<MeScreen> {
   ];
   final List<Map<String, dynamic>> sellerDetail = [
     {"name": "My Shop", "path": "/profile/shop"},
-    {"name": "Your Product / Management", "path": "/"},
+    {"name": "Your Product / Management", "path": "/profile/product/manage"},
     {"name": "Order Report", "path": "/"},
     {"name": "Income", "path": "/"},
   ];
