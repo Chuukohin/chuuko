@@ -10,17 +10,17 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-// ProductManagementSellingHandler
-// @ID           me.product_management.selling.get
-// @Summary      Get all selling products in that shop
-// @Description  Get all selling products in that shop
+// ProductManagementSoldHandler
+// @ID           me.product_management.sold.get
+// @Summary      Get all sold products in that shop
+// @Description  Get all sold products in that shop
 // @Tags         me_product_management
 // @Accept       json
 // @Produce      json
 // @Success      200  {object}  product_management.product
 // @Failure      400  {object}  responder.ErrorResponse
-// @Router       /me/management/selling/ [get]
-func ProductManagementSellingHandler(c *fiber.Ctx) error {
+// @Router       /me/management/sold/ [get]
+func ProductManagementSoldHandler(c *fiber.Ctx) error {
 	// * Parse user JWT token
 	token := c.Locals("user").(*jwt.Token)
 	claims := token.Claims.(*jwt_claim.UserClaim)
@@ -29,7 +29,7 @@ func ProductManagementSellingHandler(c *fiber.Ctx) error {
 	var productsData []*product
 
 	// * Search products that are selling
-	if result := database.Gorm.Preload("Picture").Find(&products, "seller_id = ? AND status = ?", claims.SellerId, enum.Selling); result.RowsAffected != 0 {
+	if result := database.Gorm.Preload("Picture").Find(&products, "seller_id = ? AND status = ?", claims.SellerId, enum.Sold); result.RowsAffected != 0 {
 		for _, productMap := range products {
 			tempProduct := &product{
 				Id:         productMap.Id,
@@ -42,7 +42,7 @@ func ProductManagementSellingHandler(c *fiber.Ctx) error {
 		}
 	} else {
 		return &responder.GenericError{
-			Message: "This shop has no products are selling",
+			Message: "This shop has no sold product",
 			Err:     result.Error,
 		}
 	}
