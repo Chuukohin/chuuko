@@ -1,8 +1,4 @@
-import 'package:chuukohin/types/widget/placement.dart';
-import 'package:chuukohin/widgets/button.dart';
-import 'package:chuukohin/widgets/typography/header_text.dart';
 import 'package:flutter/material.dart';
-import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/widgets/me/textform.dart';
 
 class CardScreen extends StatefulWidget {
@@ -27,7 +23,7 @@ class _LoginScreenState extends State<CardScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text('Card'),
+          title: const Text('Card'),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -35,54 +31,50 @@ class _LoginScreenState extends State<CardScreen> {
                 const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 20),
             child: Column(
               children: [
-                Container(
-                    child: Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                             title: 'Card holder name',
                             subtitle: 'Fullname in your credit card')),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                           title: 'Card No.',
                           subtitle: 'Card No.',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                           title: 'MM/YY',
                           subtitle: 'Expire date',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 300),
-                        child: TextForm(
+                        child: const TextForm(
                           title: 'CVC',
                           subtitle: 'CVC',
                         )),
                   ],
-                )),
-                Container(
+                ),
+                SizedBox(
                   width: 300,
                   height: 50,
                   child: ElevatedButton(

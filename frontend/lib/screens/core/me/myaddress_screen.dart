@@ -27,7 +27,7 @@ class _LoginScreenState extends State<MyAddressScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text('My adress'),
+          title: const Text('My adress'),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -62,8 +62,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 5),
-                    child: Text(
+                    margin: const EdgeInsets.only(bottom: 5),
+                    child: const Text(
                       'My Address',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
