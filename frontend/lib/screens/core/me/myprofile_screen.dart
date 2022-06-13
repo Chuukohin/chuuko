@@ -43,11 +43,8 @@ class _LoginScreenState extends State<MyProfileScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           title: 'Firstname',
+                          subtitle: 'Firstname ',
                         )),
-                    const Text(
-                      'Firstname ',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
                   ],
                 )),
                 Container(
@@ -58,11 +55,8 @@ class _LoginScreenState extends State<MyProfileScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           title: 'Lastname',
+                          subtitle: 'Lastname ',
                         )),
-                    const Text(
-                      'Lastname ',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
                   ],
                 )),
                 Container(
@@ -73,11 +67,8 @@ class _LoginScreenState extends State<MyProfileScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           title: 'email@gmail.com',
+                          subtitle: 'Email',
                         )),
-                    const Text(
-                      'Email',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
                   ],
                 )),
                 Container(
@@ -88,11 +79,8 @@ class _LoginScreenState extends State<MyProfileScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           title: '1234',
+                          subtitle: 'Password',
                         )),
-                    const Text(
-                      'Password',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
                   ],
                 )),
                 Container(
@@ -100,16 +88,11 @@ class _LoginScreenState extends State<MyProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(title: '1234')),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 230),
-                      child: const Text(
-                        'Confirm password',
-                        style:
-                            TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                      ),
-                    )
+                        margin: const EdgeInsets.only(bottom: 230),
+                        child: TextForm(
+                          title: '1234',
+                          subtitle: 'Confirm password',
+                        )),
                   ],
                 )),
                 Container(

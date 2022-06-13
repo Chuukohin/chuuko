@@ -42,12 +42,8 @@ class _LoginScreenState extends State<CardScreen> {
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
-                          title: 'Card holder name',
-                        )),
-                    const Text(
-                      'Fullname in your credit card',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
+                            title: 'Card holder name',
+                            subtitle: 'Fullname in your credit card')),
                   ],
                 )),
                 Container(
@@ -58,11 +54,8 @@ class _LoginScreenState extends State<CardScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           title: 'Card No.',
+                          subtitle: 'Card No.',
                         )),
-                    const Text(
-                      'Card No.',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
                   ],
                 )),
                 Container(
@@ -73,11 +66,8 @@ class _LoginScreenState extends State<CardScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           title: 'MM/YY',
+                          subtitle: 'Expire date',
                         )),
-                    const Text(
-                      'Expire date',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
                   ],
                 )),
                 Container(
@@ -85,16 +75,11 @@ class _LoginScreenState extends State<CardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(title: 'CVC')),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 300),
-                      child: const Text(
-                        'CVC',
-                        style:
-                            TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                      ),
-                    )
+                        margin: const EdgeInsets.only(bottom: 300),
+                        child: TextForm(
+                          title: 'CVC',
+                          subtitle: 'CVC',
+                        )),
                   ],
                 )),
                 Container(
