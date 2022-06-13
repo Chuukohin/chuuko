@@ -9,6 +9,7 @@ import (
 	"chuukohin/endpoints/me/card"
 	"chuukohin/endpoints/me/my_shop"
 	"chuukohin/endpoints/me/password"
+	"chuukohin/endpoints/me/product_management"
 	"chuukohin/endpoints/me/profile"
 	"chuukohin/endpoints/product"
 	"chuukohin/frameworks/fiber/middlewares"
@@ -57,4 +58,7 @@ func Router(router fiber.Router) {
 
 	// Me my shop
 	meRouter.Get("/myshop/info/:shop_id", my_shop.MyShopGetHandler)
+
+	// Me Product management
+	meRouter.Get("/management/selling/", product_management.ProductManagementSellingHandler)
 }

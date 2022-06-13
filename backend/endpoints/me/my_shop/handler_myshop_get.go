@@ -16,7 +16,7 @@ import (
 // @Produce      json
 // @Success      200  {object}  my_shop.myShopGetResponse
 // @Failure      400  {object}  responder.ErrorResponse
-// @Router       /me/myshop/info/{shop_id} [patch]
+// @Router       /me/myshop/info/{shop_id} [get]
 func MyShopGetHandler(c *fiber.Ctx) error {
 	// * Get param
 	shopId := c.Params("shop_id")
@@ -37,6 +37,7 @@ func MyShopGetHandler(c *fiber.Ctx) error {
 	if result := database.Gorm.Preload("Picture").Find(&products, "seller_id = ?", shopId); result.RowsAffected != 0 {
 		for _, productMap := range products {
 			tempProduct := &product{
+				Id:         productMap.Id,
 				Name:       productMap.Name,
 				Price:      productMap.Price,
 				Brand:      productMap.Brand,
