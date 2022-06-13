@@ -7,6 +7,7 @@ import (
 	"chuukohin/endpoints/admin"
 	"chuukohin/endpoints/me/address"
 	"chuukohin/endpoints/me/card"
+	"chuukohin/endpoints/me/my_shop"
 	"chuukohin/endpoints/me/password"
 	"chuukohin/endpoints/me/profile"
 	"chuukohin/endpoints/product"
@@ -53,4 +54,7 @@ func Router(router fiber.Router) {
 	meRouter.Post("/card/add", card.CardPostHandler)
 	meRouter.Get("/card/info", card.CardGetHandler)
 	meRouter.Post("/card/edit", card.CardPatchHandler)
+
+	// Me my shop
+	meRouter.Get("/myshop/info/:shop_id", my_shop.MyShopGetHandler)
 }
