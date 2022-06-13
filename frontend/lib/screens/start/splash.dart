@@ -1,4 +1,4 @@
-import 'package:chuukohin/screens/test_screen.dart';
+import 'package:chuukohin/screens/start/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -16,13 +16,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AnimatedSplashScreen(
-      backgroundColor: const Color(0xffFFFBED),
-      splash: 'assets/images/logo.png',
-      nextScreen: const TestScreen(),
-      splashIconSize: 200,
-      pageTransitionType: PageTransitionType.fade,
-      duration: 1500,
-    ));
+      body: AnimatedSplashScreen(
+        splash: 'assets/images/logo.png',
+        nextScreen: const WelcomeScreen(),
+        splashIconSize: 100,
+        pageTransitionType: PageTransitionType.fade,
+        duration: 1500,
+      ),
+    );
   }
 }

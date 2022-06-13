@@ -1,10 +1,10 @@
 package login
 
-type request struct {
-	Email    *string `json:"email"`
-	Password *string `json:"password"`
+type loginRequest struct {
+	Email    *string `json:"email" validate:"required,email"`
+	Password *string `json:"password" validate:"required"`
 }
 
-type response struct {
+type loginResponse struct {
 	Token string `json:"token"`
 }

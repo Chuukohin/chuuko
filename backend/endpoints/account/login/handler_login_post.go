@@ -5,6 +5,7 @@ import (
 	"chuukohin/models"
 	"chuukohin/types/fiber/jwt_claim"
 	"chuukohin/types/responder"
+	"chuukohin/utils/check"
 	"chuukohin/utils/crypto"
 	"chuukohin/utils/header"
 	"github.com/gofiber/fiber/v2"
@@ -17,22 +18,23 @@ import (
 // @Tags         account
 // @Accept       json
 // @Produce      json
-// @Param        payload  body      request  true  "login.request"
-// @Success      200      {object}  response
+// @Param        payload  body      login.loginRequest  true  "login.loginRequest"
+// @Success      200      {object}  login.loginResponse
 // @Failure      400      {object}  responder.ErrorResponse
 // @Router       /account/login [post]
 func PostHandler(c *fiber.Ctx) error {
-	// * Parse JWT
-	//user := c.Locals("user").(*jwt.Token)
-	//claims := user.Claims.(*jwt_claim.UserClaim)
-
 	// * Parse Body
-	body := new(request)
+	body := new(loginRequest)
 	if err := c.BodyParser(&body); err != nil {
 		return &responder.GenericError{
 			Message: "Unable to parse body",
 			Err:     err,
 		}
+	}
+
+	// * Validate body
+	if err := check.Validator.Struct(body); err != nil {
+		return err
 	}
 
 	// * Get User
@@ -56,16 +58,22 @@ func PostHandler(c *fiber.Ctx) error {
 		UserId: user.Id,
 	}
 
+	// * Check Seller
+	var shop *models.Shop
+	if result := database.Gorm.First(&shop, "user_id = ?", user.Id); result.RowsAffected != 0 {
+		claims.SellerId = shop.Id
+	} else {
+		sellerId := uint64(0)
+		claims.SellerId = &sellerId
+	}
+
 	// * Sign JWT
 	token, err := header.SignJwt(claims)
 	if err != nil {
 		return nil
 	}
 
-	return c.JSON(&responder.InfoResponse{
-		Success: true,
-		Data: &response{
-			Token: token,
-		},
-	})
+	return c.JSON(responder.NewInfoResponse(&loginResponse{
+		Token: token,
+	}))
 }

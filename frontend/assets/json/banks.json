@@ -1,0 +1,137 @@
+[
+    {
+        "id": 1,
+        "bank_name": "Krungthai Bank",
+        "value": "KTB"
+    },
+    {
+        "id": 2,
+        "bank_name": "Kasikorn bank",
+        "value": "KBANK"
+    },
+    {
+        "id": 3,
+        "bank_name": "Siam Commercial Bank",
+        "value": "SCB"
+    },
+    {
+        "id": 4,
+        "bank_name": "Bangkok Bank",
+        "value": "BBL"
+    },
+    {
+        "id": 5,
+        "bank_name": "Government Savings Bank",
+        "value": "GSB"
+    },
+    {
+        "id": 6,
+        "bank_name": "TMB Thanachart Bank",
+        "value": "TTB"
+    },
+    {
+        "id": 7,
+        "bank_name": "Bank of Ayudhya",
+        "value": "BAY"
+    },
+    {
+        "id": 8,
+        "bank_name": "Bank for Agriculture and Agricultural Cooperatives",
+        "value": "BAAC"
+    },
+    {
+        "id": 9,
+        "bank_name": "United Overseas Bank",
+        "value": "UOBT"
+    },
+    {
+        "id": 10,
+        "bank_name": "BNP Paribas",
+        "value": "BNPP"
+    },
+    {
+        "id": 11,
+        "bank_name": "Government Housing Bank",
+        "value": "GHB"
+    },
+    {
+        "id": 12,
+        "bank_name": "CIMB THAI",
+        "value": "CIMBT"
+    },
+    {
+        "id": 13,
+        "bank_name": "LH Bank",
+        "value": "LHB"
+    },
+    {
+        "id": 14,
+        "bank_name": "Kiatnakin Phatra Bank",
+        "value": "KKP"
+    },
+    {
+        "id": 15,
+        "bank_name": "Tisco Bank",
+        "value": "TISCO"
+    },
+    {
+        "id": 16,
+        "bank_name": "Islamic Bank of Thailand",
+        "value": "ISBT"
+    },
+    {
+        "id": 17,
+        "bank_name": "Industrial and Commercial Bank of China",
+        "value": "ICBC"
+    },
+    {
+        "id": 18,
+        "bank_name": "The Thai Credit Retail Bank",
+        "value": "TCR"
+    },
+    {
+        "id": 19,
+        "bank_name": "Citibank",
+        "value": "CITI"
+    },
+    {
+        "id": 20,
+        "bank_name": " Hongkong and Shanghai Banking Corporation",
+        "value": "HSBC"
+    },
+    {
+        "id": 21,
+        "bank_name": "Standard Chartered Bank of Thailand",
+        "value": "SCBT"
+    },
+    {
+        "id": 22,
+        "bank_name": "Sumitomo Mitsui Banking Corporation",
+        "value": "SMBC"
+    },
+    {
+        "id": 23,
+        "bank_name": "Mizuho Bank",
+        "value": "MIZUHO"
+    },
+    {
+        "id": 24,
+        "bank_name": "Deutsche Bank",
+        "value": "DB"
+    },
+    {
+        "id": 25,
+        "bank_name": " Australia and New Zealand Banking",
+        "value": "ANZ"
+    },
+    {
+        "id": 26,
+        "bank_name": "Bank of China",
+        "value": "BOC"
+    },
+    {
+        "id": 27,
+        "bank_name": "Indian Overseas Bank",
+        "value": "IOBA"
+    }
+]

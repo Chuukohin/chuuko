@@ -69,13 +69,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_image_slideshow:
-    dependency: "direct main"
-    description:
-      name: flutter_image_slideshow
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -88,20 +81,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  font_awesome_flutter:
+  google_nav_bar:
     dependency: "direct main"
     description:
-      name: font_awesome_flutter
+      name: google_nav_bar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.12.0"
-  intl:
-    dependency: "direct main"
-    description:
-      name: intl
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.16.1"
+    version: "5.0.6"
   lints:
     dependency: transitive
     description:

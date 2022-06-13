@@ -6,6 +6,10 @@
 
 # local
 /local
+/static
+
+# data
+/data/mock_products
 
 # Swagger generates
 frameworks/swagger/*

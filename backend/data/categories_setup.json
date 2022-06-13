@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Men",
+    "icon": "assets/images/categories/suit-icon.png",
+    "id": 11,
+    "pic_url": "https://storage.googleapis.com/chuukohin/categories/suit-icon.png"
+  },
+  {
+    "name": "Women",
+    "icon": "assets/images/categories/skirt-icon.png",
+    "id": 12,
+    "pic_url": "https://storage.googleapis.com/chuukohin/categories/skirt-icon.png"
+  },
+  {
+    "name": "Tops",
+    "icon": "assets/images/categories/t-shirt-icon.png",
+    "id": 13,
+    "pic_url": "https://storage.googleapis.com/chuukohin/categories/t-shirt-icon.png"
+  },
+  {
+    "name": "Bottoms",
+    "icon": "assets/images/categories/bottom-icon.png",
+    "id": 14,
+    "pic_url": "https://storage.googleapis.com/chuukohin/categories/bottom-icon.png"
+  },
+  {
+    "name": "Shoes",
+    "icon": "assets/images/categories/shoe-icon.png",
+    "id": 15,
+    "pic_url": "https://storage.googleapis.com/chuukohin/categories/shoe-icon.png"
+  },
+  {
+    "name": "Innerwear",
+    "icon": "assets/images/categories/innerwear-icon.png",
+    "id": 16,
+    "pic_url": "https://storage.googleapis.com/chuukohin/categories/innerwear-icon.png"
+  },
+  {
+    "name": "Sport",
+    "icon": "assets/images/categories/sport-icon.png",
+    "id": 17,
+    "pic_url": "https://storage.googleapis.com/chuukohin/categories/sport-icon.png"
+  },
+  {
+    "name": "Accessories",
+    "icon": "assets/images/categories/accessories-icon.png",
+    "id": 18,
+    "pic_url": "https://storage.googleapis.com/chuukohin/categories/accessories-icon.png"
+  }
+]

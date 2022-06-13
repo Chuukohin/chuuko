@@ -27,15 +27,13 @@ func Init() {
 			&models.Picture{},
 			&models.User{},
 			&models.Address{},
-			&models.Seller{},
+			&models.Shop{},
 			&models.BankAccount{},
 			&models.Card{},
 			&models.Category{},
 			&models.Product{},
-			&models.Favorite{},
 			&models.Order{},
 			&models.OrderDetail{},
-			&models.Cart{},
 		)
 		if err != nil {
 			log.Fatal("Unable to migrate database", err)

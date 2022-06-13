@@ -34,10 +34,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   niku: 2.2.0
-  intl: ^0.16.1
-  font_awesome_flutter: ^8.11.0
-  flutter_image_slideshow: any
   animated_splash_screen: ^1.2.0
+  google_nav_bar: ^5.0.6
 
 dev_dependencies:
   flutter_test:
@@ -50,7 +48,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
 
-# For information on the generic Dart part of this file, see the
+# For information on the generic Dart par4t of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
@@ -62,7 +60,21 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/json/category.json
     - assets/images/logo.png
+    - assets/images/welcome.png
+    - assets/images/categories/t-shirt-icon.png
+    - assets/images/categories/bottom-icon.png
+    - assets/images/categories/suit-icon.png
+    - assets/images/categories/skirt-icon.png
+    - assets/images/categories/shoe-icon.png
+    - assets/images/categories/accessories-icon.png
+    - assets/images/categories/innerwear-icon.png
+    - assets/images/categories/sport-icon.png
+    - assets/images/login-pic.jpg
+    - assets/images/shirt.png
+    - assets/images/pic1.jpg
+    - assets/images/shop-bg.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

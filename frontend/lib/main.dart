@@ -1,6 +1,5 @@
-import 'package:chuukohin/constant/color.dart';
-import 'package:chuukohin/screens/start/splash.dart';
-import 'package:chuukohin/screens/start/welcome.dart';
+import 'package:chuukohin/constant/route.dart';
+import 'package:chuukohin/constant/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,18 +14,9 @@ class Chuuko extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Chuuko',
-      theme: ThemeData(
-        primaryColor: ThemeConstant.primaryColor,
-        primarySwatch: ThemeConstant.materialColorSwatch,
-        appBarTheme: const AppBarTheme(
-            backgroundColor: Color(0xffF9F9F9), foregroundColor: Colors.black),
-      ),
-      routes: {
-        '/': (_) => const SplashScreen(),
-        '/welcome': (_) => const WelcomeScreen(),
-      },
-      initialRoute: "/",
+      theme: ThemeConstant.theme,
+      routes: RouteConstant.route(),
+      initialRoute: "/home",
     );
   }
 }
-//0xffB89476

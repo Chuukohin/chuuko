@@ -19,14 +19,13 @@ import (
 // @Tags         account
 // @Accept       json
 // @Produce      json
-// @Param        payload  body      request  true  "register.request"
-// @Success      200      {object}  response
+// @Param        payload  body      registerRequest  true  "register.registerRequest"
+// @Success      200      {object}  register.registerResponse
 // @Failure      400      {object}  responder.ErrorResponse
 // @Router       /account/register [post]
 func PostHandler(c *fiber.Ctx) error {
-
 	// * Parse Body
-	body := new(request)
+	body := new(registerRequest)
 	if err := c.BodyParser(&body); err != nil {
 		return &responder.GenericError{
 			Message: "Unable to parse body",
@@ -94,10 +93,7 @@ func PostHandler(c *fiber.Ctx) error {
 		return nil
 	}
 
-	return c.JSON(&responder.InfoResponse{
-		Success: true,
-		Data: &response{
-			Token: token,
-		},
-	})
+	return c.JSON(responder.NewInfoResponse(&registerResponse{
+		Token: token,
+	}))
 }

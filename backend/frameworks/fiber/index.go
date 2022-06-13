@@ -6,6 +6,7 @@ import (
 	"chuukohin/frameworks/swagger"
 	"chuukohin/types/responder"
 	"github.com/gofiber/fiber/v2"
+	"log"
 	"time"
 )
 
@@ -38,12 +39,15 @@ func Init() {
 
 	apiGroup.Use(middlewares.Cors())
 
+	// * Register static server
+	app.Static("static/", "./static")
+
 	endpoints.Router(apiGroup)
 
 	app.Use(notFound)
 
 	err := app.Listen(":8080")
 	if err != nil {
-		return
+		log.Fatal(err.Error())
 	}
 }
