@@ -1,7 +1,6 @@
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/widgets/button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class CreateProductScreen extends StatefulWidget {
   const CreateProductScreen({Key? key}) : super(key: key);

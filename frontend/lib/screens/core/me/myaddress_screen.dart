@@ -27,7 +27,7 @@ class _LoginScreenState extends State<MyAddressScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text('My adress'),
+          title: const Text('My adress'),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -43,11 +43,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           title: 'Firstname - Lastname',
+                          subtitle: 'Fullname',
                         )),
-                    const Text(
-                      'Fullname',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
                   ],
                 )),
                 Container(
@@ -55,25 +52,18 @@ class _LoginScreenState extends State<MyAddressScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        margin: const EdgeInsets.only(bottom: 5),
+                        margin: const EdgeInsets.only(bottom: 25),
                         child: TextForm(
                           title: '082-000-0000',
+                          subtitle: 'Phone number',
                         )),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 25),
-                      child: const Text(
-                        'Phone number',
-                        style:
-                            TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                      ),
-                    )
                   ],
                 )),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 5),
-                    child: Text(
+                    margin: const EdgeInsets.only(bottom: 5),
+                    child: const Text(
                       'My Address',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -88,11 +78,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           title: 'Phracha uthit',
+                          subtitle: 'Street',
                         )),
-                    const Text(
-                      'Street',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
                   ],
                 )),
                 Container(
@@ -103,11 +90,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           title: 'Bangkok',
+                          subtitle: 'Province',
                         )),
-                    const Text(
-                      'Province',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
                   ],
                 )),
                 Container(
@@ -118,11 +102,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           title: 'Thung Kru',
+                          subtitle: 'District',
                         )),
-                    const Text(
-                      'District',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
                   ],
                 )),
                 Container(
@@ -133,11 +114,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           title: 'Bangmod',
+                          subtitle: 'Sub-District',
                         )),
-                    const Text(
-                      'Sub-District',
-                      style: TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                    )
                   ],
                 )),
                 Container(
@@ -145,16 +123,11 @@ class _LoginScreenState extends State<MyAddressScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(title: '10140')),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 40),
-                      child: const Text(
-                        'Postal Code',
-                        style:
-                            TextStyle(color: Color(0xffC1C1C1), fontSize: 13),
-                      ),
-                    )
+                        margin: const EdgeInsets.only(bottom: 40),
+                        child: TextForm(
+                          title: '10140',
+                          subtitle: 'Postal Code',
+                        )),
                   ],
                 )),
                 Container(
