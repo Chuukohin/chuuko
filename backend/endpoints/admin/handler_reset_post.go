@@ -243,6 +243,26 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	cardName := "Kokomi Sangonomiya"
+	cardNo := "1234567890"
+	cardMonthExpire := "02"
+	cardYearExpire := "2024"
+
+	card := &models.Card{
+		Name:        &cardName,
+		CardNo:      &cardNo,
+		UserId:      &beginningId,
+		MonthExpire: &cardMonthExpire,
+		YearExpire:  &cardYearExpire,
+	}
+
+	if result := database.Gorm.Create(&card); result.Error != nil {
+		return &responder.GenericError{
+			Message: "Unable to create card",
+			Err:     result.Error,
+		}
+	}
+
 	// * Open jsonFile
 	jsonFile, err := os.Open("./data/categories_setup.json")
 	if err != nil {
@@ -305,6 +325,7 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 	}
 
 	if result := database.Gorm.Raw("ALTER SEQUENCE bank_accounts_id_seq RESTART WITH 2").Row(); result.Err() != nil {
+		println("Error?")
 		return &responder.GenericError{
 			Message: "Unable set the sequence of bank_account's AUTO_INCREMENT",
 			Err:     err,
