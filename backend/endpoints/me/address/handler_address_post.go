@@ -44,7 +44,6 @@ func AddressPostHandler(c *fiber.Ctx) error {
 	}
 
 	address := &models.Address{
-		UserId:       claims.UserId,
 		Name:         body.Name,
 		Phone:        body.Phone,
 		AddressLine1: body.AddressLine1,
@@ -59,6 +58,14 @@ func AddressPostHandler(c *fiber.Ctx) error {
 	if result := database.Gorm.Create(&address); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to add the address",
+			Err:     result.Error,
+		}
+	}
+
+	// * Update user address
+	if result := database.Gorm.Model(new(models.User)).Where("id = ?", claims.UserId).Update("address_id", address.Id); result.Error != nil {
+		return &responder.GenericError{
+			Message: "Unable to update user address",
 			Err:     result.Error,
 		}
 	}

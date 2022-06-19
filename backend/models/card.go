@@ -7,5 +7,5 @@ type Card struct {
 	Name        *string `gorm:"type:VARCHAR(255); not null"`
 	CardNo      *string `gorm:"type:VARCHAR(255); not null"`
 	MonthExpire *string `gorm:"type:VARCHAR(2); not null"`
-	YearExpire  *string `gorm:"type:VARCHAR(2); not null"`
+	YearExpire  *string `gorm:"type:VARCHAR(4); not null"`
 }

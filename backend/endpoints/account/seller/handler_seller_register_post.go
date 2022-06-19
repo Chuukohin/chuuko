@@ -45,7 +45,6 @@ func SellerRegisterPostHandler(c *fiber.Ctx) error {
 	}
 
 	address := &models.Address{
-		UserId:       claims.UserId,
 		Name:         &body.ShopName,
 		Phone:        &body.Phone,
 		AddressLine1: &body.AddressLine1,
