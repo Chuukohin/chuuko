@@ -13,10 +13,27 @@ import (
 	"chuukohin/endpoints/me/profile"
 	"chuukohin/endpoints/product"
 	"chuukohin/frameworks/fiber/middlewares"
+	"chuukohin/handler"
+	"chuukohin/repository"
+	"chuukohin/services"
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
-func Router(router fiber.Router) {
+func Router(router fiber.Router, db *gorm.DB) {
+	userRepository := repository.NewUserRepository(db)
+	shopRepository := repository.NewShopRepository(db)
+	userService := services.NewUserService(userRepository, shopRepository)
+	userHandler := handler.NewUserHandler(userService)
+
+	// * Account 2
+	account2 := router.Group("account2/")
+	account2.Post("/login", userHandler.Login)
+	account2.Post("/register", userHandler.Register)
+
+	// -------------------------------------------------------------------------
+
+	// * Account
 	account := router.Group("account/")
 	account.Post("/login", login.PostHandler)
 	account.Post("/register", register.PostHandler)

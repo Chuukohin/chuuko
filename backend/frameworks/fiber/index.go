@@ -6,13 +6,14 @@ import (
 	"chuukohin/frameworks/swagger"
 	"chuukohin/types/responder"
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 	"log"
 	"time"
 )
 
 var app *fiber.App
 
-func Init() {
+func Init(db *gorm.DB) {
 	app = fiber.New(fiber.Config{
 		CaseSensitive: true,
 		AppName:       "Chuukohin API",
@@ -42,7 +43,7 @@ func Init() {
 	// * Register static server
 	app.Static("static/", "./static")
 
-	endpoints.Router(apiGroup)
+	endpoints.Router(apiGroup, db)
 
 	app.Use(notFound)
 
