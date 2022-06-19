@@ -11,6 +11,7 @@ import (
 	"chuukohin/endpoints/me/password"
 	"chuukohin/endpoints/me/product_management"
 	"chuukohin/endpoints/me/profile"
+	"chuukohin/endpoints/order"
 	"chuukohin/endpoints/product"
 	"chuukohin/frameworks/fiber/middlewares"
 	"github.com/gofiber/fiber/v2"
@@ -64,4 +65,6 @@ func Router(router fiber.Router) {
 	meRouter.Get("/management/sold/", product_management.ProductManagementSoldHandler)
 
 	// Order
+	orderRouter := router.Group("/order", middlewares.Jwt)
+	orderRouter.Get("/info", order.OrderUserDetailHandler)
 }
