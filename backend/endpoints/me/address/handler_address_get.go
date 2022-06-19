@@ -24,32 +24,23 @@ func AddressGetHandler(c *fiber.Ctx) error {
 	token := c.Locals("user").(*jwt.Token)
 	claims := token.Claims.(*jwt_claim.UserClaim)
 
-	// * Find address_id in user
+	// * Find the address
 	var user *models.User
-	if result := database.Gorm.First(&user, "id = ?", claims.UserId); result.Error != nil {
+	if result := database.Gorm.Preload("Address").First(&user, "id = ?", claims.UserId); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to find the user",
 			Err:     result.Error,
 		}
 	}
 
-	// * Find the address
-	var address *models.Address
-	if result := database.Gorm.First(&address, "id = ?", user.AddressId); result.Error != nil {
-		return &responder.GenericError{
-			Message: "Unable to find the address",
-			Err:     result.Error,
-		}
-	}
-
 	return c.JSON(responder.NewInfoResponse(&addressGetResponse{
-		Name:         address.Name,
-		Phone:        address.Phone,
-		AddressLine1: address.AddressLine1,
-		AddressLine2: address.AddressLine2,
-		Province:     address.Province,
-		District:     address.District,
-		SubDistrict:  address.SubDistrict,
-		PostalCode:   address.PostalCode,
+		Name:         user.Address.Name,
+		Phone:        user.Address.Phone,
+		AddressLine1: user.Address.AddressLine1,
+		AddressLine2: user.Address.AddressLine2,
+		Province:     user.Address.Province,
+		District:     user.Address.District,
+		SubDistrict:  user.Address.SubDistrict,
+		PostalCode:   user.Address.PostalCode,
 	}))
 }
