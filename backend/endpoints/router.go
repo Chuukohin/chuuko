@@ -66,5 +66,5 @@ func Router(router fiber.Router) {
 
 	// Order
 	orderRouter := router.Group("/order", middlewares.Jwt)
-	orderRouter.Get("/info", order.OrderUserDetailHandler)
+	orderRouter.Get("/info/:product_id", order.OrderUserDetailHandler)
 }

@@ -7,6 +7,7 @@ import (
 	"chuukohin/types/responder"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
+	"strconv"
 )
 
 // OrderUserDetailHandler
@@ -18,11 +19,14 @@ import (
 // @Produce      json
 // @Success      200  {object}  order.orderUserDetailResponse
 // @Failure      400  {object}  responder.ErrorResponse
-// @Router       /order/info [get]
+// @Router       /order/info/{product_id} [get]
 func OrderUserDetailHandler(c *fiber.Ctx) error {
 	// * Parse user JWT token
 	token := c.Locals("user").(*jwt.Token)
 	claims := token.Claims.(*jwt_claim.UserClaim)
+
+	// * Query
+	productId, _ := strconv.ParseUint(c.Params("product_id"), 10, 64)
 
 	// * Fetch card detail
 	var cardDetail *models.Card
@@ -35,33 +39,33 @@ func OrderUserDetailHandler(c *fiber.Ctx) error {
 
 	// * Find address_id in user
 	var user *models.User
-	if result := database.Gorm.First(&user, "id = ?", claims.UserId); result.Error != nil {
+	if result := database.Gorm.Preload("Address").First(&user, "id = ?", claims.UserId); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to find the user",
 			Err:     result.Error,
 		}
 	}
 
-	// * Fetch user address
-	var addressDetail *models.Address
-	if result := database.Gorm.First(&addressDetail, "id = ?", user.AddressId); result.Error != nil {
+	// * Fetch the product
+	var productDetail *models.Product
+	if result := database.Gorm.Preload("Picture").First(&productDetail, "id = ?", &productId); result.Error != nil {
 		return &responder.GenericError{
-			Message: "Please add your credit/debit card to pay",
+			Message: "Unable to find the product",
 			Err:     result.Error,
 		}
 	}
 
 	return c.JSON(responder.NewInfoResponse(&orderUserDetailResponse{
 		Address: &address{
-			Id:           addressDetail.Id,
-			Name:         addressDetail.Name,
-			Phone:        addressDetail.Phone,
-			AddressLine1: addressDetail.AddressLine1,
-			AddressLine2: addressDetail.AddressLine2,
-			Province:     addressDetail.Province,
-			District:     addressDetail.District,
-			SubDistrict:  addressDetail.SubDistrict,
-			PostalCode:   addressDetail.PostalCode,
+			Id:           user.Address.Id,
+			Name:         user.Address.Name,
+			Phone:        user.Address.Phone,
+			AddressLine1: user.Address.AddressLine1,
+			AddressLine2: user.Address.AddressLine2,
+			Province:     user.Address.Province,
+			District:     user.Address.District,
+			SubDistrict:  user.Address.SubDistrict,
+			PostalCode:   user.Address.PostalCode,
 		},
 		Card: &card{
 			Id:          cardDetail.Id,
@@ -69,6 +73,13 @@ func OrderUserDetailHandler(c *fiber.Ctx) error {
 			CardNo:      cardDetail.CardNo,
 			MonthExpire: cardDetail.MonthExpire,
 			YearExpire:  cardDetail.YearExpire,
+		},
+		Product: &product{
+			Id:         productDetail.Id,
+			Name:       productDetail.Name,
+			Price:      productDetail.Price,
+			Brand:      productDetail.Brand,
+			PictureUrl: productDetail.Picture.PictureUrl,
 		},
 	}))
 }

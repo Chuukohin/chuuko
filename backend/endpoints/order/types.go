@@ -3,6 +3,7 @@ package order
 type orderUserDetailResponse struct {
 	Address *address `json:"address"`
 	Card    *card    `json:"card"`
+	Product *product `json:"product"`
 }
 
 type address struct {
@@ -23,4 +24,12 @@ type card struct {
 	CardNo      *string `json:"card_no"`
 	MonthExpire *string `json:"month_expire"`
 	YearExpire  *string `json:"year_expire"`
+}
+
+type product struct {
+	Id         *uint64 `json:"id"`
+	Name       *string `json:"name"`
+	Price      *uint64 `json:"price"`
+	Brand      *string `json:"brand"`
+	PictureUrl *string `json:"picture_url"`
 }
