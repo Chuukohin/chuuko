@@ -6,6 +6,10 @@ type orderUserDetailResponse struct {
 	Product *product `json:"product"`
 }
 
+type orderCreate struct {
+	ProductId *uint64 `json:"product_id" validate:"required"`
+}
+
 type address struct {
 	Id           *uint64 `json:"id"`
 	Name         *string `json:"name"`
