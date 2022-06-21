@@ -29,7 +29,9 @@ class _TextFiledState extends State<TextForm> {
           suffixIcon: IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () {
-              _isRead = !_isRead;
+              setState(() {
+                _isRead = !_isRead;
+              });
             },
           )),
     );
