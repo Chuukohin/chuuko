@@ -9,6 +9,7 @@ class ThemeConstant {
   static Color dividerColor = const Color(0xffC1C1C1);
   static Color logOutBtnColor = const Color(0xffFF3838);
   static Color profileTextColor = const Color(0xff434343);
+  static Color orderTextColor = const Color(0xff727272);
 
   static MaterialColor materialColorSwatch =
       color.createMaterialColor(primaryColor);

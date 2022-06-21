@@ -15,7 +15,7 @@ class MeScreen extends StatefulWidget {
 class _MeScreenState extends State<MeScreen> {
   final List<Map<String, dynamic>> accountDetail = [
     {"name": "My Profile", "path": "/profile"},
-    {"name": "Order Status", "path": "/"},
+    {"name": "Order Status", "path": "/profile/order/status"},
     {"name": "My Address", "path": "/profile/address"},
     {"name": "My Card", "path": "/profile/card"},
   ];
@@ -69,7 +69,7 @@ class _MeScreenState extends State<MeScreen> {
                             Container(
                               width: screenWidth * 0.5,
                               margin: const EdgeInsets.only(bottom: 4),
-                              child: n.Text("Sangonomiya Kokomi")
+                              child: n.Text("Sangonomiya Kokomi ")
                                 ..fontWeight = FontWeight.bold
                                 ..color = ThemeConstant.secondaryColor
                                 ..overflow = TextOverflow.ellipsis,

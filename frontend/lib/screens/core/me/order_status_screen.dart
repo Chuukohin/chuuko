@@ -1,19 +1,19 @@
 import 'package:chuukohin/constant/theme.dart';
-import 'package:chuukohin/screens/core/seller/order_report/order_report_detail.dart';
 import 'package:chuukohin/screens/core/seller/order_report/order_detail.dart';
+import 'package:chuukohin/screens/core/seller/order_report/order_report_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:niku/namespace.dart' as n;
 
-class OrderReportScreen extends StatefulWidget {
-  const OrderReportScreen({Key? key}) : super(key: key);
+class OrderStatusScreen extends StatefulWidget {
+  const OrderStatusScreen({Key? key}) : super(key: key);
 
   @override
-  State<OrderReportScreen> createState() => _OrderReportScreenState();
+  State<OrderStatusScreen> createState() => _OrderStatusScreenState();
 }
 
-class _OrderReportScreenState extends State<OrderReportScreen> {
+class _OrderStatusScreenState extends State<OrderStatusScreen> {
   int _currentIndex = 0;
 
   @override
@@ -21,7 +21,7 @@ class _OrderReportScreenState extends State<OrderReportScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: n.Text('Order Report'),
+        title: n.Text('Order Status'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -78,18 +78,18 @@ class _OrderReportScreenState extends State<OrderReportScreen> {
               activeColor: ThemeConstant.primaryColor,
               iconSize: 26,
               tabBorderRadius: 15,
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
               duration: const Duration(milliseconds: 200),
               tabBackgroundColor: Colors.white,
               color: const Color(0xffDADADA),
               tabs: const [
                 GButton(
                   icon: Icons.local_shipping_rounded,
-                  text: 'Sending',
+                  text: 'To receive',
                 ),
                 GButton(
                   icon: CupertinoIcons.cube_box_fill,
-                  text: 'Sent',
+                  text: 'Received',
                 ),
               ],
               onTabChange: (index) {

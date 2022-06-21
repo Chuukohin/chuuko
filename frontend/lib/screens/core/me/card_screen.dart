@@ -56,11 +56,12 @@ class _LoginScreenState extends State<CardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
-                          title: 'MM/YY',
-                          subtitle: 'Expire date',
-                        )),
+                      margin: const EdgeInsets.only(bottom: 5),
+                      child: const TextForm(
+                        title: 'MM/YY',
+                        subtitle: 'Expire date',
+                      ),
+                    ),
                   ],
                 ),
                 Column(

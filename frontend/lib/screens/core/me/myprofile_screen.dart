@@ -1,8 +1,4 @@
-import 'package:chuukohin/types/widget/placement.dart';
-import 'package:chuukohin/widgets/button.dart';
-import 'package:chuukohin/widgets/typography/header_text.dart';
 import 'package:flutter/material.dart';
-import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/widgets/me/textform.dart';
 
 class MyProfileScreen extends StatefulWidget {
@@ -27,7 +23,7 @@ class _LoginScreenState extends State<MyProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text('My profile'),
+          title: const Text('My profile'),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -35,67 +31,62 @@ class _LoginScreenState extends State<MyProfileScreen> {
                 const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 20),
             child: Column(
               children: [
-                Container(
-                    child: Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                           title: 'Firstname',
                           subtitle: 'Firstname ',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                           title: 'Lastname',
                           subtitle: 'Lastname ',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                           title: 'email@gmail.com',
                           subtitle: 'Email',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                           title: '1234',
                           subtitle: 'Password',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 230),
-                        child: TextForm(
+                        child: const TextForm(
                           title: '1234',
                           subtitle: 'Confirm password',
                         )),
                   ],
-                )),
-                Container(
+                ),
+                SizedBox(
                   width: 300,
                   height: 50,
                   child: ElevatedButton(

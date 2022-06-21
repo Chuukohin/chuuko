@@ -1,5 +1,4 @@
 import 'package:chuukohin/constant/theme.dart';
-import 'package:chuukohin/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 class CreateProductScreen extends StatefulWidget {
@@ -234,9 +233,24 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                       ),
                     ),
                     Container(
-                        margin: const EdgeInsets.only(top: 30),
-                        child: const MainButton(
-                            'Publish', 50, 300, '/product/preview'))
+                      margin: const EdgeInsets.only(top: 30),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(300, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          "Publish",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    )
                   ]),
             ),
           ),

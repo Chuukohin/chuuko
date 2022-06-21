@@ -20,7 +20,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: n.Text('Preview'),
+        title: n.Text('Product name'),
       ),
       body: SingleChildScrollView(
         child: Container(

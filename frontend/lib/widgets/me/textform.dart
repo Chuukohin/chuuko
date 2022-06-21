@@ -18,6 +18,10 @@ class _TextFiledState extends State<TextForm> {
       initialValue: widget.title,
       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
       decoration: InputDecoration(
+        hintText: widget.title,
+        hintStyle: TextStyle(
+          color: ThemeConstant.dividerColor,
+        ),
         helperText: widget.subtitle,
         helperStyle: TextStyle(
             fontSize: 13,

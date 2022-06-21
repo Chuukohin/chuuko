@@ -1,8 +1,4 @@
-import 'package:chuukohin/types/widget/placement.dart';
-import 'package:chuukohin/widgets/button.dart';
-import 'package:chuukohin/widgets/typography/header_text.dart';
 import 'package:flutter/material.dart';
-import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/widgets/me/textform.dart';
 
 class MyAddressScreen extends StatefulWidget {
@@ -35,30 +31,28 @@ class _LoginScreenState extends State<MyAddressScreen> {
                 const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 20),
             child: Column(
               children: [
-                Container(
-                    child: Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                           title: 'Firstname - Lastname',
                           subtitle: 'Fullname',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 25),
-                        child: TextForm(
+                        child: const TextForm(
                           title: '082-000-0000',
                           subtitle: 'Phone number',
                         )),
                   ],
-                )),
+                ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
@@ -70,67 +64,62 @@ class _LoginScreenState extends State<MyAddressScreen> {
                     ),
                   ),
                 ),
-                Container(
-                    child: Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                           title: 'Phracha uthit',
                           subtitle: 'Street',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                           title: 'Bangkok',
                           subtitle: 'Province',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                           title: 'Thung Kru',
                           subtitle: 'District',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: const TextForm(
                           title: 'Bangmod',
                           subtitle: 'Sub-District',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 40),
-                        child: TextForm(
+                        child: const TextForm(
                           title: '10140',
                           subtitle: 'Postal Code',
                         )),
                   ],
-                )),
-                Container(
+                ),
+                SizedBox(
                   width: 300,
                   height: 50,
                   child: ElevatedButton(
