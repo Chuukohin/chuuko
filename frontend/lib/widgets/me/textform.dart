@@ -12,28 +12,19 @@ class TextForm extends StatefulWidget {
 }
 
 class _TextFiledState extends State<TextForm> {
-  bool _isRead = true;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: widget.title,
       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-      readOnly: _isRead,
       decoration: InputDecoration(
-          helperText: widget.subtitle,
-          helperStyle: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
-              color: ThemeConstant.dividerColor),
-          contentPadding: const EdgeInsets.only(top: 23),
-          suffixIcon: IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              setState(() {
-                _isRead = !_isRead;
-              });
-            },
-          )),
+        helperText: widget.subtitle,
+        helperStyle: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+            color: ThemeConstant.dividerColor),
+        contentPadding: const EdgeInsets.only(top: 23),
+      ),
     );
   }
 }
