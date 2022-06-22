@@ -10,7 +10,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-// ProductManagementSoldHandler
+// ProductManagementSoldGetHandler
 // @ID           me.product_management.sold.get
 // @Summary      Get all sold products in that shop
 // @Description  Get all sold products in that shop
@@ -20,7 +20,7 @@ import (
 // @Success      200  {object}  product_management.product
 // @Failure      400  {object}  responder.ErrorResponse
 // @Router       /me/management/sold/ [get]
-func ProductManagementSoldHandler(c *fiber.Ctx) error {
+func ProductManagementSoldGetHandler(c *fiber.Ctx) error {
 	// * Parse user JWT token
 	token := c.Locals("user").(*jwt.Token)
 	claims := token.Claims.(*jwt_claim.UserClaim)

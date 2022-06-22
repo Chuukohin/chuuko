@@ -1,9 +1,19 @@
 package order
 
+import "time"
+
 type orderUserDetailResponse struct {
 	Address *address `json:"address"`
 	Card    *card    `json:"card"`
 	Product *product `json:"product"`
+}
+
+type orderByIdResponse struct {
+	Product       *product             `json:"product"`
+	Address       *address             `json:"address"`
+	OrderDetail   *orderDetail         `json:"order_detail"`
+	DeliveryInfo  *deliveryInformation `json:"delivery_info"`
+	TrackingOrder *trackingOrder       `json:"tracking_order"`
 }
 
 type orderCreate struct {
@@ -36,4 +46,27 @@ type product struct {
 	Price      *uint64 `json:"price"`
 	Brand      *string `json:"brand"`
 	PictureUrl *string `json:"picture_url"`
+}
+
+type orderDetail struct {
+	CustomerName *string    `json:"customer_name"`
+	OrderId      *uint64    `json:"order_id"`
+	OrderTime    *time.Time `json:"order_time"`
+	Price        *uint64    `json:"price"`
+}
+
+type deliveryInformation struct {
+	TrackingNumber *string `json:"tracking_number"`
+}
+
+type trackingOrder struct {
+	ProductId      *uint64                `json:"product_id"`
+	TrackingNumber *string                `json:"tracking_number"`
+	Status         []*trackingOrderStatus `json:"status"`
+}
+
+type trackingOrderStatus struct {
+	Status      *string    `json:"status"`
+	Time        *time.Time `json:"time"`
+	Description *string    `json:"description"`
 }

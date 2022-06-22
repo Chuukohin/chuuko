@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-// OrderUserDetailHandler
+// OrderUserDetailGetHandler
 // @ID           order.user_detail.get
 // @Summary      Get user information before create order
 // @Description  Get user information before create order
@@ -20,7 +20,7 @@ import (
 // @Success      200  {object}  order.orderUserDetailResponse
 // @Failure      400  {object}  responder.ErrorResponse
 // @Router       /order/info/{product_id} [get]
-func OrderUserDetailHandler(c *fiber.Ctx) error {
+func OrderUserDetailGetHandler(c *fiber.Ctx) error {
 	// * Parse user JWT token
 	token := c.Locals("user").(*jwt.Token)
 	claims := token.Claims.(*jwt_claim.UserClaim)

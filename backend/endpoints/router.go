@@ -61,11 +61,12 @@ func Router(router fiber.Router) {
 	meRouter.Get("/myshop/info/:shop_id", my_shop.MyShopGetHandler)
 
 	// Me Product management
-	meRouter.Get("/management/selling/", product_management.ProductManagementSellingHandler)
-	meRouter.Get("/management/sold/", product_management.ProductManagementSoldHandler)
+	meRouter.Get("/management/selling/", product_management.ProductManagementSellingGetHandler)
+	meRouter.Get("/management/sold/", product_management.ProductManagementSoldGetHandler)
 
 	// Order
 	orderRouter := router.Group("/order", middlewares.Jwt)
-	orderRouter.Get("/info/:product_id", order.OrderUserDetailHandler)
-	orderRouter.Post("/create", order.OrderCreateHandler)
+	orderRouter.Get("/info/:product_id", order.OrderUserDetailGetHandler)
+	orderRouter.Post("/create", order.OrderCreatePostHandler)
+	orderRouter.Get("/detail/:order_id", order.OrderByIdGetHandler)
 }

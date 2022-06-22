@@ -5,16 +5,14 @@ import (
 	"chuukohin/models"
 	"chuukohin/types/enum"
 	"chuukohin/types/fiber/jwt_claim"
-	"chuukohin/types/model_shop"
 	"chuukohin/types/responder"
 	"chuukohin/utils/check"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"strconv"
-	"time"
 )
 
-// OrderCreateHandler
+// OrderCreatePostHandler
 // @ID           order.create.post
 // @Summary      Create order
 // @Description  Create order
@@ -24,7 +22,7 @@ import (
 // @Success      200  {object}  responder.InfoResponse
 // @Failure      400  {object}  responder.ErrorResponse
 // @Router       /order/create [post]
-func OrderCreateHandler(c *fiber.Ctx) error {
+func OrderCreatePostHandler(c *fiber.Ctx) error {
 	// * Parse user JWT token
 	token := c.Locals("user").(*jwt.Token)
 	claims := token.Claims.(*jwt_claim.UserClaim)
@@ -95,25 +93,25 @@ func OrderCreateHandler(c *fiber.Ctx) error {
 	}
 	trackingId = "ch" + trackingId + orderId
 
-	productStatus := "Request has sent"
-	now := order.OrderTime.UTC().Format("2006-01-02 15:04:05.0000000 +0000")
-	nowTime, _ := time.Parse("2006-01-02 15:04:05.0000000 +0000", now)
+	//productStatus := "Request has sent"
+	//now := order.OrderTime.UTC().Format("2006-01-02 15:04:05.0000000 +0000")
+	//nowTime, _ := time.Parse("2006-01-02 15:04:05.0000000 +0000", now)
 
 	// * Create order detail
 	orderDetail := &models.OrderDetail{
 		OrderId:    order.Id,
 		TrackingNo: &trackingId,
-		Details: &model_shop.OrderDetail{
-			ProductId:      body.ProductId,
-			TrackingNumber: &trackingId,
-			Status: []*model_shop.DeliveryDetail{
-				{
-					Status:      &productStatus,
-					Description: nil,
-					Time:        &nowTime,
-				},
-			},
-		},
+		//Details: &model_shop.OrderDetail{
+		//	ProductId:      body.ProductId,
+		//	TrackingNumber: &trackingId,
+		//	Status: []*model_shop.DeliveryDetail{
+		//		{
+		//			Status:      &productStatus,
+		//			Description: nil,
+		//			Time:        &nowTime,
+		//		},
+		//	},
+		//},
 	}
 
 	if result := database.Gorm.Create(&orderDetail); result.Error != nil {
