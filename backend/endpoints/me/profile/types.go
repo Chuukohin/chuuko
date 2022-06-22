@@ -1,5 +1,7 @@
 package profile
 
+import "time"
+
 type profilePatchRequest struct {
 	Firstname *string `json:"firstname" validate:"required"`
 	Lastname  *string `json:"lastname" validate:"required"`
@@ -7,7 +9,9 @@ type profilePatchRequest struct {
 }
 
 type profileGetResponse struct {
-	Firstname *string `json:"firstname"`
-	Lastname  *string `json:"lastname"`
-	Email     *string `json:"email"`
+	Firstname  *string    `json:"firstname"`
+	Lastname   *string    `json:"lastname"`
+	Email      *string    `json:"email"`
+	JoinDate   *time.Time `json:"join_date"`
+	PictureUrl *string    `json:"picture_url"`
 }

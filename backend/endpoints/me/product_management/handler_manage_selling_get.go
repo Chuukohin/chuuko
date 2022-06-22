@@ -17,7 +17,7 @@ import (
 // @Tags         me_product_management
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  product_management.product
+// @Success      200  {object}  []product_management.product
 // @Failure      400  {object}  responder.ErrorResponse
 // @Router       /me/management/selling/ [get]
 func ProductManagementSellingGetHandler(c *fiber.Ctx) error {

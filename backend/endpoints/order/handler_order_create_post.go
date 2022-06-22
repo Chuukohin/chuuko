@@ -5,11 +5,13 @@ import (
 	"chuukohin/models"
 	"chuukohin/types/enum"
 	"chuukohin/types/fiber/jwt_claim"
+	"chuukohin/types/model_shop"
 	"chuukohin/types/responder"
 	"chuukohin/utils/check"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 	"strconv"
+	"time"
 )
 
 // OrderCreatePostHandler
@@ -19,8 +21,9 @@ import (
 // @Tags         order
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  responder.InfoResponse
-// @Failure      400  {object}  responder.ErrorResponse
+// @Param        payload  body      orderCreate  true  "order.orderCreate"
+// @Success      200      {object}  responder.InfoResponse
+// @Failure      400      {object}  responder.ErrorResponse
 // @Router       /order/create [post]
 func OrderCreatePostHandler(c *fiber.Ctx) error {
 	// * Parse user JWT token
@@ -93,28 +96,42 @@ func OrderCreatePostHandler(c *fiber.Ctx) error {
 	}
 	trackingId = "ch" + trackingId + orderId
 
-	//productStatus := "Request has sent"
-	//now := order.OrderTime.UTC().Format("2006-01-02 15:04:05.0000000 +0000")
-	//nowTime, _ := time.Parse("2006-01-02 15:04:05.0000000 +0000", now)
+	productStatus := "Request has sent"
+	now := order.OrderTime.UTC().Format("2006-01-02 15:04:05.0000000 +0000")
+	nowTime, _ := time.Parse("2006-01-02 15:04:05.0000000 +0000", now)
 
 	// * Create order detail
-	orderDetail := &models.OrderDetail{
+	orderDetailDetails := &models.OrderDetail{
 		OrderId:    order.Id,
 		TrackingNo: &trackingId,
-		//Details: &model_shop.OrderDetail{
-		//	ProductId:      body.ProductId,
-		//	TrackingNumber: &trackingId,
-		//	Status: []*model_shop.DeliveryDetail{
-		//		{
-		//			Status:      &productStatus,
-		//			Description: nil,
-		//			Time:        &nowTime,
-		//		},
-		//	},
-		//},
 	}
 
-	if result := database.Gorm.Create(&orderDetail); result.Error != nil {
+	details := &model_shop.OrderDetail{
+		ProductId:      body.ProductId,
+		TrackingNumber: &trackingId,
+		Status: []*model_shop.DeliveryDetail{
+			{
+				Status:      &productStatus,
+				Description: nil,
+				Time:        &nowTime,
+			},
+		},
+	}
+
+	if result := database.Gorm.Create(&orderDetailDetails); result.Error != nil {
+		if deleteProduct := database.Gorm.Delete(&order); deleteProduct.Error != nil {
+			return &responder.GenericError{
+				Message: "Unable to delete product",
+				Err:     result.Error,
+			}
+		}
+		return &responder.GenericError{
+			Message: "Unable to create order detail",
+			Err:     result.Error,
+		}
+	}
+
+	if result := database.Gorm.First(new(models.OrderDetail), "order_id = ?", orderId).Update("details", details); result.Error != nil {
 		if deleteProduct := database.Gorm.Delete(&order); deleteProduct.Error != nil {
 			return &responder.GenericError{
 				Message: "Unable to delete product",

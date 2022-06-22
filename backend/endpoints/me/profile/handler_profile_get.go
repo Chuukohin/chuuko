@@ -26,7 +26,7 @@ func ProfileGetHandler(c *fiber.Ctx) error {
 
 	// * Fetch the user data
 	var user *models.User
-	if result := database.Gorm.First(&user, "id = ?", claims.UserId); result.Error != nil {
+	if result := database.Gorm.Preload("Picture").First(&user, "id = ?", claims.UserId); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to find the user",
 			Err:     result.Error,
@@ -34,8 +34,10 @@ func ProfileGetHandler(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(responder.NewInfoResponse(&profileGetResponse{
-		Email:     user.Email,
-		Firstname: user.Firstname,
-		Lastname:  user.Lastname,
+		Email:      user.Email,
+		Firstname:  user.Firstname,
+		Lastname:   user.Lastname,
+		JoinDate:   user.JoinDate,
+		PictureUrl: user.Picture.PictureUrl,
 	}))
 }
