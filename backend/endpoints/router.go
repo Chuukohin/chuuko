@@ -8,6 +8,7 @@ import (
 	"chuukohin/endpoints/me/address"
 	"chuukohin/endpoints/me/card"
 	"chuukohin/endpoints/me/my_shop"
+	"chuukohin/endpoints/me/order_status"
 	"chuukohin/endpoints/me/password"
 	"chuukohin/endpoints/me/product_management"
 	"chuukohin/endpoints/me/profile"
@@ -69,4 +70,8 @@ func Router(router fiber.Router) {
 	orderRouter.Get("/info/:product_id", order.OrderUserDetailGetHandler)
 	orderRouter.Post("/create", order.OrderCreatePostHandler)
 	orderRouter.Get("/detail/:order_id", order.OrderByIdGetHandler)
+
+	// Me Order Status
+	meRouter.Get("/order_status/to_receive", order_status.OrderStatusToReceiveHandler)
+	meRouter.Get("/order_status/complete", order_status.OrderStatusCompleteHandler)
 }
