@@ -25,7 +25,7 @@ func OrderStatusCompleteHandler(c *fiber.Ctx) error {
 
 	// * Fetch orders
 	var orders []*orderStatusToReceive
-	if result := database.Gorm.Raw("SELECT od.id, od.order_time, p.name product_name, p.price price, pic.picture_url product_picture "+
+	if result := database.Gorm.Raw("SELECT od.id order_id, od.order_time, p.name product_name, p.price price, pic.picture_url product_picture "+
 		"FROM orders od "+
 		"INNER JOIN order_details odt on od.id = odt.order_id "+
 		"INNER JOIN products p on od.product_id = p.id "+

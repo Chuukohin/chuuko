@@ -9,3 +9,7 @@ type orderStatusToReceive struct {
 	ProductPicture *string    `json:"product_picture"`
 	Price          *uint64    `json:"price"`
 }
+
+type orderReceivedRequest struct {
+	OrderId *uint64 `json:"order_id"`
+}

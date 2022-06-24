@@ -74,4 +74,5 @@ func Router(router fiber.Router) {
 	// Me Order Status
 	meRouter.Get("/order_status/to_receive", order_status.OrderStatusToReceiveHandler)
 	meRouter.Get("/order_status/complete", order_status.OrderStatusCompleteHandler)
+	meRouter.Patch("/order_status/received", order_status.OrderStatusReceivedHandler)
 }
