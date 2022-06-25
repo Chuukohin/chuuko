@@ -9,6 +9,6 @@ func notFound(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusNotFound).JSON(&responder.ErrorResponse{
 		Success: false,
 		Error:   "404 Not Found",
-		Code:    fiber.StatusNotFound,
+		Code:    string(rune(fiber.StatusNotFound)),
 	})
 }

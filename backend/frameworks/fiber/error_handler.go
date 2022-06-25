@@ -2,28 +2,76 @@ package fiber
 
 import (
 	"chuukohin/types/responder"
+	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
+	"strings"
 )
 
 func errorHandler(ctx *fiber.Ctx, err error) error {
-	code := fiber.StatusInternalServerError
-	message := ""
-
-	// Retrieve the custom status code if it's an fiber.*Error
+	// Case of *fiber.Error.
 	if e, ok := err.(*fiber.Error); ok {
-		code = e.Code
-		message = e.Message
-	}
-
-	if err != nil {
-		return ctx.Status(fiber.StatusInternalServerError).JSON(&responder.ErrorResponse{
+		return ctx.Status(e.Code).JSON(responder.ErrorResponse{
 			Success: false,
-			Code:    code,
-			Message: message,
-			Error:   err.Error(),
+			Code:    strings.ReplaceAll(strings.ToUpper(e.Error()), " ", "_"),
+			Message: e.Error(),
+			Error:   e.Error(),
 		})
 	}
 
-	// Return from handler
-	return nil
+	if e, ok := err.(*responder.GenericError); ok {
+		if len(e.Code) == 0 {
+			e.Code = "GENERIC_ERROR"
+		}
+
+		if e.Err != nil {
+			return ctx.Status(fiber.StatusBadRequest).JSON(responder.ErrorResponse{
+				Success: false,
+				Code:    e.Code,
+				Message: e.Message,
+				Error:   e.Err.Error(),
+			})
+		}
+
+		return ctx.Status(fiber.StatusBadRequest).JSON(responder.ErrorResponse{
+			Success: false,
+			Code:    e.Code,
+			Message: e.Message,
+		})
+	}
+
+	// Case of validator.ValidationErrors
+	if e, ok := err.(validator.ValidationErrors); ok {
+		return ctx.Status(fiber.StatusBadRequest).JSON(responder.ErrorResponse{
+			Success: false,
+			Code:    "VALIDATION_FAILED",
+			Message: "Information validation failed",
+			Error:   e.Error(),
+		})
+	}
+
+	// Case of validator.ValidationErrors
+	if e, ok := err.(validator.ValidationErrors); ok {
+		var lists []string
+		for _, err := range e {
+			lists = append(lists, err.Field()+" ("+err.Tag()+")")
+		}
+
+		message := strings.Join(lists[:], ", ")
+
+		return ctx.Status(fiber.StatusBadRequest).JSON(responder.ErrorResponse{
+			Success: false,
+			Code:    "VALIDATION_FAILED",
+			Message: "Validation failed on field " + message,
+			Error:   e.Error(),
+		})
+	}
+
+	return ctx.Status(fiber.StatusInternalServerError).JSON(
+		responder.ErrorResponse{
+			Success: false,
+			Code:    "UNKNOWN_SERVER_SIDE_ERROR",
+			Message: "Unknown server side error",
+			Error:   err.Error(),
+		},
+	)
 }
