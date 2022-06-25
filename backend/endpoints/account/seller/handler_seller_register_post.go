@@ -19,7 +19,7 @@ import (
 // @Accept       json
 // @Produce      json
 // @Param        payload  body      sellerRegisterRequest  true  "seller.sellerRegisterRequest"
-// @Success      200      {object}  responder.InfoResponse
+// @Success      200      {object}  seller.sellerRegisterResponse
 // @Failure      400      {object}  responder.ErrorResponse
 // @Router       /account/seller/register [post]
 func SellerRegisterPostHandler(c *fiber.Ctx) error {

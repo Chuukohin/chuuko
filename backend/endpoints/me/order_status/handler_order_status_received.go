@@ -15,8 +15,8 @@ import (
 // @Accept       json
 // @Produce      json
 // @Param        payload  body      orderReceivedRequest  true  "order_status.orderReceivedRequest"
-// @Success      200  {object}  responder.InfoResponse
-// @Failure      400  {object}  responder.ErrorResponse
+// @Success      200      {object}  responder.InfoResponse
+// @Failure      400      {object}  responder.ErrorResponse
 // @Router       /me/order_status/received [patch]
 func OrderStatusReceivedHandler(c *fiber.Ctx) error {
 	// * Parse Body
