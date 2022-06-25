@@ -32,6 +32,10 @@ func AddressGetHandler(c *fiber.Ctx) error {
 			Message: "Unable to find the user",
 			Err:     result.Error,
 		}
+	} else if user.Address.Id == nil {
+		return &responder.GenericError{
+			Message: "No address in the record",
+		}
 	}
 
 	return c.JSON(responder.NewInfoResponse(&addressGetResponse{
