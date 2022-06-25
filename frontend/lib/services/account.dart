@@ -38,7 +38,6 @@ class AccountService {
             'password': password,
             'confirm_password': confirmPassword,
           });
-      print(response);
       LoginResponse res = LoginResponse.fromJson(response.data);
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('user', res.data.token);

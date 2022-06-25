@@ -1,5 +1,4 @@
 import 'package:chuukohin/models/response/error/error_response.dart';
-import 'package:chuukohin/screens/core/home/homepage_screen.dart';
 import 'package:chuukohin/services/account.dart';
 import 'package:chuukohin/types/widget/placement.dart';
 import 'package:chuukohin/widgets/typography/header_text.dart';
@@ -36,12 +35,7 @@ class _SignUpState extends State<SignupScreen> {
           _isError = register.message;
         });
       } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomePageScreen(),
-          ),
-        );
+        Navigator.pushReplacementNamed(context, '/home');
         _firstnameController.clear();
         _lastnameController.clear();
         _emailController.clear();
