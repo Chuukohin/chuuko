@@ -49,7 +49,7 @@ func PostHandler(c *fiber.Ctx) error {
 	// * Check password
 	if !crypto.ComparePassword(*user.Password, *body.Password) {
 		return &responder.GenericError{
-			Message: "Password is incorrect",
+			Message: "Password or email is incorrect",
 		}
 	}
 
