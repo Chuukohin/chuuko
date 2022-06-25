@@ -42,7 +42,7 @@ func ProductManagementSellingGetHandler(c *fiber.Ctx) error {
 		}
 	} else {
 		return &responder.GenericError{
-			Message: "This shop has no products are selling",
+			Message: "No products are available in this shop",
 			Err:     result.Error,
 		}
 	}
