@@ -9,6 +9,14 @@ class MyAddressScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<MyAddressScreen> {
+  final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final addressController = TextEditingController();
+  final provinceController = TextEditingController();
+  final districtController = TextEditingController();
+  final subDistrictController = TextEditingController();
+  final postalCodeController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -36,7 +44,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: nameController,
                           title: 'Firstname - Lastname',
                           subtitle: 'Fullname',
                         )),
@@ -47,7 +56,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 25),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: phoneController,
                           title: '082-000-0000',
                           subtitle: 'Phone number',
                         )),
@@ -69,7 +79,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: addressController,
                           title: 'Phracha uthit',
                           subtitle: 'Street',
                         )),
@@ -80,7 +91,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: provinceController,
                           title: 'Bangkok',
                           subtitle: 'Province',
                         )),
@@ -91,7 +103,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: districtController,
                           title: 'Thung Kru',
                           subtitle: 'District',
                         )),
@@ -102,7 +115,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: subDistrictController,
                           title: 'Bangmod',
                           subtitle: 'Sub-District',
                         )),
@@ -113,7 +127,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 40),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: postalCodeController,
                           title: '10140',
                           subtitle: 'Postal Code',
                         )),

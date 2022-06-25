@@ -3,7 +3,7 @@ import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/models/response/me/me_response.dart';
 import 'package:chuukohin/screens/core/category/category_screen.dart';
 import 'package:chuukohin/screens/core/product/product_detail_screen.dart';
-import 'package:chuukohin/services/me.dart';
+import 'package:chuukohin/services/me/me.dart';
 import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/widgets/category/category_icon.dart';
 import 'package:chuukohin/widgets/product/product_card.dart';
@@ -35,7 +35,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   Future<void> readJson() async {
-    var meResponse = await ProfileService.getProfile();
+    final meResponse = await ProfileService.getProfile();
     if (meResponse is MeResponse) {
       context.read<ProfileProvider>().setMeData(meResponse.data);
     }

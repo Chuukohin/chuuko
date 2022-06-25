@@ -9,6 +9,12 @@ class MyProfileScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<MyProfileScreen> {
+  final firstnameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -36,7 +42,8 @@ class _LoginScreenState extends State<MyProfileScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: firstnameController,
                           title: 'Firstname',
                           subtitle: 'Firstname ',
                         )),
@@ -47,7 +54,8 @@ class _LoginScreenState extends State<MyProfileScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: lastnameController,
                           title: 'Lastname',
                           subtitle: 'Lastname ',
                         )),
@@ -58,7 +66,8 @@ class _LoginScreenState extends State<MyProfileScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: emailController,
                           title: 'email@gmail.com',
                           subtitle: 'Email',
                         )),
@@ -69,7 +78,8 @@ class _LoginScreenState extends State<MyProfileScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: passwordController,
                           title: '1234',
                           subtitle: 'Password',
                         )),
@@ -80,7 +90,8 @@ class _LoginScreenState extends State<MyProfileScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 230),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: confirmPasswordController,
                           title: '1234',
                           subtitle: 'Confirm password',
                         )),

@@ -28,9 +28,9 @@ class CardInfoData {
 
   factory CardInfoData.fromJson(Map<String, dynamic> json) {
     return CardInfoData(
-        name: json['token'],
-        cardNo: json['card_no'],
-        monthExpire: json['month_expire'],
-        yearExpire: json['year_expire']);
+        name: json['name'] ?? "",
+        cardNo: json['card_no'] ?? "",
+        monthExpire: json['month_expire'] ?? "",
+        yearExpire: json['year_expire'] ?? "");
   }
 }

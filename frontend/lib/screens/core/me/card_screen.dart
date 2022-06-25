@@ -1,5 +1,9 @@
+import 'package:chuukohin/models/response/me/card/card_response.dart';
+import 'package:chuukohin/services/me/card.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/widgets/me/textform.dart';
+import 'package:provider/provider.dart';
 
 class CardScreen extends StatefulWidget {
   const CardScreen({Key? key}) : super(key: key);
@@ -9,6 +13,36 @@ class CardScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<CardScreen> {
+  final nameController = TextEditingController();
+  final cardNo = TextEditingController();
+  final expireDate = TextEditingController();
+  final cvc = TextEditingController();
+
+  Future<void> readJson() async {
+    final cardResponse = await CardService.getCardInfo();
+    if (cardResponse is CardInfoResponse) {
+      context.read<ProfileProvider>().setCardInfo(cardResponse.data);
+      nameController.text =
+          Provider.of<ProfileProvider>(context, listen: false).cardInfo.name;
+      cardNo.text =
+          Provider.of<ProfileProvider>(context, listen: false).cardInfo.cardNo;
+      expireDate.text = Provider.of<ProfileProvider>(context, listen: false)
+              .cardInfo
+              .monthExpire +
+          "/" +
+          Provider.of<ProfileProvider>(context, listen: false)
+              .cardInfo
+              .yearExpire
+              .substring(2, 4);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    readJson();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,10 +69,12 @@ class _LoginScreenState extends State<CardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
-                            title: 'Card holder name',
-                            subtitle: 'Fullname in your credit card')),
+                      margin: const EdgeInsets.only(bottom: 5),
+                      child: TextForm(
+                          controller: nameController,
+                          title: "",
+                          subtitle: 'Card holder name'),
+                    ),
                   ],
                 ),
                 Column(
@@ -46,7 +82,8 @@ class _LoginScreenState extends State<CardScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: cardNo,
                           title: 'Card No.',
                           subtitle: 'Card No.',
                         )),
@@ -57,7 +94,8 @@ class _LoginScreenState extends State<CardScreen> {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(bottom: 5),
-                      child: const TextForm(
+                      child: TextForm(
+                        controller: expireDate,
                         title: 'MM/YY',
                         subtitle: 'Expire date',
                       ),
@@ -69,7 +107,8 @@ class _LoginScreenState extends State<CardScreen> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 300),
-                        child: const TextForm(
+                        child: TextForm(
+                          controller: cvc,
                           title: 'CVC',
                           subtitle: 'CVC',
                         )),

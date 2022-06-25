@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 class TextForm extends StatefulWidget {
   final String title;
   final String subtitle;
-  const TextForm({Key? key, required this.title, required this.subtitle})
+  final TextEditingController controller;
+  const TextForm(
+      {Key? key,
+      required this.title,
+      required this.subtitle,
+      required this.controller})
       : super(key: key);
 
   @override
@@ -15,10 +20,10 @@ class _TextFiledState extends State<TextForm> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: widget.title,
+      controller: widget.controller,
       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
       decoration: InputDecoration(
-        hintText: widget.title,
+        hintText: widget.subtitle,
         hintStyle: TextStyle(
           color: ThemeConstant.dividerColor,
         ),
