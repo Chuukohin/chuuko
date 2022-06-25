@@ -25,7 +25,8 @@ func AddressGetHandler(c *fiber.Ctx) error {
 	claims := token.Claims.(*jwt_claim.UserClaim)
 
 	// * Find the address
-	var user *models.User
+	user := new(models.User)
+	user.Address = new(models.Address)
 	if result := database.Gorm.Preload("Address").First(&user, "id = ?", claims.UserId); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to find the user",
