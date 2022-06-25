@@ -3,11 +3,10 @@ import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/screens/core/home/homepage_screen.dart';
 import 'package:chuukohin/services/account.dart';
 import 'package:chuukohin/types/widget/placement.dart';
-import 'package:chuukohin/widgets/button.dart';
 import 'package:chuukohin/widgets/typography/header_text.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/constant/theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:niku/namespace.dart' as n;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -18,17 +17,17 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _isObscure = true;
+  String _isError = "";
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   void handleLogin() async {
-    final prefs = await SharedPreferences.getInstance();
-    print('logging in');
     var login = await AccountService.login(
         _emailController.text, _passwordController.text);
     if (login is ErrorResponse) {
-      print("ERROR");
-      print(login.message);
+      setState(() {
+        _isError = login.message;
+      });
     } else if (login is LoginResponse) {
       Navigator.pushReplacement(
         context,
@@ -36,11 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
           builder: (context) => const HomePageScreen(),
         ),
       );
-      print(prefs.getString('user'));
       _emailController.clear();
       _passwordController.clear();
-    } else {
-      print("Error");
     }
   }
 
@@ -103,6 +99,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(14.0),
                                   ),
                                 ),
+                                onChanged: (_) {
+                                  setState(() {
+                                    _isError = "";
+                                  });
+                                },
                               ),
                             ),
                             Container(
@@ -111,27 +112,28 @@ class _LoginScreenState extends State<LoginScreen> {
                                 controller: _passwordController,
                                 obscureText: _isObscure,
                                 decoration: InputDecoration(
-                                    labelText: 'Password',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(14.0),
-                                      borderSide: BorderSide(
-                                          color: ThemeConstant.primaryColor),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: ThemeConstant.primaryColor),
-                                      borderRadius: BorderRadius.circular(14.0),
-                                    ),
-                                    suffixIcon: IconButton(
-                                      icon: Icon(_isObscure
-                                          ? Icons.visibility
-                                          : Icons.visibility_off),
-                                      onPressed: () {
-                                        setState(() {
-                                          _isObscure = !_isObscure;
-                                        });
-                                      },
-                                    )),
+                                  labelText: 'Password',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14.0),
+                                    borderSide: BorderSide(
+                                        color: ThemeConstant.primaryColor),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: ThemeConstant.primaryColor),
+                                    borderRadius: BorderRadius.circular(14.0),
+                                  ),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(_isObscure
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                    onPressed: () {
+                                      setState(() {
+                                        _isObscure = !_isObscure;
+                                      });
+                                    },
+                                  ),
+                                ),
                               ),
                             ),
                             Container(
@@ -165,6 +167,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
+                            _isError.isNotEmpty
+                                ? Container(
+                                    margin: const EdgeInsets.only(top: 16),
+                                    width: double.infinity,
+                                    child: n.Text(_isError)
+                                      ..color = ThemeConstant.logOutBtnColor
+                                      ..textAlign = TextAlign.center,
+                                  )
+                                : Container(),
                           ],
                         ),
                         Row(
