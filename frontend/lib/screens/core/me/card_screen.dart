@@ -1,3 +1,4 @@
+import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/models/response/me/card/card_response.dart';
 import 'package:chuukohin/services/me/card.dart';
 import 'package:chuukohin/services/provider/provider.dart';
@@ -13,10 +14,10 @@ class CardScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<CardScreen> {
+  bool isFirstTime = false;
   final nameController = TextEditingController();
   final cardNo = TextEditingController();
   final expireDate = TextEditingController();
-  final cvc = TextEditingController();
 
   Future<void> readJson() async {
     final cardResponse = await CardService.getCardInfo();
@@ -34,7 +35,20 @@ class _LoginScreenState extends State<CardScreen> {
               .cardInfo
               .yearExpire
               .substring(2, 4);
+    } else if (cardResponse is ErrorResponse) {
+      isFirstTime = true;
     }
+  }
+
+  Future<void> handleUpdateCard() async {
+    if (isFirstTime) {
+      await CardService.addCard(nameController.text, cardNo.text,
+          expireDate.text.split("/")[0], expireDate.text.split("/")[1]);
+    } else {
+      await CardService.updateCard(nameController.text, cardNo.text,
+          expireDate.text.split("/")[0], expireDate.text.split("/")[1]);
+    }
+    Navigator.pop(context);
   }
 
   @override
@@ -59,82 +73,73 @@ class _LoginScreenState extends State<CardScreen> {
           elevation: 0,
           title: const Text('Card'),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding:
-                const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 20),
-            child: Column(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 5),
-                      child: TextForm(
-                          controller: nameController,
-                          title: "",
-                          subtitle: 'Card holder name'),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
+        body: Container(
+          padding:
+              const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
-                          controller: cardNo,
-                          title: 'Card No.',
-                          subtitle: 'Card No.',
-                        )),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 5),
-                      child: TextForm(
-                        controller: expireDate,
-                        title: 'MM/YY',
-                        subtitle: 'Expire date',
+                            controller: nameController,
+                            title: 'Card holder name',
+                            subtitle: 'Card holder name'),
                       ),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        margin: const EdgeInsets.only(bottom: 300),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          margin: const EdgeInsets.only(bottom: 5),
+                          child: TextForm(
+                            controller: cardNo,
+                            title: 'Card No.',
+                            subtitle: 'Card No.',
+                          )),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
-                          controller: cvc,
-                          title: 'CVC',
-                          subtitle: 'CVC',
-                        )),
-                  ],
-                ),
-                SizedBox(
-                  width: 300,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
+                          controller: expireDate,
+                          title: 'MM/YY',
+                          subtitle: 'Expire date',
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      "Save",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                      textAlign: TextAlign.center,
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 300,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
                     ),
                   ),
-                )
-              ],
-            ),
+                  onPressed: () {
+                    handleUpdateCard();
+                  },
+                  child: const Text(
+                    "Save",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ),

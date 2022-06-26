@@ -1,40 +1,20 @@
 import 'package:chuukohin/constant/environment.dart';
 import 'package:chuukohin/models/info_response/info_response.dart';
 import 'package:chuukohin/models/response/error/error_response.dart';
-import 'package:chuukohin/models/response/me/card/card_response.dart';
+import 'package:chuukohin/models/response/order/order_before_create_response.dart';
+import 'package:chuukohin/models/response/order/order_detail_response.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CardService {
-  static Future<dynamic> getCardInfo() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? userToken = prefs.getString('user');
-    try {
-      Response response = await Dio().get(
-          EnvironmentConstant.internalApiPrefix + "/me/card/info",
-          options: Options(headers: {"Authorization": "Bearer " + userToken!}));
-      CardInfoResponse res = CardInfoResponse.fromJson(response.data);
-      return res;
-    } on DioError catch (e) {
-      if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
-        ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
-        return error;
-      }
-    }
-  }
-
-  static Future<dynamic> addCard(
-      String name, String cardNo, String monthExpire, String yearExpire) async {
+class OrderService {
+  static Future<dynamic> createOrder(int productId) async {
     final prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('user');
     try {
       Response response = await Dio().post(
-          EnvironmentConstant.internalApiPrefix + "/me/card/add",
+          EnvironmentConstant.internalApiPrefix + "/order/create",
           data: {
-            "card_no": cardNo,
-            'name': name,
-            'month_expire': monthExpire,
-            'year_expire': "20" + yearExpire,
+            "product_id": productId,
           },
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
       InfoResponse res = InfoResponse.fromJson(response.data);
@@ -47,21 +27,36 @@ class CardService {
     }
   }
 
-  static Future<dynamic> updateCard(
-      String name, String cardNo, String monthExpire, String yearExpire) async {
+  static Future<dynamic> getInfoBeforeCreateOrder(int productId) async {
     final prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('user');
     try {
       Response response = await Dio().post(
-          EnvironmentConstant.internalApiPrefix + "/me/card/edit",
-          data: {
-            "card_no": cardNo,
-            'name': name,
-            'month_expire': monthExpire,
-            'year_expire': "20" + yearExpire,
-          },
+          EnvironmentConstant.internalApiPrefix +
+              "/order/info/" +
+              productId.toString(),
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
-      InfoResponse res = InfoResponse.fromJson(response.data);
+      OrderBeforeCreateResponse res =
+          OrderBeforeCreateResponse.fromJson(response.data);
+      return res;
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {
+        ErrorResponse error = ErrorResponse.fromJson(e.response?.data);
+        return error;
+      }
+    }
+  }
+
+  static Future<dynamic> getOrderDetail(int orderId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? userToken = prefs.getString('user');
+    try {
+      Response response = await Dio().post(
+          EnvironmentConstant.internalApiPrefix +
+              "/order/detail/" +
+              orderId.toString(),
+          options: Options(headers: {"Authorization": "Bearer " + userToken!}));
+      OrderDetailResponse res = OrderDetailResponse.fromJson(response.data);
       return res;
     } on DioError catch (e) {
       if (e.response?.statusCode == 400 || e.response?.statusCode == 401) {

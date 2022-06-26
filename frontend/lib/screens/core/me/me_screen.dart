@@ -1,4 +1,5 @@
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
 import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/utils/widget/divider_insert.dart';
@@ -7,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:niku/namespace.dart' as n;
 import 'package:collection/collection.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MeScreen extends StatefulWidget {
   const MeScreen({Key? key}) : super(key: key);
@@ -30,6 +32,26 @@ class _MeScreenState extends State<MeScreen> {
   ];
 
   final String userType = 'seller';
+  late SharedPreferences prefs;
+
+  void deleteUserData() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.remove('user');
+  }
+
+  void getAddress() {
+    final response = context.read<ProfileProvider>().getAddressInfo();
+    if (response is ErrorResponse) {
+      context.read<ProfileProvider>().addressFirstTime = true;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAddress();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -309,6 +331,7 @@ class _MeScreenState extends State<MeScreen> {
                           ),
                         ),
                         onPressed: () {
+                          deleteUserData();
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

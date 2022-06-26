@@ -1,5 +1,9 @@
+import 'package:chuukohin/models/response/error/error_response.dart';
+import 'package:chuukohin/services/me/address.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/widgets/me/textform.dart';
+import 'package:provider/provider.dart';
 
 class MyAddressScreen extends StatefulWidget {
   const MyAddressScreen({Key? key}) : super(key: key);
@@ -11,11 +15,61 @@ class MyAddressScreen extends StatefulWidget {
 class _LoginScreenState extends State<MyAddressScreen> {
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
-  final addressController = TextEditingController();
+  final addressLine1Controller = TextEditingController();
+  final addressLine2Controller = TextEditingController();
   final provinceController = TextEditingController();
   final districtController = TextEditingController();
   final subDistrictController = TextEditingController();
   final postalCodeController = TextEditingController();
+
+  void handleUpdateAddress() async {
+    if (Provider.of<ProfileProvider>(context, listen: false).addressFirstTime) {
+      await AddressService.addAddress(
+          nameController.text,
+          phoneController.text,
+          addressLine1Controller.text,
+          addressLine2Controller.text,
+          provinceController.text,
+          districtController.text,
+          subDistrictController.text,
+          postalCodeController.text);
+      context.read<ProfileProvider>().getAddressInfo().then(
+            (value) => Navigator.pop(context),
+          );
+    } else {
+      await AddressService.editAddress(
+          nameController.text,
+          phoneController.text,
+          addressLine1Controller.text,
+          addressLine2Controller.text,
+          provinceController.text,
+          districtController.text,
+          subDistrictController.text,
+          postalCodeController.text);
+      context.read<ProfileProvider>().getAddressInfo().then(
+            (value) => Navigator.pop(context),
+          );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.text = context.read<ProfileProvider>().addressInfo.name;
+    phoneController.text = context.read<ProfileProvider>().addressInfo.phone;
+    addressLine1Controller.text =
+        context.read<ProfileProvider>().addressInfo.addressLine1;
+    addressLine2Controller.text =
+        context.read<ProfileProvider>().addressInfo.addressLine2;
+    provinceController.text =
+        context.read<ProfileProvider>().addressInfo.province;
+    districtController.text =
+        context.read<ProfileProvider>().addressInfo.district;
+    subDistrictController.text =
+        context.read<ProfileProvider>().addressInfo.subDistrict;
+    postalCodeController.text =
+        context.read<ProfileProvider>().addressInfo.postalCode;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +90,20 @@ class _LoginScreenState extends State<MyAddressScreen> {
         body: SingleChildScrollView(
           child: Container(
             padding:
-                const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 20),
+                const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 30),
             child: Column(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
-                          controller: nameController,
-                          title: 'Firstname - Lastname',
-                          subtitle: 'Fullname',
-                        )),
+                      margin: const EdgeInsets.only(bottom: 5),
+                      child: TextForm(
+                        controller: nameController,
+                        title: 'Firstname - Lastname',
+                        subtitle: 'Fullname',
+                      ),
+                    ),
                   ],
                 ),
                 Column(
@@ -58,7 +113,7 @@ class _LoginScreenState extends State<MyAddressScreen> {
                         margin: const EdgeInsets.only(bottom: 25),
                         child: TextForm(
                           controller: phoneController,
-                          title: '082-000-0000',
+                          title: 'Phone number',
                           subtitle: 'Phone number',
                         )),
                   ],
@@ -78,12 +133,26 @@ class _LoginScreenState extends State<MyAddressScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
-                          controller: addressController,
-                          title: 'Phracha uthit',
-                          subtitle: 'Street',
-                        )),
+                      margin: const EdgeInsets.only(bottom: 5),
+                      child: TextForm(
+                        controller: addressLine1Controller,
+                        title: 'Address',
+                        subtitle: 'Address',
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 5),
+                      child: TextForm(
+                        controller: addressLine2Controller,
+                        title: 'Address (Optional)',
+                        subtitle: 'Address (Optional)',
+                      ),
+                    ),
                   ],
                 ),
                 Column(
@@ -93,7 +162,7 @@ class _LoginScreenState extends State<MyAddressScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           controller: provinceController,
-                          title: 'Bangkok',
+                          title: 'Province',
                           subtitle: 'Province',
                         )),
                   ],
@@ -105,7 +174,7 @@ class _LoginScreenState extends State<MyAddressScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           controller: districtController,
-                          title: 'Thung Kru',
+                          title: 'District',
                           subtitle: 'District',
                         )),
                   ],
@@ -117,8 +186,8 @@ class _LoginScreenState extends State<MyAddressScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           controller: subDistrictController,
-                          title: 'Bangmod',
-                          subtitle: 'Sub-District',
+                          title: 'Sub District',
+                          subtitle: 'Sub District',
                         )),
                   ],
                 ),
@@ -129,7 +198,7 @@ class _LoginScreenState extends State<MyAddressScreen> {
                         margin: const EdgeInsets.only(bottom: 40),
                         child: TextForm(
                           controller: postalCodeController,
-                          title: '10140',
+                          title: 'Postal Code',
                           subtitle: 'Postal Code',
                         )),
                   ],
@@ -144,7 +213,7 @@ class _LoginScreenState extends State<MyAddressScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pop(context);
+                      handleUpdateAddress();
                     },
                     child: const Text(
                       "Save",

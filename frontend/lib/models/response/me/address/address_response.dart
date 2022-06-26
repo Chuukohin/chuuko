@@ -37,7 +37,7 @@ class AddressInfoData {
 
   factory AddressInfoData.fromJson(Map<String, dynamic> json) {
     return AddressInfoData(
-        name: json['token'],
+        name: json['name'],
         phone: json['phone'],
         addressLine1: json['address_line_1'],
         addressLine2: json['address_line_2'] ?? "",

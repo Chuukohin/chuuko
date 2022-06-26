@@ -8,7 +8,7 @@ class MeResponse {
   factory MeResponse.fromJson(Map<String, dynamic> json) {
     return MeResponse(
         success: json['success'],
-        code: json['code'],
+        code: json['code'] ?? "",
         data: MeData.fromJson(json['data']));
   }
 }

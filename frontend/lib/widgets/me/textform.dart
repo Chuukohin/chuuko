@@ -23,7 +23,7 @@ class _TextFiledState extends State<TextForm> {
       controller: widget.controller,
       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
       decoration: InputDecoration(
-        hintText: widget.subtitle,
+        hintText: widget.title,
         hintStyle: TextStyle(
           color: ThemeConstant.dividerColor,
         ),

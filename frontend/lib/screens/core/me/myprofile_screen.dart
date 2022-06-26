@@ -1,5 +1,8 @@
+import 'package:chuukohin/services/me/me.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/widgets/me/textform.dart';
+import 'package:provider/provider.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -14,6 +17,24 @@ class _LoginScreenState extends State<MyProfileScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  Future<void> updateProfile() async {
+    await ProfileService.updateProfile(firstnameController.text,
+        lastnameController.text, emailController.text);
+    context.read<ProfileProvider>().getMeData();
+    Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    firstnameController.text =
+        Provider.of<ProfileProvider>(context, listen: false).medata.firstname;
+    lastnameController.text =
+        Provider.of<ProfileProvider>(context, listen: false).medata.lastname;
+    emailController.text =
+        Provider.of<ProfileProvider>(context, listen: false).medata.email;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +101,7 @@ class _LoginScreenState extends State<MyProfileScreen> {
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
                           controller: passwordController,
-                          title: '1234',
+                          title: '',
                           subtitle: 'Password',
                         )),
                   ],
@@ -92,7 +113,7 @@ class _LoginScreenState extends State<MyProfileScreen> {
                         margin: const EdgeInsets.only(bottom: 230),
                         child: TextForm(
                           controller: confirmPasswordController,
-                          title: '1234',
+                          title: '',
                           subtitle: 'Confirm password',
                         )),
                   ],
@@ -107,7 +128,7 @@ class _LoginScreenState extends State<MyProfileScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pop(context);
+                      updateProfile();
                     },
                     child: const Text(
                       "Save",
