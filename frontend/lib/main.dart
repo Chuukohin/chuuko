@@ -1,9 +1,20 @@
 import 'package:chuukohin/constant/route.dart';
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const Chuuko());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ProfileProvider(),
+        ),
+      ],
+      child: const Chuuko(),
+    ),
+  );
 }
 
 class Chuuko extends StatelessWidget {

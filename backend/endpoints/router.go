@@ -8,9 +8,11 @@ import (
 	"chuukohin/endpoints/me/address"
 	"chuukohin/endpoints/me/card"
 	"chuukohin/endpoints/me/my_shop"
+	"chuukohin/endpoints/me/order_status"
 	"chuukohin/endpoints/me/password"
 	"chuukohin/endpoints/me/product_management"
 	"chuukohin/endpoints/me/profile"
+	"chuukohin/endpoints/order"
 	"chuukohin/endpoints/product"
 	"chuukohin/frameworks/fiber/middlewares"
 	"github.com/gofiber/fiber/v2"
@@ -60,6 +62,17 @@ func Router(router fiber.Router) {
 	meRouter.Get("/myshop/info/:shop_id", my_shop.MyShopGetHandler)
 
 	// Me Product management
-	meRouter.Get("/management/selling/", product_management.ProductManagementSellingHandler)
-	meRouter.Get("/management/sold/", product_management.ProductManagementSoldHandler)
+	meRouter.Get("/management/selling/", product_management.ProductManagementSellingGetHandler)
+	meRouter.Get("/management/sold/", product_management.ProductManagementSoldGetHandler)
+
+	// Order
+	orderRouter := router.Group("/order", middlewares.Jwt)
+	orderRouter.Get("/info/:product_id", order.OrderUserDetailGetHandler)
+	orderRouter.Post("/create", order.OrderCreatePostHandler)
+	orderRouter.Get("/detail/:order_id", order.OrderByIdGetHandler)
+
+	// Me Order Status
+	meRouter.Get("/order_status/to_receive", order_status.OrderStatusToReceiveHandler)
+	meRouter.Get("/order_status/complete", order_status.OrderStatusCompleteHandler)
+	meRouter.Patch("/order_status/received", order_status.OrderStatusReceivedHandler)
 }

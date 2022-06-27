@@ -43,6 +43,13 @@ func ProfilePatchHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	// * Check duplicate email
+	if result := database.Gorm.First(new(models.User), "email = ?", body.Email); result.RowsAffected != 0 {
+		return &responder.GenericError{
+			Message: "This email is already exists",
+		}
+	}
+
 	user := &models.User{
 		Firstname: body.Firstname,
 		Lastname:  body.Lastname,

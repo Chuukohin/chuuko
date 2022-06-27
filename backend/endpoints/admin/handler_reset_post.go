@@ -121,6 +121,7 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 	// * Create default databases
 	pic := "https://chuukohin-pic.mixkoap.com/sibbil.png"
 	beginningId := uint64(1)
+	beginningId2 := uint64(2)
 	picture := &models.Picture{
 		Id:         &beginningId,
 		PictureUrl: &pic,
@@ -163,7 +164,6 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 
 	address := &models.Address{
 		Id:           &beginningId,
-		UserId:       &beginningId,
 		Name:         &name,
 		AddressLine1: &addressLine,
 		Phone:        &phone,
@@ -190,7 +190,7 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 		Lastname:        &lastname,
 		Phone:           &phone,
 		PictureId:       &beginningId,
-		AddressId:       &beginningId,
+		AddressId:       address.Id,
 		ShopName:        &shopName,
 		ShopDescription: &shopDes,
 	}
@@ -198,6 +198,31 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 	if result := database.Gorm.Create(&shop); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to create a shop",
+			Err:     result.Error,
+		}
+	}
+
+	address2 := &models.Address{
+		Id:           &beginningId2,
+		Name:         &name,
+		AddressLine1: &addressLine,
+		Phone:        &phone,
+		Province:     &province,
+		District:     &district,
+		SubDistrict:  &subDistrict,
+		PostalCode:   &postal,
+	}
+
+	if result := database.Gorm.Create(&address2); result.Error != nil {
+		return &responder.GenericError{
+			Message: "Unable to create an address 2",
+			Err:     result.Error,
+		}
+	}
+
+	if result := database.Gorm.Model(new(models.User)).Where("id = ?", user.Id).Update("address_id", address.Id); result.Error != nil {
+		return &responder.GenericError{
+			Message: "Unable to update address_id to user",
 			Err:     result.Error,
 		}
 	}
@@ -214,6 +239,26 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 	if result := database.Gorm.Create(&bank); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to create a bank account",
+			Err:     result.Error,
+		}
+	}
+
+	cardName := "Kokomi Sangonomiya"
+	cardNo := "1234567890"
+	cardMonthExpire := "02"
+	cardYearExpire := "2024"
+
+	card := &models.Card{
+		Name:        &cardName,
+		CardNo:      &cardNo,
+		UserId:      &beginningId,
+		MonthExpire: &cardMonthExpire,
+		YearExpire:  &cardYearExpire,
+	}
+
+	if result := database.Gorm.Create(&card); result.Error != nil {
+		return &responder.GenericError{
+			Message: "Unable to create card",
 			Err:     result.Error,
 		}
 	}
@@ -280,6 +325,14 @@ func AdminResetPostHandler(c *fiber.Ctx) error {
 	}
 
 	if result := database.Gorm.Raw("ALTER SEQUENCE bank_accounts_id_seq RESTART WITH 2").Row(); result.Err() != nil {
+		println("Error?")
+		return &responder.GenericError{
+			Message: "Unable set the sequence of bank_account's AUTO_INCREMENT",
+			Err:     err,
+		}
+	}
+
+	if result := database.Gorm.Raw("ALTER SEQUENCE address_id_seq RESTART WITH 3").Row(); result.Err() != nil {
 		return &responder.GenericError{
 			Message: "Unable set the sequence of bank_account's AUTO_INCREMENT",
 			Err:     err,

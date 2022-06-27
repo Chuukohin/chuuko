@@ -1,7 +1,8 @@
+import 'package:chuukohin/models/response/error/error_response.dart';
+import 'package:chuukohin/services/account.dart';
 import 'package:chuukohin/types/widget/placement.dart';
 import 'package:chuukohin/widgets/typography/header_text.dart';
 import 'package:flutter/material.dart';
-import 'package:chuukohin/widgets/button.dart';
 import 'package:chuukohin/constant/theme.dart';
 import 'package:niku/namespace.dart' as n;
 
@@ -14,6 +15,39 @@ class SignupScreen extends StatefulWidget {
 
 class _SignUpState extends State<SignupScreen> {
   bool _checked = false;
+  String _isError = "";
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  void handleRegister() async {
+    if (_checked) {
+      var register = await AccountService.register(
+          _firstnameController.text,
+          _lastnameController.text,
+          _emailController.text,
+          _passwordController.text,
+          _confirmPasswordController.text);
+      if (register is ErrorResponse) {
+        setState(() {
+          _isError = register.message;
+        });
+      } else {
+        Navigator.pushReplacementNamed(context, '/home');
+        _firstnameController.clear();
+        _lastnameController.clear();
+        _emailController.clear();
+        _passwordController.clear();
+        _confirmPasswordController.clear();
+      }
+    } else {
+      setState(() {
+        _isError = "Please accept the terms and conditions";
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +67,7 @@ class _SignUpState extends State<SignupScreen> {
         body: SingleChildScrollView(
           child: Padding(
             padding:
-                const EdgeInsets.only(top: 16, left: 30, right: 30, bottom: 20),
+                const EdgeInsets.only(top: 8, left: 30, right: 30, bottom: 20),
             child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,6 +97,7 @@ class _SignUpState extends State<SignupScreen> {
                         Container(
                           margin: const EdgeInsets.only(bottom: 10),
                           child: TextFormField(
+                            controller: _firstnameController,
                             decoration: InputDecoration(
                               hintText: 'Firstname',
                               border: OutlineInputBorder(
@@ -78,9 +113,15 @@ class _SignUpState extends State<SignupScreen> {
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),
+                            onChanged: (_) {
+                              setState(() {
+                                _isError = "";
+                              });
+                            },
                           ),
                         ),
                         TextFormField(
+                          controller: _lastnameController,
                           decoration: InputDecoration(
                             hintText: 'Lastname',
                             border: OutlineInputBorder(
@@ -96,6 +137,11 @@ class _SignUpState extends State<SignupScreen> {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                           ),
+                          onChanged: (_) {
+                            setState(() {
+                              _isError = "";
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -115,6 +161,7 @@ class _SignUpState extends State<SignupScreen> {
                             ),
                           ),
                           TextFormField(
+                            controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                               hintText: 'Email',
@@ -131,6 +178,11 @@ class _SignUpState extends State<SignupScreen> {
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),
+                            onChanged: (_) {
+                              setState(() {
+                                _isError = "";
+                              });
+                            },
                           ),
                         ]),
                   ),
@@ -151,6 +203,7 @@ class _SignUpState extends State<SignupScreen> {
                         Container(
                           margin: const EdgeInsets.only(bottom: 10),
                           child: TextFormField(
+                            controller: _passwordController,
                             obscureText: true,
                             decoration: InputDecoration(
                               hintText: 'Password',
@@ -167,9 +220,15 @@ class _SignUpState extends State<SignupScreen> {
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),
+                            onChanged: (_) {
+                              setState(() {
+                                _isError = "";
+                              });
+                            },
                           ),
                         ),
                         TextFormField(
+                          controller: _confirmPasswordController,
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: 'Confirm Password',
@@ -186,6 +245,11 @@ class _SignUpState extends State<SignupScreen> {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                           ),
+                          onChanged: (_) {
+                            setState(() {
+                              _isError = "";
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -206,7 +270,34 @@ class _SignUpState extends State<SignupScreen> {
                       controlAffinity: ListTileControlAffinity.leading,
                     ),
                   ),
-                  const MainButton('Sign Up', 50, 300, '/login')
+                  _isError.isNotEmpty
+                      ? Container(
+                          margin: const EdgeInsets.only(top: 8, bottom: 10),
+                          width: double.infinity,
+                          child: n.Text(_isError)
+                            ..color = ThemeConstant.logOutBtnColor
+                            ..textAlign = TextAlign.center,
+                        )
+                      : Container(),
+                  SizedBox(
+                    width: 300,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                      ),
+                      onPressed: () {
+                        handleRegister();
+                      },
+                      child: const Text(
+                        'Register',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

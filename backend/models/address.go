@@ -2,8 +2,6 @@ package models
 
 type Address struct {
 	Id           *uint64 `gorm:"primaryKey"`
-	UserId       *uint64 `gorm:"not null"`
-	User         *User   `gorm:"foreignKey:UserId"`
 	Name         *string `gorm:"type:VARCHAR(80); not null"`
 	Phone        *string `gorm:"type:VARCHAR(10); not null"`
 	AddressLine1 *string `gorm:"type:VARCHAR(255); not null"`

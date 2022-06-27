@@ -1,9 +1,14 @@
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/utils/widget/divider_insert.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:niku/namespace.dart' as n;
 import 'package:collection/collection.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MeScreen extends StatefulWidget {
   const MeScreen({Key? key}) : super(key: key);
@@ -15,7 +20,7 @@ class MeScreen extends StatefulWidget {
 class _MeScreenState extends State<MeScreen> {
   final List<Map<String, dynamic>> accountDetail = [
     {"name": "My Profile", "path": "/profile"},
-    {"name": "Order Status", "path": "/"},
+    {"name": "Order Status", "path": "/profile/order/status"},
     {"name": "My Address", "path": "/profile/address"},
     {"name": "My Card", "path": "/profile/card"},
   ];
@@ -27,6 +32,26 @@ class _MeScreenState extends State<MeScreen> {
   ];
 
   final String userType = 'seller';
+  late SharedPreferences prefs;
+
+  void deleteUserData() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.remove('user');
+  }
+
+  void getAddress() {
+    final response = context.read<ProfileProvider>().getAddressInfo();
+    if (response is ErrorResponse) {
+      context.read<ProfileProvider>().addressFirstTime = true;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAddress();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -58,25 +83,47 @@ class _MeScreenState extends State<MeScreen> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(120),
                               child: Image.network(
-                                'https://cdn.discordapp.com/attachments/749662268576497855/985587737866432594/8FDC299C-4D29-4D66-BFD9-DE106D0E9967.jpg',
+                                context
+                                    .watch<ProfileProvider>()
+                                    .medata
+                                    .pictureUrl,
                                 width: 80,
                                 height: 80,
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          n.Column([
-                            Container(
-                              width: screenWidth * 0.5,
-                              margin: const EdgeInsets.only(bottom: 4),
-                              child: n.Text("Sangonomiya Kokomi")
-                                ..fontWeight = FontWeight.bold
-                                ..color = ThemeConstant.secondaryColor
-                                ..overflow = TextOverflow.ellipsis,
-                            ),
-                            n.Text("Joined: 11/6/2022"),
-                          ])
-                            ..crossAxisAlignment = CrossAxisAlignment.start
+                          n.Column(
+                            [
+                              Container(
+                                width: screenWidth * 0.5,
+                                margin: const EdgeInsets.only(bottom: 4),
+                                child: n.Text(
+                                  context
+                                          .watch<ProfileProvider>()
+                                          .medata
+                                          .firstname +
+                                      " " +
+                                      context
+                                          .watch<ProfileProvider>()
+                                          .medata
+                                          .lastname,
+                                )
+                                  ..fontWeight = FontWeight.bold
+                                  ..color = ThemeConstant.secondaryColor
+                                  ..overflow = TextOverflow.ellipsis,
+                              ),
+                              n.Text(
+                                "Joined: " +
+                                    DateFormat("dd/MM/yyyy").format(
+                                      DateTime.parse(context
+                                          .watch<ProfileProvider>()
+                                          .medata
+                                          .joinDate),
+                                    ),
+                              ),
+                            ],
+                          )..crossAxisAlignment = CrossAxisAlignment.start
                         ],
                       ),
                     ),
@@ -284,6 +331,7 @@ class _MeScreenState extends State<MeScreen> {
                           ),
                         ),
                         onPressed: () {
+                          deleteUserData();
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

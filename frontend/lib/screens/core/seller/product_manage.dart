@@ -39,6 +39,7 @@ class _ProductManagementScreenState extends State<ProductManagementScreen> {
           padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
           child: TabBarView(
             children: [
+              //in shop
               GridView.builder(
                 itemCount: 10,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -47,10 +48,15 @@ class _ProductManagementScreenState extends State<ProductManagementScreen> {
                   crossAxisSpacing: 10.0,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  return const ProductCard(
-                      "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png');
+                  return GestureDetector(
+                    onTap: () =>
+                        Navigator.pushNamed(context, '/product/preview'),
+                    child: const ProductCard(
+                        "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png'),
+                  );
                 },
               ),
+              //sold
               GridView.builder(
                 itemCount: 10,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

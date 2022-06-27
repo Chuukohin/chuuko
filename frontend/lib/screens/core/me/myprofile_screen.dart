@@ -1,9 +1,8 @@
-import 'package:chuukohin/types/widget/placement.dart';
-import 'package:chuukohin/widgets/button.dart';
-import 'package:chuukohin/widgets/typography/header_text.dart';
+import 'package:chuukohin/services/me/me.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/widgets/me/textform.dart';
+import 'package:provider/provider.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -13,6 +12,30 @@ class MyProfileScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<MyProfileScreen> {
+  final firstnameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  Future<void> updateProfile() async {
+    await ProfileService.updateProfile(firstnameController.text,
+        lastnameController.text, emailController.text);
+    context.read<ProfileProvider>().getMeData();
+    Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    firstnameController.text =
+        Provider.of<ProfileProvider>(context, listen: false).medata.firstname;
+    lastnameController.text =
+        Provider.of<ProfileProvider>(context, listen: false).medata.lastname;
+    emailController.text =
+        Provider.of<ProfileProvider>(context, listen: false).medata.email;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,7 +50,7 @@ class _LoginScreenState extends State<MyProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text('My profile'),
+          title: const Text('My profile'),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -35,67 +58,67 @@ class _LoginScreenState extends State<MyProfileScreen> {
                 const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 20),
             child: Column(
               children: [
-                Container(
-                    child: Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
+                          controller: firstnameController,
                           title: 'Firstname',
                           subtitle: 'Firstname ',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
+                          controller: lastnameController,
                           title: 'Lastname',
                           subtitle: 'Lastname ',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
+                          controller: emailController,
                           title: 'email@gmail.com',
                           subtitle: 'Email',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 5),
                         child: TextForm(
-                          title: '1234',
+                          controller: passwordController,
+                          title: '',
                           subtitle: 'Password',
                         )),
                   ],
-                )),
-                Container(
-                    child: Column(
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                         margin: const EdgeInsets.only(bottom: 230),
                         child: TextForm(
-                          title: '1234',
+                          controller: confirmPasswordController,
+                          title: '',
                           subtitle: 'Confirm password',
                         )),
                   ],
-                )),
-                Container(
+                ),
+                SizedBox(
                   width: 300,
                   height: 50,
                   child: ElevatedButton(
@@ -105,7 +128,7 @@ class _LoginScreenState extends State<MyProfileScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pop(context);
+                      updateProfile();
                     },
                     child: const Text(
                       "Save",

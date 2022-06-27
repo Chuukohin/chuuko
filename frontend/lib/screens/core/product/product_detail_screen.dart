@@ -1,3 +1,4 @@
+import 'package:chuukohin/screens/core/payment/checkout_screen.dart';
 import 'package:chuukohin/widgets/product/product_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
@@ -55,7 +56,14 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                     ),
                     child: n.Text("Buy now")..fontSize = 16,
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CheckoutScreen(),
+                        ),
+                      );
+                    }),
               )
             ],
           ),

@@ -35,6 +35,14 @@ func CardPostHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	// * Check duplicate card
+	if result := database.Gorm.First(new(models.Card), "user_id = ?", claims.UserId); result.RowsAffected != 0 {
+		return &responder.GenericError{
+			Message: "You already have a card",
+			Err:     result.Error,
+		}
+	}
+
 	// * Validate Body
 	if err := check.Validator.Struct(body); err != nil {
 		return &responder.GenericError{
@@ -46,6 +54,7 @@ func CardPostHandler(c *fiber.Ctx) error {
 	card := models.Card{
 		UserId:      claims.UserId,
 		Name:        body.Name,
+		CardNo:      body.CardNo,
 		MonthExpire: body.MonthExpire,
 		YearExpire:  body.YearExpire,
 	}

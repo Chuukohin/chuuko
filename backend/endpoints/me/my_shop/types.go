@@ -4,7 +4,7 @@ import "time"
 
 type myShopGetResponse struct {
 	Seller   *sellerData `json:"seller"`
-	Products any         `json:"products"`
+	Products []*product  `json:"products"`
 }
 
 type sellerData struct {

@@ -10,17 +10,17 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-// ProductManagementSellingHandler
+// ProductManagementSellingGetHandler
 // @ID           me.product_management.selling.get
 // @Summary      Get all selling products in that shop
 // @Description  Get all selling products in that shop
 // @Tags         me_product_management
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  product_management.product
+// @Success      200  {object}  []product_management.product
 // @Failure      400  {object}  responder.ErrorResponse
 // @Router       /me/management/selling/ [get]
-func ProductManagementSellingHandler(c *fiber.Ctx) error {
+func ProductManagementSellingGetHandler(c *fiber.Ctx) error {
 	// * Parse user JWT token
 	token := c.Locals("user").(*jwt.Token)
 	claims := token.Claims.(*jwt_claim.UserClaim)
@@ -42,7 +42,7 @@ func ProductManagementSellingHandler(c *fiber.Ctx) error {
 		}
 	} else {
 		return &responder.GenericError{
-			Message: "This shop has no products are selling",
+			Message: "No products are available in this shop",
 			Err:     result.Error,
 		}
 	}

@@ -38,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
               boxShadow: [
                 BoxShadow(
                   blurRadius: 20,
-                  color: Colors.black.withOpacity(.05),
+                  color: Colors.black.withOpacity(.1),
                 )
               ],
             ),

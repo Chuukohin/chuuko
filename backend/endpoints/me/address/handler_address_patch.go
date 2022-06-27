@@ -43,6 +43,15 @@ func AddressPatchHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	// * Find address_id in user
+	var user *models.User
+	if result := database.Gorm.First(&user, "id = ?", claims.UserId); result.Error != nil {
+		return &responder.GenericError{
+			Message: "Unable to find the user",
+			Err:     result.Error,
+		}
+	}
+
 	address := &models.Address{
 		Name:         body.Name,
 		Phone:        body.Phone,
@@ -54,7 +63,7 @@ func AddressPatchHandler(c *fiber.Ctx) error {
 		PostalCode:   body.PostalCode,
 	}
 
-	if result := database.Gorm.Model(new(models.Address)).Where("user_id = ?", claims.UserId).Updates(&address); result.Error != nil {
+	if result := database.Gorm.Model(new(models.Address)).Where("id = ?", user.AddressId).Updates(&address); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to update the address",
 			Err:     result.Error,

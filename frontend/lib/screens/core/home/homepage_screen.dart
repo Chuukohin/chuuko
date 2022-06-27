@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/category/category_screen.dart';
 import 'package:chuukohin/screens/core/product/product_detail_screen.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/widgets/category/category_icon.dart';
 import 'package:chuukohin/widgets/product/product_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:niku/namespace.dart' as n;
 import 'package:collection/collection.dart';
+import 'package:provider/provider.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -34,6 +36,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   void initState() {
     super.initState();
     _loadCategories();
+    context.read<ProfileProvider>().getMeData();
   }
 
   @override
