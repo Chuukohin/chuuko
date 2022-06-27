@@ -84,4 +84,5 @@ func Router(router fiber.Router) {
 	// Home
 	homeRouter := router.Group("/home")
 	homeRouter.Get("/all", home.HomeAllProductsGetHandler)
+	homeRouter.Get("/category/:category_id", home.HomeProductsByCategoryGetHandler)
 }
