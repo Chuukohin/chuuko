@@ -7,6 +7,7 @@ import (
 	"chuukohin/endpoints/admin"
 	"chuukohin/endpoints/me/address"
 	"chuukohin/endpoints/me/card"
+	"chuukohin/endpoints/me/income"
 	"chuukohin/endpoints/me/my_shop"
 	"chuukohin/endpoints/me/order_status"
 	"chuukohin/endpoints/me/password"
@@ -75,4 +76,7 @@ func Router(router fiber.Router) {
 	meRouter.Get("/order_status/to_receive", order_status.OrderStatusToReceiveHandler)
 	meRouter.Get("/order_status/complete", order_status.OrderStatusCompleteHandler)
 	meRouter.Patch("/order_status/received", order_status.OrderStatusReceivedHandler)
+
+	// Me income
+	meRouter.Get("/income", income.IncomeGetHandler)
 }
