@@ -5,6 +5,7 @@ import (
 	"chuukohin/endpoints/account/register"
 	"chuukohin/endpoints/account/seller"
 	"chuukohin/endpoints/admin"
+	"chuukohin/endpoints/home"
 	"chuukohin/endpoints/me/address"
 	"chuukohin/endpoints/me/card"
 	"chuukohin/endpoints/me/income"
@@ -79,4 +80,8 @@ func Router(router fiber.Router) {
 
 	// Me income
 	meRouter.Get("/income", income.IncomeGetHandler)
+
+	// Home
+	homeRouter := router.Group("/home")
+	homeRouter.Get("/all", home.HomeAllProductsGetHandler)
 }
