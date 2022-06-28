@@ -1,6 +1,7 @@
 import 'package:chuukohin/models/response/me/address/address_response.dart';
 import 'package:chuukohin/models/response/me/card/card_response.dart';
 import 'package:chuukohin/models/response/me/me_response.dart';
+import 'package:chuukohin/models/response/me/my_shop/my_shop_response.dart';
 import 'package:chuukohin/services/me/address.dart';
 import 'package:chuukohin/services/me/me.dart';
 import 'package:flutter/foundation.dart';
@@ -72,6 +73,23 @@ class ProfileProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   void setAddressFirstTime(bool value) {
     addressFirstTime = value;
+    notifyListeners();
+  }
+}
+
+class SellerProvider with ChangeNotifier, DiagnosticableTreeMixin {
+  String sellerId = "";
+  MyShopInfoData shopData = MyShopInfoData(
+      seller: MyShopInfo(name: "", totalProduct: 0, joinDate: ""),
+      products: []);
+
+  void setSellerId(String id) {
+    sellerId = id;
+    notifyListeners();
+  }
+
+  void setShopData(MyShopInfoData data) {
+    shopData = data;
     notifyListeners();
   }
 }

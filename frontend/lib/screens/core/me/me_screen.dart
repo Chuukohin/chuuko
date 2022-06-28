@@ -1,6 +1,8 @@
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/models/response/error/error_response.dart';
+import 'package:chuukohin/models/response/me/my_shop/my_shop_response.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
+import 'package:chuukohin/services/me/myshop.dart';
 import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/utils/widget/divider_insert.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:niku/namespace.dart' as n;
 import 'package:collection/collection.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 class MeScreen extends StatefulWidget {
   const MeScreen({Key? key}) : super(key: key);
@@ -31,12 +34,46 @@ class _MeScreenState extends State<MeScreen> {
     {"name": "Income", "path": "/seller/income"},
   ];
 
-  final String userType = 'seller';
+  String userType = 'user';
   late SharedPreferences prefs;
 
   void deleteUserData() async {
     prefs = await SharedPreferences.getInstance();
     prefs.remove('user');
+  }
+
+  void readJson() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('user');
+    Map<String, dynamic> payload = Jwt.parseJwt(token!);
+    context.read<SellerProvider>().setSellerId(payload['seller_id'].toString());
+    if (Provider.of<SellerProvider>(context, listen: false).sellerId != "0") {
+      setState(() {
+        userType = 'seller';
+      });
+    }
+    final response = context.read<ProfileProvider>().getAddressInfo();
+    if (response is ErrorResponse) {
+      context.read<ProfileProvider>().addressFirstTime = true;
+    }
+    final shopResponse = await ShopDataService.getShopData(
+      Provider.of<SellerProvider>(context, listen: false).sellerId,
+    );
+    if (shopResponse is MyShopInfoResponse) {
+      context.read<SellerProvider>().setShopData(shopResponse.data);
+    }
+  }
+
+  void getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('user');
+    Map<String, dynamic> payload = Jwt.parseJwt(token!);
+    context.read<SellerProvider>().setSellerId(payload['seller_id'].toString());
+    if (Provider.of<SellerProvider>(context, listen: false).sellerId != "0") {
+      setState(() {
+        userType = 'seller';
+      });
+    }
   }
 
   void getAddress() {
@@ -46,10 +83,22 @@ class _MeScreenState extends State<MeScreen> {
     }
   }
 
+  void getShopData() async {
+    final response = await ShopDataService.getShopData(
+      Provider.of<SellerProvider>(context, listen: false).sellerId,
+    );
+    if (response is MyShopInfoResponse) {
+      context.read<SellerProvider>().setShopData(response.data);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    getAddress();
+    readJson();
+    // getToken();
+    // getShopData();
+    // getAddress();
   }
 
   @override

@@ -48,8 +48,8 @@ class MyShopInfo {
 
   factory MyShopInfo.fromJson(Map<String, dynamic> json) {
     return MyShopInfo(
-        name: json['token'],
-        totalProduct: json['total_product'],
+        name: json['name'],
+        totalProduct: json['total_product'] ?? 0,
         joinDate: json['join_date']);
   }
 }
@@ -71,7 +71,7 @@ class MyShopProducts {
   factory MyShopProducts.fromJson(Map<String, dynamic> json) {
     return MyShopProducts(
         id: json['id'],
-        name: json['token'],
+        name: json['name'],
         price: json['price'],
         brand: json['brand'],
         pictureUrl: json['picture_url']);

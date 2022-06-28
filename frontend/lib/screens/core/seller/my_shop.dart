@@ -1,8 +1,15 @@
+import 'dart:developer';
+
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/models/response/me/my_shop/my_shop_response.dart';
 import 'package:chuukohin/screens/core/product/product_detail_screen.dart';
+import 'package:chuukohin/services/me/myshop.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/widgets/product/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:niku/namespace.dart' as n;
+import 'package:provider/provider.dart';
 
 class MyShopScreen extends StatefulWidget {
   const MyShopScreen({Key? key}) : super(key: key);
@@ -12,6 +19,11 @@ class MyShopScreen extends StatefulWidget {
 }
 
 class _MyShopScreenState extends State<MyShopScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -61,16 +73,38 @@ class _MyShopScreenState extends State<MyShopScreen> {
                                   child: n.Column([
                                     SizedBox(
                                       width: screenWidth * 0.5,
-                                      child: n.Text("Chuukohin Shop")
+                                      child: n.Text(Provider.of<SellerProvider>(
+                                              context,
+                                              listen: false)
+                                          .shopData
+                                          .seller
+                                          .name)
                                         ..fontWeight = FontWeight.bold
                                         ..fontSize = 16
                                         ..color = ThemeConstant.profileTextColor
                                         ..overflow = TextOverflow.ellipsis,
                                     ),
-                                    n.Text("Joined date: 11/6/2022")
+                                    n.Text(
+                                      "Joined date: " +
+                                          DateFormat("dd/MM/yyyy").format(
+                                            DateTime.parse(
+                                                Provider.of<SellerProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .shopData
+                                                    .seller
+                                                    .joinDate),
+                                          ),
+                                    )
                                       ..fontSize = 13
                                       ..fontWeight = FontWeight.w300,
-                                    n.Text("Products: 400")
+                                    n.Text("Products: " +
+                                        Provider.of<SellerProvider>(context,
+                                                listen: false)
+                                            .shopData
+                                            .products
+                                            .length
+                                            .toString())
                                       ..fontSize = 13
                                       ..fontWeight = FontWeight.w300,
                                   ])

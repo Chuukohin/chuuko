@@ -8,9 +8,8 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => ProfileProvider(),
-        ),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
+        ChangeNotifierProvider(create: (_) => SellerProvider()),
       ],
       child: const Chuuko(),
     ),
