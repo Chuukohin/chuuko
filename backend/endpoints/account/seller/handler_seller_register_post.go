@@ -68,6 +68,8 @@ func SellerRegisterPostHandler(c *fiber.Ctx) error {
 		ShopDescription: &body.ShopDescription,
 		AddressId:       address.Id,
 		Phone:           &body.Phone,
+		Firstname:       &body.Firstname,
+		Lastname:        &body.Lastname,
 	}
 
 	// * Create shop
