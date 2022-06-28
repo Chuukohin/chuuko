@@ -44,6 +44,13 @@ func SellerRegisterPostHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	// * Check duplicate seller
+	if result := database.Gorm.First(new(models.Shop), "user_id = ?", claims.UserId); result.RowsAffected != 0 {
+		return &responder.GenericError{
+			Message: "You already registered a seller",
+		}
+	}
+
 	address := &models.Address{
 		Name:         &body.ShopName,
 		Phone:        &body.Phone,
