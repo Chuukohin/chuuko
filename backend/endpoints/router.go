@@ -90,4 +90,5 @@ func Router(router fiber.Router) {
 
 	// Me Seller Order Status
 	meRouter.Get("/seller_order/status/sending", seller_order_status.MeSellerSendingOrder)
+	meRouter.Get("/seller_order/status/sent", seller_order_status.MeSellerSentOrder)
 }
