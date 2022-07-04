@@ -14,6 +14,7 @@ import (
 	"chuukohin/endpoints/me/password"
 	"chuukohin/endpoints/me/product_management"
 	"chuukohin/endpoints/me/profile"
+	"chuukohin/endpoints/me/seller_order_status"
 	"chuukohin/endpoints/order"
 	"chuukohin/endpoints/product"
 	"chuukohin/frameworks/fiber/middlewares"
@@ -86,4 +87,7 @@ func Router(router fiber.Router) {
 	homeRouter.Get("/all", home.HomeAllProductsGetHandler)
 	homeRouter.Get("/category/:category_id", home.HomeProductsByCategoryGetHandler)
 	homeRouter.Get("/search", home.HomeSearchGetHandler)
+
+	// Me Seller Order Status
+	meRouter.Get("/seller_order/status/sending", seller_order_status.MeSellerSendingOrder)
 }
