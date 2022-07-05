@@ -42,7 +42,7 @@ func IncomeGetHandler(c *fiber.Ctx) error {
 		"FROM orders od "+
 		"INNER JOIN users u ON od.user_id = u.id "+
 		"INNER JOIN products p on od.product_id = p.id "+
-		"INNER JOIN shops s on u.id = p.seller_id "+
+		"INNER JOIN shops s on s.id = p.seller_id "+
 		"WHERE s.id = ?", claims.SellerId).Scan(&orderListData); result.Error != nil {
 		return &responder.GenericError{
 			Message: "Unable to get data",
