@@ -83,24 +83,16 @@ class _IncomeScreenState extends State<IncomeScreen> {
               ),
               n.Column(
                 dividerInsert(
-                  // for (var i = 0; i < 8; i++)
                   Provider.of<SellerProvider>(context, listen: false)
                       .income
                       .orderList
                       .map(
-                        (order) => GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, '/seller/order/detail');
-                          },
-                          behavior: HitTestBehavior.translucent,
-                          child: IncomeOrder(
-                            name: order.customerName,
-                            date: DateFormat("dd MMMM yyyy, H:m").format(
-                              DateTime.parse(order.orderTime),
-                            ),
-                            price: order.income.toString(),
+                        (order) => IncomeOrder(
+                          name: order.customerName,
+                          date: DateFormat("dd MMMM yyyy, H:m").format(
+                            DateTime.parse(order.orderTime),
                           ),
+                          price: order.income.toString(),
                         ),
                       )
                       .toList(),
