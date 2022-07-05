@@ -18,7 +18,14 @@ class _PreviewScreenState extends State<PreviewScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: n.Text('Product name'),
+        title: SizedBox(
+          width: 220,
+          child: n.Text(Provider.of<SellerProvider>(context, listen: false)
+              .productDetail
+              .name)
+            ..overflow = TextOverflow.ellipsis
+            ..textAlign = TextAlign.center,
+        ),
       ),
       body: Stack(
         children: [

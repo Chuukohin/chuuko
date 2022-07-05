@@ -136,12 +136,23 @@ class _MyShopScreenState extends State<MyShopScreen> {
                   (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProductDetailScreen(),
-                          ),
-                        );
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .getProductDetail(Provider.of<SellerProvider>(
+                                    context,
+                                    listen: false)
+                                .shopData
+                                .products[index]
+                                .id
+                                .toString())
+                            .then(
+                              (_) => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ProductDetailScreen(),
+                                ),
+                              ),
+                            );
                       },
                       child: ProductCard(
                         Provider.of<SellerProvider>(context, listen: false)

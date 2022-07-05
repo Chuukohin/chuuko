@@ -1,4 +1,5 @@
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/screens/core/product/preview_screen.dart';
 import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/widgets/product/product_card.dart';
 import 'package:flutter/material.dart';
@@ -61,8 +62,12 @@ class _ProductManagementScreenState extends State<ProductManagementScreen> {
                                 .id
                                 .toString())
                         .then(
-                          (_) =>
-                              Navigator.pushNamed(context, '/product/preview'),
+                          (_) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PreviewScreen(),
+                            ),
+                          ),
                         ),
                     child: ProductCard(
                         Provider.of<SellerProvider>(context, listen: false)

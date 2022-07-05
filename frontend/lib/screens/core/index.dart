@@ -24,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('user');
     Map<String, dynamic> payload = Jwt.parseJwt(token!);
-    if (payload['seller_id'] != null) {
+    if (payload['seller_id'] != 0) {
       context
           .read<SellerProvider>()
           .setSellerId(payload['seller_id'].toString());

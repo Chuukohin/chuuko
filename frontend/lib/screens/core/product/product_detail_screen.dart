@@ -23,7 +23,8 @@ class ProductDetailScreen extends StatelessWidget {
           child: n.Text(Provider.of<SellerProvider>(context, listen: false)
               .productDetail
               .name)
-            ..overflow = TextOverflow.ellipsis,
+            ..overflow = TextOverflow.ellipsis
+            ..textAlign = TextAlign.center,
         ),
       ),
       body: Stack(
