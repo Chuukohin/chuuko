@@ -33,34 +33,49 @@ class _LoginScreenState extends State<MyAddressScreen> {
         districtController.text.isNotEmpty &&
         subDistrictController.text.isNotEmpty &&
         postalCodeController.text.isNotEmpty) {
-      print('add new address');
       await AddressService.addAddress(
-          nameController.text,
-          phoneController.text,
-          addressLine1Controller.text,
-          addressLine2Controller.text,
-          provinceController.text,
-          districtController.text,
-          subDistrictController.text,
-          postalCodeController.text);
-      context.read<ProfileProvider>().getAddressInfo().then(
-        (value) {
-          if (value is ErrorResponse) {
-            var error = SnackBar(
-              behavior: SnackBarBehavior.floating,
-              margin: const EdgeInsets.only(bottom: 60, left: 15, right: 15),
-              content: Text(value.message),
-              action: SnackBarAction(
-                label: 'OK',
-                onPressed: () {},
-              ),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(error);
-          } else {
-            Navigator.pop(context);
-          }
-        },
-      );
+              nameController.text,
+              phoneController.text,
+              addressLine1Controller.text,
+              addressLine2Controller.text,
+              provinceController.text,
+              districtController.text,
+              subDistrictController.text,
+              postalCodeController.text)
+          .then((response) {
+        if (response is ErrorResponse) {
+          var error = SnackBar(
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.only(bottom: 60, left: 15, right: 15),
+            content: Text(response.message),
+            action: SnackBarAction(
+              label: 'OK',
+              onPressed: () {},
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(error);
+        } else {
+          context.read<ProfileProvider>().getAddressInfo().then(
+            (value) {
+              if (value is ErrorResponse) {
+                var error = SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  margin:
+                      const EdgeInsets.only(bottom: 60, left: 15, right: 15),
+                  content: Text(value.message),
+                  action: SnackBarAction(
+                    label: 'OK',
+                    onPressed: () {},
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(error);
+              } else {
+                Navigator.pop(context);
+              }
+            },
+          );
+        }
+      });
     } else if (!Provider.of<ProfileProvider>(context, listen: false)
             .addressFirstTime &&
         nameController.text.isNotEmpty &&
@@ -70,34 +85,49 @@ class _LoginScreenState extends State<MyAddressScreen> {
         districtController.text.isNotEmpty &&
         subDistrictController.text.isNotEmpty &&
         postalCodeController.text.isNotEmpty) {
-      print('update address');
       await AddressService.editAddress(
-          nameController.text,
-          phoneController.text,
-          addressLine1Controller.text,
-          addressLine2Controller.text,
-          provinceController.text,
-          districtController.text,
-          subDistrictController.text,
-          postalCodeController.text);
-      context.read<ProfileProvider>().getAddressInfo().then(
-        (value) {
-          if (value is ErrorResponse) {
-            var error = SnackBar(
-              behavior: SnackBarBehavior.floating,
-              margin: const EdgeInsets.only(bottom: 60, left: 15, right: 15),
-              content: Text(value.message),
-              action: SnackBarAction(
-                label: 'OK',
-                onPressed: () {},
-              ),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(error);
-          } else {
-            Navigator.pop(context);
-          }
-        },
-      );
+              nameController.text,
+              phoneController.text,
+              addressLine1Controller.text,
+              addressLine2Controller.text,
+              provinceController.text,
+              districtController.text,
+              subDistrictController.text,
+              postalCodeController.text)
+          .then((response) {
+        if (response is ErrorResponse) {
+          var error = SnackBar(
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.only(bottom: 60, left: 15, right: 15),
+            content: Text(response.message),
+            action: SnackBarAction(
+              label: 'OK',
+              onPressed: () {},
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(error);
+        } else {
+          context.read<ProfileProvider>().getAddressInfo().then(
+            (value) {
+              if (value is ErrorResponse) {
+                var error = SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  margin:
+                      const EdgeInsets.only(bottom: 60, left: 15, right: 15),
+                  content: Text(value.message),
+                  action: SnackBarAction(
+                    label: 'OK',
+                    onPressed: () {},
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(error);
+              } else {
+                Navigator.pop(context);
+              }
+            },
+          );
+        }
+      });
     } else {
       var error = SnackBar(
         behavior: SnackBarBehavior.floating,
