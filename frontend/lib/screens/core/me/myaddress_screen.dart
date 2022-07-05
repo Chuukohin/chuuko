@@ -1,7 +1,10 @@
+import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/services/me/address.dart';
 import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/widgets/me/textform.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class MyAddressScreen extends StatefulWidget {
@@ -22,7 +25,14 @@ class _LoginScreenState extends State<MyAddressScreen> {
   final postalCodeController = TextEditingController();
 
   void handleUpdateAddress() async {
-    if (Provider.of<ProfileProvider>(context, listen: false).addressFirstTime) {
+    if (Provider.of<ProfileProvider>(context, listen: false).addressFirstTime &&
+        nameController.text.isNotEmpty &&
+        phoneController.text.isNotEmpty &&
+        addressLine1Controller.text.isNotEmpty &&
+        provinceController.text.isNotEmpty &&
+        districtController.text.isNotEmpty &&
+        subDistrictController.text.isNotEmpty &&
+        postalCodeController.text.isNotEmpty) {
       await AddressService.addAddress(
           nameController.text,
           phoneController.text,
@@ -33,9 +43,32 @@ class _LoginScreenState extends State<MyAddressScreen> {
           subDistrictController.text,
           postalCodeController.text);
       context.read<ProfileProvider>().getAddressInfo().then(
-            (value) => Navigator.pop(context),
-          );
-    } else {
+        (value) {
+          if (value is ErrorResponse) {
+            var error = SnackBar(
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.only(bottom: 60, left: 15, right: 15),
+              content: Text(value.message),
+              action: SnackBarAction(
+                label: 'OK',
+                onPressed: () {},
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(error);
+          } else {
+            Navigator.pop(context);
+          }
+        },
+      );
+    } else if (!Provider.of<ProfileProvider>(context, listen: false)
+            .addressFirstTime &&
+        nameController.text.isNotEmpty &&
+        phoneController.text.isNotEmpty &&
+        addressLine1Controller.text.isNotEmpty &&
+        provinceController.text.isNotEmpty &&
+        districtController.text.isNotEmpty &&
+        subDistrictController.text.isNotEmpty &&
+        postalCodeController.text.isNotEmpty) {
       await AddressService.editAddress(
           nameController.text,
           phoneController.text,
@@ -46,8 +79,34 @@ class _LoginScreenState extends State<MyAddressScreen> {
           subDistrictController.text,
           postalCodeController.text);
       context.read<ProfileProvider>().getAddressInfo().then(
-            (value) => Navigator.pop(context),
-          );
+        (value) {
+          if (value is ErrorResponse) {
+            var error = SnackBar(
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.only(bottom: 60, left: 15, right: 15),
+              content: Text(value.message),
+              action: SnackBarAction(
+                label: 'OK',
+                onPressed: () {},
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(error);
+          } else {
+            Navigator.pop(context);
+          }
+        },
+      );
+    } else {
+      var error = SnackBar(
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.only(bottom: 60, left: 15, right: 15),
+        content: const Text('Error! Please fill all the fields'),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {},
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(error);
     }
   }
 
@@ -109,12 +168,28 @@ class _LoginScreenState extends State<MyAddressScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        margin: const EdgeInsets.only(bottom: 25),
-                        child: TextForm(
-                          controller: phoneController,
-                          title: 'Phone number',
-                          subtitle: 'Phone number',
-                        )),
+                      margin: const EdgeInsets.only(bottom: 25),
+                      child: TextFormField(
+                        controller: phoneController,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(10),
+                        ],
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
+                        decoration: InputDecoration(
+                          hintText: 'Phone Number',
+                          hintStyle: TextStyle(
+                            color: ThemeConstant.dividerColor,
+                          ),
+                          helperText: 'Phone Number',
+                          helperStyle: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: ThemeConstant.dividerColor),
+                          contentPadding: const EdgeInsets.only(top: 23),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 Align(

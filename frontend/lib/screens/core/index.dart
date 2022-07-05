@@ -20,6 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     context.read<HomeProvider>().getHomeProduct();
+    context.read<ProfileProvider>().getAddressInfo();
   }
 
   @override

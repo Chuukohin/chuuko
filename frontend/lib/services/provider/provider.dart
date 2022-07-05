@@ -1,3 +1,4 @@
+import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/models/response/home/home_product_response.dart';
 import 'package:chuukohin/models/response/me/address/address_response.dart';
 import 'package:chuukohin/models/response/me/card/card_response.dart';
@@ -111,6 +112,9 @@ class ProfileProvider with ChangeNotifier, DiagnosticableTreeMixin {
     final response = await AddressService.getAddress();
     if (response is AddressInfoResponse) {
       setAddressInfo(response.data);
+      addressFirstTime = false;
+    } else if (response is ErrorResponse) {
+      addressFirstTime = true;
     } else {
       setAddressInfo(AddressInfoData(
           name: "",

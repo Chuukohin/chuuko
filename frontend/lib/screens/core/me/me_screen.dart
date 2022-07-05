@@ -1,4 +1,5 @@
 import 'package:chuukohin/constant/theme.dart';
+
 import 'package:chuukohin/models/response/me/my_shop/my_shop_response.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
 import 'package:chuukohin/services/me/myshop.dart';
@@ -45,7 +46,15 @@ class _MeScreenState extends State<MeScreen> {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('user');
     Map<String, dynamic> payload = Jwt.parseJwt(token!);
-    context.read<SellerProvider>().setSellerId(payload['seller_id'].toString());
+    if (payload['seller_id'] != null) {
+      context
+          .read<SellerProvider>()
+          .setSellerId(payload['seller_id'].toString());
+    } else {
+      setState(() {
+        userType = 'user';
+      });
+    }
     if (Provider.of<SellerProvider>(context, listen: false).sellerId != "0") {
       setState(() {
         userType = 'seller';

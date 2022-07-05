@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:chuukohin/constant/theme.dart';
-import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/screens/core/category/category_screen.dart';
 import 'package:chuukohin/screens/core/product/product_detail_screen.dart';
 import 'package:chuukohin/services/provider/provider.dart';
@@ -39,10 +38,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
     super.initState();
     _loadCategories();
     context.read<ProfileProvider>().getMeData();
-    final response = context.read<ProfileProvider>().getAddressInfo();
-    if (response is ErrorResponse) {
-      context.read<ProfileProvider>().addressFirstTime = true;
-    }
     _scrollController = ScrollController();
   }
 

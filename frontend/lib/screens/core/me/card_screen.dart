@@ -1,9 +1,11 @@
+import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/models/response/me/card/card_response.dart';
 import 'package:chuukohin/services/me/card.dart';
 import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:chuukohin/widgets/me/textform.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class CardScreen extends StatefulWidget {
@@ -41,20 +43,69 @@ class _LoginScreenState extends State<CardScreen> {
   }
 
   Future<void> handleUpdateCard() async {
-    if (isFirstTime) {
-      await CardService.addCard(nameController.text, cardNo.text,
+    if (isFirstTime &&
+        nameController.text.isNotEmpty &&
+        cardNo.text.isNotEmpty &&
+        expireDate.text.isNotEmpty &&
+        expireDate.text.contains('/')) {
+      var response = await CardService.addCard(nameController.text, cardNo.text,
           expireDate.text.split("/")[0], expireDate.text.split("/")[1]);
+      if (response is ErrorResponse) {
+        var error = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.only(bottom: 60, left: 15, right: 15),
+          content: Text(response.message),
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {},
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(error);
+      } else {
+        Navigator.pop(context);
+      }
+    } else if (!isFirstTime &&
+        nameController.text.isNotEmpty &&
+        cardNo.text.isNotEmpty &&
+        expireDate.text.isNotEmpty &&
+        expireDate.text.contains('/')) {
+      var response = await CardService.updateCard(
+          nameController.text,
+          cardNo.text,
+          expireDate.text.split("/")[0],
+          expireDate.text.split("/")[1]);
+      if (response is ErrorResponse) {
+        var error = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.only(bottom: 60, left: 15, right: 15),
+          content: Text(response.message),
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {},
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(error);
+      } else {
+        Navigator.pop(context);
+      }
     } else {
-      await CardService.updateCard(nameController.text, cardNo.text,
-          expireDate.text.split("/")[0], expireDate.text.split("/")[1]);
+      var error = SnackBar(
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.only(bottom: 60, left: 15, right: 15),
+        content: const Text('Please fill all the fields'),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {},
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(error);
     }
-    Navigator.pop(context);
   }
 
   @override
   void initState() {
-    super.initState();
     readJson();
+    super.initState();
   }
 
   @override
@@ -97,12 +148,28 @@ class _LoginScreenState extends State<CardScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          margin: const EdgeInsets.only(bottom: 5),
-                          child: TextForm(
-                            controller: cardNo,
-                            title: 'Card No.',
-                            subtitle: 'Card No.',
-                          )),
+                        margin: const EdgeInsets.only(bottom: 5),
+                        child: TextFormField(
+                          controller: cardNo,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(16),
+                          ],
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14),
+                          decoration: InputDecoration(
+                            hintText: 'Card No.',
+                            hintStyle: TextStyle(
+                              color: ThemeConstant.dividerColor,
+                            ),
+                            helperText: 'Card No.',
+                            helperStyle: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: ThemeConstant.dividerColor),
+                            contentPadding: const EdgeInsets.only(top: 23),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Column(
@@ -110,10 +177,25 @@ class _LoginScreenState extends State<CardScreen> {
                     children: [
                       Container(
                         margin: const EdgeInsets.only(bottom: 5),
-                        child: TextForm(
+                        child: TextFormField(
                           controller: expireDate,
-                          title: 'MM/YY',
-                          subtitle: 'Expire date',
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(5),
+                          ],
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14),
+                          decoration: InputDecoration(
+                            hintText: 'MM/YY',
+                            hintStyle: TextStyle(
+                              color: ThemeConstant.dividerColor,
+                            ),
+                            helperText: 'Expire date',
+                            helperStyle: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: ThemeConstant.dividerColor),
+                            contentPadding: const EdgeInsets.only(top: 23),
+                          ),
                         ),
                       ),
                     ],
