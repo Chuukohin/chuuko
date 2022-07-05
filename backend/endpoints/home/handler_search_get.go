@@ -32,6 +32,10 @@ func HomeSearchGetHandler(c *fiber.Ctx) error {
 			}
 			productsResponse = append(productsResponse, tempProduct)
 		}
+	} else if result.RowsAffected == 0 {
+		return &responder.GenericError{
+			Message: "Not found",
+		}
 	}
 
 	var indexes string = "("
