@@ -1,5 +1,5 @@
 class EnvironmentConstant {
   // Internal API
-  static String internalPrefix = "http://localhost:8080";
-  static String internalApiPrefix = "http://localhost:8080/api";
+  static String internalPrefix = "https://chuukohin-api.mixkoap.com";
+  static String internalApiPrefix = "https://chuukohin-api.mixkoap.com/api";
 }

@@ -1,3 +1,4 @@
+import 'package:chuukohin/constant/environment.dart';
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/widgets/order/order_text_span.dart';
@@ -50,9 +51,21 @@ class _OrderDetailState extends State<OrderDetail> {
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
                         Provider.of<ProfileProvider>(context, listen: false)
-                            .orderDetail
-                            .product
-                            .pictureUrl,
+                                .orderDetail
+                                .product
+                                .pictureUrl
+                                .contains('https')
+                            ? Provider.of<ProfileProvider>(context,
+                                    listen: false)
+                                .orderDetail
+                                .product
+                                .pictureUrl
+                            : EnvironmentConstant.internalPrefix +
+                                Provider.of<ProfileProvider>(context,
+                                        listen: false)
+                                    .orderDetail
+                                    .product
+                                    .pictureUrl,
                         width: 100,
                         height: 100,
                         fit: BoxFit.cover,

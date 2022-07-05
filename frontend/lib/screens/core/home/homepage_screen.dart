@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/models/response/home/search_product_response.dart';
 import 'package:chuukohin/screens/core/category/category_screen.dart';
 import 'package:chuukohin/screens/core/product/product_detail_screen.dart';
+import 'package:chuukohin/services/home/home_product.dart';
 import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/widgets/category/category_icon.dart';
 import 'package:chuukohin/widgets/product/product_card.dart';
@@ -74,6 +76,24 @@ class _HomePageScreenState extends State<HomePageScreen> {
           child: n.Column(
             [
               CupertinoSearchTextField(
+                onSuffixTap: () {
+                  _textController.clear();
+                  context.read<HomeProvider>().getHomeProduct();
+                },
+                onSubmitted: (value) {
+                  HomeService.searchProduct(value).then((response) {
+                    if (response is SearchProductResponse) {
+                      context
+                          .read<HomeProvider>()
+                          .setHomeProduct(response.products);
+                    }
+                  });
+                },
+                onChanged: (value) {
+                  if (value.isEmpty) {
+                    context.read<HomeProvider>().getHomeProduct();
+                  }
+                },
                 controller: _textController,
                 style: const TextStyle(fontSize: 14),
                 itemColor: ThemeConstant.primaryColor,

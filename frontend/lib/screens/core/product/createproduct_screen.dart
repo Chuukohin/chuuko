@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/services/product/create_product.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class CreateProductScreen extends StatefulWidget {
   const CreateProductScreen({Key? key}) : super(key: key);
@@ -67,7 +69,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         );
         ScaffoldMessenger.of(context).showSnackBar(error);
       } else {
-        Navigator.pop(context);
+        context.read<HomeProvider>().getHomeProduct().then((value) {
+          Navigator.pop(context);
+        });
       }
     });
   }

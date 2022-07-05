@@ -12,7 +12,7 @@ class HomeProductResponse {
     var homeProducts = json['data'] != null ? json['data'] as List : [];
     if (homeProducts.isEmpty) {
       return HomeProductResponse(
-          success: json['seller'], code: json['code'], products: []);
+          success: json['success'], code: json['code'], products: []);
     }
     List<Product> homeProductList =
         homeProducts.map((e) => Product.fromJson(e)).toList();
@@ -35,7 +35,7 @@ class CategoryProductResponse {
     var products = json['data'] != null ? json['data'] as List : [];
     if (products.isEmpty) {
       return CategoryProductResponse(
-          success: json['seller'], code: json['code'], products: []);
+          success: json['success'], code: json['code'], products: []);
     }
     List<Product> categoryProductList =
         products.map((e) => Product.fromJson(e)).toList();

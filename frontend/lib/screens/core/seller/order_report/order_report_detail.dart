@@ -1,3 +1,4 @@
+import 'package:chuukohin/constant/environment.dart';
 import 'package:chuukohin/constant/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,10 @@ class _OrderReportDetailState extends State<OrderReportDetail> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
-                    widget.productPicture,
+                    widget.productPicture.contains('https')
+                        ? widget.productPicture
+                        : EnvironmentConstant.internalPrefix +
+                            widget.productPicture,
                     height: 100,
                     width: 100,
                     fit: BoxFit.cover,

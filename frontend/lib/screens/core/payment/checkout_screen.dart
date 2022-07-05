@@ -1,3 +1,4 @@
+import 'package:chuukohin/constant/environment.dart';
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/screens/core/payment/payment_successful.dart';
@@ -67,7 +68,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                            widget.pictureUrl,
+                            widget.pictureUrl.contains('https')
+                                ? widget.pictureUrl
+                                : EnvironmentConstant.internalPrefix +
+                                    widget.pictureUrl,
                             height: 100,
                             width: 100,
                             fit: BoxFit.cover,

@@ -45,6 +45,12 @@ class _MeScreenState extends State<MeScreen> {
     final shopResponse = await ShopDataService.getShopData();
     if (shopResponse is MyShopInfoResponse) {
       context.read<SellerProvider>().setShopData(shopResponse.data);
+    } else {
+      context.read<SellerProvider>().setShopData(
+            MyShopInfoData(
+                seller: MyShopInfo(name: "", totalProduct: 0, joinDate: ""),
+                products: []),
+          );
     }
     context.read<SellerProvider>().getSellingProduct();
     context.read<SellerProvider>().getSoldProduct();
