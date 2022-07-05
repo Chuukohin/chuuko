@@ -65,7 +65,7 @@ class OrderAddressDetail {
   factory OrderAddressDetail.fromJson(Map<String, dynamic> json) {
     return OrderAddressDetail(
         id: json['id'],
-        name: json['token'],
+        name: json['name'],
         phone: json['phone'],
         addressLine1: json['address_line_1'],
         addressLine2: json['address_line_2'] ?? "",
@@ -111,7 +111,7 @@ class OrderDetails {
 class OrderProductDetail {
   int id;
   String name;
-  String price;
+  int price;
   String brand;
   String pictureUrl;
 
@@ -125,7 +125,7 @@ class OrderProductDetail {
   factory OrderProductDetail.fromJson(Map<String, dynamic> json) {
     return OrderProductDetail(
         id: json['id'],
-        name: json['token'],
+        name: json['name'],
         price: json['price'],
         brand: json['brand'],
         pictureUrl: json['picture_url']);

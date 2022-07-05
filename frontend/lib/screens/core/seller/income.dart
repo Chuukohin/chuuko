@@ -1,8 +1,11 @@
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/utils/widget/divider_insert.dart';
 import 'package:chuukohin/widgets/seller/income_order.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:niku/namespace.dart' as n;
+import 'package:provider/provider.dart';
 
 class IncomeScreen extends StatefulWidget {
   const IncomeScreen({Key? key}) : super(key: key);
@@ -34,9 +37,17 @@ class _IncomeScreenState extends State<IncomeScreen> {
                         color: ThemeConstant.primaryColor,
                         borderRadius: BorderRadius.circular(40),
                       ),
+                      constraints: const BoxConstraints(maxWidth: 160),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 8),
-                      child: n.Text("Chuukohin Shop")..color = Colors.white,
+                      child: n.Text(
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .shopData
+                            .seller
+                            .name,
+                      )
+                        ..color = Colors.white
+                        ..overflow = TextOverflow.ellipsis,
                     ),
                     n.Row([
                       n.Text("Total")
@@ -46,7 +57,13 @@ class _IncomeScreenState extends State<IncomeScreen> {
                       ..mainAxisAlignment = MainAxisAlignment.end,
                     n.Row(
                       [
-                        n.Text("1000.12")
+                        n.Text(
+                          Provider.of<SellerProvider>(context, listen: false)
+                              .income
+                              .summary
+                              .totalIncome
+                              .toString(),
+                        )
                           ..fontSize = 24
                           ..fontWeight = FontWeight.w500,
                         Container(
@@ -66,15 +83,27 @@ class _IncomeScreenState extends State<IncomeScreen> {
               ),
               n.Column(
                 dividerInsert(
-                  [
-                    for (var i = 0; i < 8; i++)
-                      // ignore: prefer_const_constructors
-                      IncomeOrder(
-                        name: "Sangonomiya Kokomi",
-                        date: "12 March 2020, 20:18",
-                        price: "1000.12",
-                      ),
-                  ],
+                  // for (var i = 0; i < 8; i++)
+                  Provider.of<SellerProvider>(context, listen: false)
+                      .income
+                      .orderList
+                      .map(
+                        (order) => GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, '/seller/order/detail');
+                          },
+                          behavior: HitTestBehavior.translucent,
+                          child: IncomeOrder(
+                            name: order.customerName,
+                            date: DateFormat("dd MMMM yyyy, H:m").format(
+                              DateTime.parse(order.orderTime),
+                            ),
+                            price: order.income.toString(),
+                          ),
+                        ),
+                      )
+                      .toList(),
                   Divider(
                     color: ThemeConstant.dividerColor,
                     height: 25,

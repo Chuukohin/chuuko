@@ -9,6 +9,7 @@ import 'package:chuukohin/screens/core/product/preview_screen.dart';
 import 'package:chuukohin/screens/core/seller/income.dart';
 import 'package:chuukohin/screens/core/seller/my_shop.dart';
 import 'package:chuukohin/screens/core/seller/order_report.dart';
+import 'package:chuukohin/screens/core/seller/order_report/order_detail.dart';
 import 'package:chuukohin/screens/core/seller/product_manage.dart';
 import 'package:chuukohin/screens/core/seller/sellersignup_screen.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
@@ -37,6 +38,7 @@ class RouteConstant {
       '/seller/product/manage': (_) => const ProductManagementScreen(),
       '/seller/income': (_) => const IncomeScreen(),
       '/seller/order': (_) => const OrderReportScreen(),
+      '/seller/order/detail': (_) => const OrderDetail(),
     };
   }
 }

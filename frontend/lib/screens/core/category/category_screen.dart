@@ -1,6 +1,9 @@
+import 'package:chuukohin/screens/core/product/product_detail_screen.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/widgets/product/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
+import 'package:provider/provider.dart';
 
 class CategoryScreen extends StatefulWidget {
   final String title;
@@ -35,10 +38,42 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return const ProductCard(
-                      "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png');
+                  return GestureDetector(
+                    onTap: () {
+                      Provider.of<SellerProvider>(context, listen: false)
+                          .getProductDetail(
+                              Provider.of<HomeProvider>(context, listen: false)
+                                  .categoryProduct[index]
+                                  .id
+                                  .toString())
+                          .then(
+                            (_) => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const ProductDetailScreen(),
+                              ),
+                            ),
+                          );
+                    },
+                    child: ProductCard(
+                        Provider.of<HomeProvider>(context, listen: false)
+                            .categoryProduct[index]
+                            .name,
+                        Provider.of<HomeProvider>(context, listen: false)
+                            .categoryProduct[index]
+                            .brand,
+                        Provider.of<HomeProvider>(context, listen: false)
+                            .categoryProduct[index]
+                            .price,
+                        Provider.of<HomeProvider>(context, listen: false)
+                            .categoryProduct[index]
+                            .pictureUrl),
+                  );
                 },
-                childCount: 10,
+                childCount: Provider.of<HomeProvider>(context, listen: true)
+                    .categoryProduct
+                    .length,
               ),
             ),
           ),

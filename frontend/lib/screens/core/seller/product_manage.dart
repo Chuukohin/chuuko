@@ -1,6 +1,8 @@
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/widgets/product/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductManagementScreen extends StatefulWidget {
   const ProductManagementScreen({Key? key}) : super(key: key);
@@ -41,7 +43,9 @@ class _ProductManagementScreenState extends State<ProductManagementScreen> {
             children: [
               //in shop
               GridView.builder(
-                itemCount: 10,
+                itemCount: Provider.of<SellerProvider>(context, listen: true)
+                    .sellingProducts
+                    .length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: screenHeight / 1100,
@@ -49,26 +53,59 @@ class _ProductManagementScreenState extends State<ProductManagementScreen> {
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    onTap: () =>
-                        Navigator.pushNamed(context, '/product/preview'),
-                    child: const ProductCard(
-                        "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png'),
+                    onTap: () => Provider.of<SellerProvider>(context,
+                            listen: false)
+                        .getProductDetail(
+                            Provider.of<SellerProvider>(context, listen: false)
+                                .sellingProducts[index]
+                                .id
+                                .toString())
+                        .then(
+                          (_) =>
+                              Navigator.pushNamed(context, '/product/preview'),
+                        ),
+                    child: ProductCard(
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .sellingProducts[index]
+                            .name,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .sellingProducts[index]
+                            .brand,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .sellingProducts[index]
+                            .price,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .sellingProducts[index]
+                            .pictureUrl),
                   );
                 },
               ),
               //sold
               GridView.builder(
-                itemCount: 10,
+                itemCount: Provider.of<SellerProvider>(context, listen: true)
+                    .soldProducts
+                    .length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: screenHeight / 1100,
                   crossAxisSpacing: 10.0,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  return const Opacity(
+                  return Opacity(
                     opacity: .6,
                     child: ProductCard(
-                        "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png'),
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .soldProducts[index]
+                            .name,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .soldProducts[index]
+                            .brand,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .soldProducts[index]
+                            .price,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .soldProducts[index]
+                            .pictureUrl),
                   );
                 },
               ),

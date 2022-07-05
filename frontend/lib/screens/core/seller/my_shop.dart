@@ -1,9 +1,5 @@
-import 'dart:developer';
-
 import 'package:chuukohin/constant/theme.dart';
-import 'package:chuukohin/models/response/me/my_shop/my_shop_response.dart';
 import 'package:chuukohin/screens/core/product/product_detail_screen.dart';
-import 'package:chuukohin/services/me/myshop.dart';
 import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/widgets/product/product_card.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +57,7 @@ class _MyShopScreenState extends State<MyShopScreen> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(120),
                                     child: Image.network(
-                                      'https://cdn.discordapp.com/attachments/749662268576497855/985587737866432594/8FDC299C-4D29-4D66-BFD9-DE106D0E9967.jpg',
+                                      'https://chuukohin-pic.mixkoap.com/sibbil.png',
                                       width: 80,
                                       height: 80,
                                       fit: BoxFit.cover,
@@ -147,11 +143,31 @@ class _MyShopScreenState extends State<MyShopScreen> {
                           ),
                         );
                       },
-                      child: const ProductCard(
-                          "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png'),
+                      child: ProductCard(
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .shopData
+                            .products[index]
+                            .name,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .shopData
+                            .products[index]
+                            .brand,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .shopData
+                            .products[index]
+                            .price,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .shopData
+                            .products[index]
+                            .pictureUrl,
+                      ),
                     );
                   },
-                  childCount: 10,
+                  childCount:
+                      Provider.of<SellerProvider>(context, listen: false)
+                          .shopData
+                          .products
+                          .length,
                 ),
               ),
             ),

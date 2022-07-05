@@ -2,7 +2,6 @@ import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/services/account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SellerSignupScreen extends StatefulWidget {
   const SellerSignupScreen({Key? key}) : super(key: key);

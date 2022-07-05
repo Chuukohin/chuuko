@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/screens/core/category/category_screen.dart';
 import 'package:chuukohin/screens/core/product/product_detail_screen.dart';
 import 'package:chuukohin/services/provider/provider.dart';
@@ -22,6 +23,7 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
   List _categories = [];
   final _textController = TextEditingController(text: '');
+  late ScrollController _scrollController;
 
   _loadCategories() async {
     final String response =
@@ -37,6 +39,22 @@ class _HomePageScreenState extends State<HomePageScreen> {
     super.initState();
     _loadCategories();
     context.read<ProfileProvider>().getMeData();
+    final response = context.read<ProfileProvider>().getAddressInfo();
+    if (response is ErrorResponse) {
+      context.read<ProfileProvider>().addressFirstTime = true;
+    }
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollToTop() {
+    _scrollController.animateTo(0,
+        duration: const Duration(milliseconds: 500), curve: Curves.linear);
   }
 
   @override
@@ -47,10 +65,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
-        leading: Container(
-          padding: const EdgeInsets.only(left: 16),
-          child: Image.asset(
-            'assets/images/logo.png',
+        leading: GestureDetector(
+          onTap: () => _scrollToTop(),
+          child: Container(
+            padding: const EdgeInsets.only(left: 16),
+            child: Image.asset(
+              'assets/images/logo.png',
+            ),
           ),
         ),
         leadingWidth: 40,
@@ -69,6 +90,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       body: Container(
         padding: const EdgeInsets.only(top: 16),
         child: CustomScrollView(
+          controller: _scrollController,
           slivers: [
             SliverList(
               delegate: SliverChildListDelegate(
@@ -99,14 +121,20 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => CategoryScreen(
-                                            title: category['name'],
-                                          ),
-                                        ),
-                                      );
+                                      context
+                                          .read<HomeProvider>()
+                                          .getCategoryProduct(category['id'])
+                                          .then((_) => {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CategoryScreen(
+                                                      title: category['name'],
+                                                    ),
+                                                  ),
+                                                )
+                                              });
                                     },
                                     behavior: HitTestBehavior.translucent,
                                     child: Container(
@@ -143,18 +171,40 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProductDetailScreen(),
-                          ),
-                        );
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .getProductDetail(Provider.of<HomeProvider>(context,
+                                    listen: false)
+                                .homeProduct[index]
+                                .id
+                                .toString())
+                            .then(
+                              (_) => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ProductDetailScreen(),
+                                ),
+                              ),
+                            );
                       },
-                      child: const ProductCard(
-                          "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png'),
+                      child: ProductCard(
+                          Provider.of<HomeProvider>(context, listen: true)
+                              .homeProduct[index]
+                              .name,
+                          Provider.of<HomeProvider>(context, listen: true)
+                              .homeProduct[index]
+                              .brand,
+                          Provider.of<HomeProvider>(context, listen: true)
+                              .homeProduct[index]
+                              .price,
+                          Provider.of<HomeProvider>(context, listen: true)
+                              .homeProduct[index]
+                              .pictureUrl),
                     );
                   },
-                  childCount: 10,
+                  childCount: Provider.of<HomeProvider>(context, listen: true)
+                      .homeProduct
+                      .length,
                 ),
               ),
             ),

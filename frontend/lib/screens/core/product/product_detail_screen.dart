@@ -1,52 +1,81 @@
+import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/screens/core/payment/checkout_screen.dart';
+import 'package:chuukohin/services/order.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/widgets/product/product_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
+import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({Key? key}) : super(key: key);
 
+  void checkBeforeCreateOrder() async {}
+
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    var padding = MediaQuery.of(context).padding;
-    double screenHeight = height - padding.top - padding.bottom;
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: n.Text('Kokomi shirt'),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          height: screenHeight - 56,
-          padding: const EdgeInsets.only(top: 6, left: 16, right: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              n.Column(
-                [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 18),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        'https://www.pcgamesn.com/wp-content/uploads/2021/07/genshin-impact-kokomi-release-date.jpg',
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.only(top: 6, left: 16, right: 16),
+              child: Column(
+                children: [
+                  n.Column(
+                    [
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 18),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            Provider.of<SellerProvider>(context, listen: false)
+                                .productDetail
+                                .picture
+                                .pictureUrl,
+                            height: 220,
+                            width: double.infinity,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
                       ),
-                    ),
+                      ProductDetail(
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .productDetail
+                            .name,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .productDetail
+                            .brand,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .productDetail
+                            .category
+                            .name,
+                        "Bangkok",
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .productDetail
+                            .price,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .productDetail
+                            .description,
+                      ),
+                    ],
                   ),
-                  const ProductDetail(
-                      "Product name",
-                      "Uniqlo",
-                      "Shirt",
-                      "Bangkok",
-                      5000,
-                      "Kokomi shirt Kokomi shirtKokomi shirtKokomi shirtKokomi shirt Kokomi shirt"),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.only(left: 16, right: 16),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.only(
+                  top: 12, left: 16, right: 16, bottom: 30),
+              child: SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
@@ -56,18 +85,61 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                     ),
                     child: n.Text("Buy now")..fontSize = 16,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CheckoutScreen(),
-                        ),
-                      );
+                    onPressed: () async {
+                      await OrderService.getInfoBeforeCreateOrder(
+                              Provider.of<SellerProvider>(context,
+                                      listen: false)
+                                  .productDetail
+                                  .id)
+                          .then((response) {
+                        if (response is ErrorResponse) {
+                          var error = SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            margin: const EdgeInsets.only(
+                                bottom: 60, left: 15, right: 15),
+                            content: Text(response.message),
+                            action: SnackBarAction(
+                              label: 'OK',
+                              onPressed: () {},
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(error);
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CheckoutScreen(
+                                name: Provider.of<SellerProvider>(context,
+                                        listen: false)
+                                    .productDetail
+                                    .name,
+                                brand: Provider.of<SellerProvider>(context,
+                                        listen: false)
+                                    .productDetail
+                                    .brand,
+                                price: Provider.of<SellerProvider>(context,
+                                        listen: false)
+                                    .productDetail
+                                    .price,
+                                pictureUrl: Provider.of<SellerProvider>(context,
+                                        listen: false)
+                                    .productDetail
+                                    .picture
+                                    .pictureUrl,
+                                productId: Provider.of<SellerProvider>(context,
+                                        listen: false)
+                                    .productDetail
+                                    .id,
+                              ),
+                            ),
+                          );
+                        }
+                      });
                     }),
-              )
-            ],
-          ),
-        ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

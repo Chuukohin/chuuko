@@ -10,6 +10,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
         ChangeNotifierProvider(create: (_) => SellerProvider()),
+        ChangeNotifierProvider(create: (_) => HomeProvider()),
       ],
       child: const Chuuko(),
     ),

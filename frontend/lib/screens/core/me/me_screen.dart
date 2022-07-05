@@ -1,5 +1,4 @@
 import 'package:chuukohin/constant/theme.dart';
-import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/models/response/me/my_shop/my_shop_response.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
 import 'package:chuukohin/services/me/myshop.dart';
@@ -52,53 +51,25 @@ class _MeScreenState extends State<MeScreen> {
         userType = 'seller';
       });
     }
-    final response = context.read<ProfileProvider>().getAddressInfo();
-    if (response is ErrorResponse) {
-      context.read<ProfileProvider>().addressFirstTime = true;
-    }
     final shopResponse = await ShopDataService.getShopData(
       Provider.of<SellerProvider>(context, listen: false).sellerId,
     );
     if (shopResponse is MyShopInfoResponse) {
       context.read<SellerProvider>().setShopData(shopResponse.data);
     }
-  }
-
-  void getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('user');
-    Map<String, dynamic> payload = Jwt.parseJwt(token!);
-    context.read<SellerProvider>().setSellerId(payload['seller_id'].toString());
-    if (Provider.of<SellerProvider>(context, listen: false).sellerId != "0") {
-      setState(() {
-        userType = 'seller';
-      });
-    }
-  }
-
-  void getAddress() {
-    final response = context.read<ProfileProvider>().getAddressInfo();
-    if (response is ErrorResponse) {
-      context.read<ProfileProvider>().addressFirstTime = true;
-    }
-  }
-
-  void getShopData() async {
-    final response = await ShopDataService.getShopData(
-      Provider.of<SellerProvider>(context, listen: false).sellerId,
-    );
-    if (response is MyShopInfoResponse) {
-      context.read<SellerProvider>().setShopData(response.data);
-    }
+    context.read<SellerProvider>().getSellingProduct();
+    context.read<SellerProvider>().getSoldProduct();
+    context.read<SellerProvider>().getIncome();
+    context.read<ProfileProvider>().getReceiveProduct();
+    context.read<ProfileProvider>().getCompleteProduct();
+    context.read<SellerProvider>().getSendingOrder();
+    context.read<SellerProvider>().getSentOrder();
   }
 
   @override
   void initState() {
     super.initState();
     readJson();
-    // getToken();
-    // getShopData();
-    // getAddress();
   }
 
   @override
@@ -162,15 +133,21 @@ class _MeScreenState extends State<MeScreen> {
                                   ..color = ThemeConstant.secondaryColor
                                   ..overflow = TextOverflow.ellipsis,
                               ),
-                              n.Text(
-                                "Joined: " +
-                                    DateFormat("dd/MM/yyyy").format(
-                                      DateTime.parse(context
-                                          .watch<ProfileProvider>()
-                                          .medata
-                                          .joinDate),
-                                    ),
-                              ),
+                              context
+                                      .watch<ProfileProvider>()
+                                      .medata
+                                      .joinDate
+                                      .isNotEmpty
+                                  ? n.Text(
+                                      "Joined: " +
+                                          DateFormat("dd/MM/yyyy").format(
+                                            DateTime.parse(context
+                                                .watch<ProfileProvider>()
+                                                .medata
+                                                .joinDate),
+                                          ),
+                                    )
+                                  : Container(),
                             ],
                           )..crossAxisAlignment = CrossAxisAlignment.start
                         ],

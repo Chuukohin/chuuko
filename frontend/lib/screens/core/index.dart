@@ -1,8 +1,10 @@
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/home/homepage_screen.dart';
 import 'package:chuukohin/screens/core/me/me_screen.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -13,6 +15,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeProvider>().getHomeProduct();
+  }
 
   @override
   Widget build(BuildContext context) {
