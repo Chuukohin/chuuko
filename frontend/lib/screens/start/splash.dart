@@ -1,4 +1,3 @@
-import 'package:chuukohin/screens/core/home/homepage_screen.dart';
 import 'package:chuukohin/screens/core/index.dart';
 import 'package:chuukohin/screens/start/welcome.dart';
 import 'package:flutter/material.dart';

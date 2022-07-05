@@ -5,12 +5,12 @@ import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ShopDataService {
-  static Future<dynamic> getShopData(String id) async {
+  static Future<dynamic> getShopData() async {
     final prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('user');
     try {
       Response response = await Dio().get(
-          EnvironmentConstant.internalApiPrefix + "/me/myshop/info/" + id,
+          EnvironmentConstant.internalApiPrefix + "/me/myshop/info",
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
       MyShopInfoResponse res = MyShopInfoResponse.fromJson(response.data);
       return res;

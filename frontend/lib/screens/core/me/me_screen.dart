@@ -42,9 +42,7 @@ class _MeScreenState extends State<MeScreen> {
   }
 
   void readJson() async {
-    final shopResponse = await ShopDataService.getShopData(
-      Provider.of<SellerProvider>(context, listen: false).sellerId,
-    );
+    final shopResponse = await ShopDataService.getShopData();
     if (shopResponse is MyShopInfoResponse) {
       context.read<SellerProvider>().setShopData(shopResponse.data);
     }
