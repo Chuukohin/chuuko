@@ -143,7 +143,7 @@ class _LoginScreenState extends State<MyAddressScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: const Text('My adress'),
+          title: const Text('My address'),
         ),
         body: SingleChildScrollView(
           child: Container(

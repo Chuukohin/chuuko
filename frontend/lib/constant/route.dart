@@ -28,7 +28,9 @@ class RouteConstant {
       '/signup': (_) => const SignupScreen(),
       '/product/create': (_) => const CreateProductScreen(),
       '/product/preview': (_) => const PreviewScreen(),
-      '/me': (_) => const MeScreen(),
+      '/me': (_) => const MeScreen(
+            userType: '',
+          ),
       '/profile': (_) => const MyProfileScreen(),
       '/profile/card': (_) => const CardScreen(),
       '/profile/address': (_) => const MyAddressScreen(),

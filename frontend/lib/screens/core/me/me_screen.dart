@@ -1,5 +1,4 @@
 import 'package:chuukohin/constant/theme.dart';
-
 import 'package:chuukohin/models/response/me/my_shop/my_shop_response.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
 import 'package:chuukohin/services/me/myshop.dart';
@@ -11,10 +10,10 @@ import 'package:niku/namespace.dart' as n;
 import 'package:collection/collection.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:jwt_decode/jwt_decode.dart';
 
 class MeScreen extends StatefulWidget {
-  const MeScreen({Key? key}) : super(key: key);
+  final String userType;
+  const MeScreen({Key? key, required this.userType}) : super(key: key);
 
   @override
   State<MeScreen> createState() => _MeScreenState();
@@ -34,7 +33,6 @@ class _MeScreenState extends State<MeScreen> {
     {"name": "Income", "path": "/seller/income"},
   ];
 
-  String userType = 'user';
   late SharedPreferences prefs;
 
   void deleteUserData() async {
@@ -43,23 +41,6 @@ class _MeScreenState extends State<MeScreen> {
   }
 
   void readJson() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('user');
-    Map<String, dynamic> payload = Jwt.parseJwt(token!);
-    if (payload['seller_id'] != null) {
-      context
-          .read<SellerProvider>()
-          .setSellerId(payload['seller_id'].toString());
-    } else {
-      setState(() {
-        userType = 'user';
-      });
-    }
-    if (Provider.of<SellerProvider>(context, listen: false).sellerId != "0") {
-      setState(() {
-        userType = 'seller';
-      });
-    }
     final shopResponse = await ShopDataService.getShopData(
       Provider.of<SellerProvider>(context, listen: false).sellerId,
     );
@@ -228,7 +209,7 @@ class _MeScreenState extends State<MeScreen> {
                       ),
                     )..crossAxisAlignment = CrossAxisAlignment.start,
                   ),
-                  userType == "seller"
+                  widget.userType == "seller"
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
