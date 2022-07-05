@@ -27,7 +27,7 @@ class Chuuko extends StatelessWidget {
       title: 'Chuuko',
       theme: ThemeConstant.theme,
       routes: RouteConstant.route(),
-      initialRoute: "/home",
+      initialRoute: "/",
     );
   }
 }
