@@ -89,7 +89,7 @@ class _IncomeScreenState extends State<IncomeScreen> {
                       .map(
                         (order) => IncomeOrder(
                           name: order.customerName,
-                          date: DateFormat("dd MMMM yyyy, H:m").format(
+                          date: DateFormat("dd MMMM yyyy, HH:mm").format(
                             DateTime.parse(order.orderTime),
                           ),
                           price: order.income.toString(),

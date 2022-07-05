@@ -156,7 +156,7 @@ class _OrderDetailState extends State<OrderDetail> {
                                   .toString()),
                           OrderTextSpan(
                             title: "Order Time",
-                            text: DateFormat("dd/MM/yyyy H:m").format(
+                            text: DateFormat("dd/MM/yyyy HH:mm").format(
                               DateTime.parse(Provider.of<ProfileProvider>(
                                       context,
                                       listen: false)
@@ -370,7 +370,7 @@ class _OrderDetailState extends State<OrderDetail> {
                                     .status),
                               ),
                               n.Text(
-                                DateFormat("dd MMMM yyyy hh:m").format(
+                                DateFormat("dd MMMM yyyy hh:mm").format(
                                   DateTime.parse(Provider.of<ProfileProvider>(
                                           context,
                                           listen: false)
@@ -405,7 +405,7 @@ class _OrderDetailState extends State<OrderDetail> {
                                               .status),
                                     ),
                                     n.Text(
-                                      DateFormat("dd MMMM yyyy hh:m").format(
+                                      DateFormat("dd MMMM yyyy hh:mm").format(
                                         DateTime.parse(
                                             Provider.of<ProfileProvider>(
                                                     context,
