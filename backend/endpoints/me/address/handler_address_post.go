@@ -43,11 +43,18 @@ func AddressPostHandler(c *fiber.Ctx) error {
 		}
 	}
 
+	var addressLine2 *string
+	if body.AddressLine2 != nil {
+		addressLine2 = body.AddressLine2
+	} else {
+		addressLine2 = nil
+	}
+
 	address := &models.Address{
 		Name:         body.Name,
 		Phone:        body.Phone,
 		AddressLine1: body.AddressLine1,
-		AddressLine2: body.AddressLine2,
+		AddressLine2: addressLine2,
 		Province:     body.Province,
 		District:     body.District,
 		SubDistrict:  body.SubDistrict,
