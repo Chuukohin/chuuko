@@ -33,6 +33,7 @@ class _LoginScreenState extends State<MyAddressScreen> {
         districtController.text.isNotEmpty &&
         subDistrictController.text.isNotEmpty &&
         postalCodeController.text.isNotEmpty) {
+      print('add new address');
       await AddressService.addAddress(
           nameController.text,
           phoneController.text,
@@ -69,6 +70,7 @@ class _LoginScreenState extends State<MyAddressScreen> {
         districtController.text.isNotEmpty &&
         subDistrictController.text.isNotEmpty &&
         postalCodeController.text.isNotEmpty) {
+      print('update address');
       await AddressService.editAddress(
           nameController.text,
           phoneController.text,

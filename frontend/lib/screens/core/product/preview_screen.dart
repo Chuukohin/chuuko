@@ -1,3 +1,4 @@
+import 'package:chuukohin/constant/environment.dart';
 import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
@@ -35,9 +36,21 @@ class _PreviewScreenState extends State<PreviewScreen> {
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
                             Provider.of<SellerProvider>(context, listen: false)
-                                .productDetail
-                                .picture
-                                .pictureUrl,
+                                    .productDetail
+                                    .picture
+                                    .pictureUrl
+                                    .contains('https')
+                                ? Provider.of<SellerProvider>(context,
+                                        listen: false)
+                                    .productDetail
+                                    .picture
+                                    .pictureUrl
+                                : EnvironmentConstant.internalPrefix +
+                                    Provider.of<SellerProvider>(context,
+                                            listen: false)
+                                        .productDetail
+                                        .picture
+                                        .pictureUrl,
                             height: 220,
                             width: double.infinity,
                             fit: BoxFit.fill,

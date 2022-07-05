@@ -1,3 +1,4 @@
+import 'package:chuukohin/constant/environment.dart';
 import 'package:chuukohin/models/response/error/error_response.dart';
 import 'package:chuukohin/screens/core/payment/checkout_screen.dart';
 import 'package:chuukohin/services/order.dart';
@@ -41,9 +42,21 @@ class ProductDetailScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
                             Provider.of<SellerProvider>(context, listen: false)
-                                .productDetail
-                                .picture
-                                .pictureUrl,
+                                    .productDetail
+                                    .picture
+                                    .pictureUrl
+                                    .contains('https')
+                                ? Provider.of<SellerProvider>(context,
+                                        listen: false)
+                                    .productDetail
+                                    .picture
+                                    .pictureUrl
+                                : EnvironmentConstant.internalPrefix +
+                                    Provider.of<SellerProvider>(context,
+                                            listen: false)
+                                        .productDetail
+                                        .picture
+                                        .pictureUrl,
                             height: 220,
                             width: double.infinity,
                             fit: BoxFit.fill,

@@ -1,3 +1,4 @@
+import 'package:chuukohin/constant/environment.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
 
@@ -43,7 +44,9 @@ class ProductCard extends StatelessWidget {
               topRight: Radius.circular(10.0),
             ),
             child: Image.network(
-              image,
+              image.contains('https')
+                  ? image
+                  : EnvironmentConstant.internalPrefix + image,
               width: double.infinity,
               height: 170,
               fit: BoxFit.cover,

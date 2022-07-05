@@ -21,8 +21,29 @@ import 'package:chuukohin/services/me/product_management.dart';
 import 'package:chuukohin/services/order.dart';
 import 'package:chuukohin/services/product/product_detail.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ProfileProvider with ChangeNotifier, DiagnosticableTreeMixin {
+abstract class DisposableProvider with ChangeNotifier, DiagnosticableTreeMixin {
+  void disposeValues();
+}
+
+class AppProviders {
+  static List<DisposableProvider> getDisposableProviders(BuildContext context) {
+    return [
+      Provider.of<ProfileProvider>(context, listen: false),
+      //...other disposable providers
+    ];
+  }
+
+  static void disposeAllDisposableProviders(BuildContext context) {
+    getDisposableProviders(context).forEach((disposableProvider) {
+      disposableProvider.disposeValues();
+    });
+  }
+}
+
+class ProfileProvider extends DisposableProvider {
   MeData medata = MeData(
       email: "", firstname: "", lastname: "", pictureUrl: "", joinDate: "");
   CardInfoData cardInfo =
@@ -177,6 +198,19 @@ class ProfileProvider with ChangeNotifier, DiagnosticableTreeMixin {
       );
     }
     notifyListeners();
+  }
+
+  @override
+  void disposeValues() {
+    setAddressInfo(AddressInfoData(
+        name: "",
+        phone: "",
+        addressLine1: "",
+        addressLine2: "",
+        province: "",
+        district: "",
+        subDistrict: "",
+        postalCode: ""));
   }
 }
 

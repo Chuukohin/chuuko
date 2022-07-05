@@ -164,6 +164,7 @@ class _SellerSignupState extends State<SellerSignupScreen> {
                         keyboardType: TextInputType.phone,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(10),
+                          FilteringTextInputFormatter.digitsOnly
                         ],
                         decoration: InputDecoration(
                           hintText: 'Phone number',
@@ -310,6 +311,7 @@ class _SellerSignupState extends State<SellerSignupScreen> {
                           keyboardType: TextInputType.number,
                           inputFormatters: [
                             LengthLimitingTextInputFormatter(5),
+                            FilteringTextInputFormatter.digitsOnly
                           ],
                           decoration: InputDecoration(
                             hintText: 'Postal Code',
@@ -353,6 +355,7 @@ class _SellerSignupState extends State<SellerSignupScreen> {
                           keyboardType: TextInputType.number,
                           inputFormatters: [
                             LengthLimitingTextInputFormatter(10),
+                            FilteringTextInputFormatter.digitsOnly
                           ],
                           decoration: InputDecoration(
                             hintText: 'Account Number',

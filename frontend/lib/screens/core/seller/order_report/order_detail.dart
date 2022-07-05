@@ -348,39 +348,66 @@ class _OrderDetailState extends State<OrderDetail> {
                             children: [
                               Container(
                                 margin: const EdgeInsets.only(bottom: 4),
-                                child: n.Text("Sender received the product"),
+                                child: n.Text(Provider.of<ProfileProvider>(
+                                        context,
+                                        listen: false)
+                                    .orderDetail
+                                    .trackingOrder
+                                    .status[0]
+                                    .status),
                               ),
-                              n.Text("1 June 2022 14:00"),
+                              n.Text(
+                                DateFormat("dd MMMM yyyy hh:m").format(
+                                  DateTime.parse(Provider.of<ProfileProvider>(
+                                          context,
+                                          listen: false)
+                                      .orderDetail
+                                      .trackingOrder
+                                      .status[0]
+                                      .time),
+                                ),
+                              ),
                             ],
                           ),
                           content: Container(),
                         ),
-                        Step(
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(bottom: 4),
-                                child: n.Text("Delivering"),
-                              ),
-                              n.Text("2 June 2022 10:50"),
-                            ],
-                          ),
-                          content: Container(),
-                        ),
-                        Step(
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(bottom: 4),
-                                child: n.Text("Customer received"),
-                              ),
-                              n.Text("2 June 2022 11:43"),
-                            ],
-                          ),
-                          content: Container(),
-                        )
+                        Provider.of<ProfileProvider>(context, listen: false)
+                                    .orderDetail
+                                    .trackingOrder
+                                    .status
+                                    .length ==
+                                2
+                            ? Step(
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(bottom: 4),
+                                      child: n.Text(
+                                          Provider.of<ProfileProvider>(context,
+                                                  listen: false)
+                                              .orderDetail
+                                              .trackingOrder
+                                              .status[1]
+                                              .status),
+                                    ),
+                                    n.Text(
+                                      DateFormat("dd MMMM yyyy hh:m").format(
+                                        DateTime.parse(
+                                            Provider.of<ProfileProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .orderDetail
+                                                .trackingOrder
+                                                .status[1]
+                                                .time),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                content: Container(),
+                              )
+                            : Step(title: n.Text('-'), content: Container()),
                       ],
                     )
                   ],

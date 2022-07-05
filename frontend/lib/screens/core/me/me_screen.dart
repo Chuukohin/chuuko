@@ -38,6 +38,7 @@ class _MeScreenState extends State<MeScreen> {
   void deleteUserData() async {
     prefs = await SharedPreferences.getInstance();
     prefs.remove('user');
+    AppProviders.disposeAllDisposableProviders(context);
   }
 
   void readJson() async {
