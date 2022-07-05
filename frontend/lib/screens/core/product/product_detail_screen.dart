@@ -17,7 +17,13 @@ class ProductDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: n.Text('Kokomi shirt'),
+        title: SizedBox(
+          width: 220,
+          child: n.Text(Provider.of<SellerProvider>(context, listen: false)
+              .productDetail
+              .name)
+            ..overflow = TextOverflow.ellipsis,
+        ),
       ),
       body: Stack(
         children: [
