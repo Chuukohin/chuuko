@@ -95,22 +95,20 @@ class _PreviewScreenState extends State<PreviewScreen> {
               color: Colors.white,
               padding: const EdgeInsets.only(
                   top: 12, left: 16, right: 16, bottom: 30),
-              child: Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  height: 50,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40),
-                        ),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                height: 50,
+                width: double.infinity,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
                       ),
-                      child: n.Text("Back")..fontSize = 16,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      }),
-                ),
+                    ),
+                    child: n.Text("Back")..fontSize = 16,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
               ),
             ),
           )

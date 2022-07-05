@@ -1,4 +1,3 @@
-import 'package:chuukohin/constant/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:niku/namespace.dart' as n;
 

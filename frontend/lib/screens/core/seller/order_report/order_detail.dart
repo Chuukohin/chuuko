@@ -156,7 +156,7 @@ class _OrderDetailState extends State<OrderDetail> {
                                   .toString()),
                           OrderTextSpan(
                             title: "Order Time",
-                            text: DateFormat("dd/mm/yyyy H:m").format(
+                            text: DateFormat("dd/MM/yyyy H:m").format(
                               DateTime.parse(Provider.of<ProfileProvider>(
                                       context,
                                       listen: false)

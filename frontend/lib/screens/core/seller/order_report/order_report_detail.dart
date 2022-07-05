@@ -75,7 +75,7 @@ class _OrderReportDetailState extends State<OrderReportDetail> {
                         ..color = ThemeConstant.orderTextColor,
                       n.Text(
                         "Order Time: " +
-                            DateFormat("dd/mm/yyyy H:m").format(
+                            DateFormat("dd/MM/yyyy H:m").format(
                               DateTime.parse(widget.orderTime),
                             ),
                       )
