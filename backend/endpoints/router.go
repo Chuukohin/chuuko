@@ -62,7 +62,7 @@ func Router(router fiber.Router) {
 	meRouter.Post("/card/edit", card.CardPatchHandler)
 
 	// Me my shop
-	meRouter.Get("/myshop/info/:shop_id", my_shop.MyShopGetHandler)
+	meRouter.Get("/myshop/info", my_shop.MyShopGetHandler)
 
 	// Me Product management
 	meRouter.Get("/management/selling", product_management.ProductManagementSellingGetHandler)
