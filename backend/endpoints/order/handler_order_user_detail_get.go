@@ -30,7 +30,7 @@ func OrderUserDetailGetHandler(c *fiber.Ctx) error {
 
 	// * Fetch card detail
 	var cardDetail *models.Card
-	if result := database.Gorm.First(&cardDetail, "user_id = ?", claims.UserId); cardDetail == nil {
+	if result := database.Gorm.First(&cardDetail, "user_id = ?", claims.UserId); result.RowsAffected == 0 {
 		return &responder.GenericError{
 			Message: "Please add your credit/debit card to pay",
 			Err:     result.Error,
