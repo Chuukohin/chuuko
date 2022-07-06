@@ -21,7 +21,7 @@ import (
 func HomeSearchGetHandler(c *fiber.Ctx) error {
 	var products []*models.Product
 	var productsResponse []*product
-	if result := database.Gorm.Preload("Picture").Find(&products, "name LIKE ?", "%"+c.Query("value")+"%"); result.RowsAffected != 0 {
+	if result := database.Gorm.Preload("Picture").Find(&products, "name LIKE ? AND status = 'selling'", "%"+c.Query("value")+"%"); result.RowsAffected != 0 {
 		for _, data := range products {
 			tempProduct := &product{
 				Id:         data.Id,
@@ -47,7 +47,7 @@ func HomeSearchGetHandler(c *fiber.Ctx) error {
 		}
 	}
 
-	if result := database.Gorm.Preload("Picture").Find(&products, "description LIKE ? AND id NOT IN ?", "%"+c.Query("value")+"%", indexes); result.RowsAffected != 0 {
+	if result := database.Gorm.Preload("Picture").Find(&products, "description LIKE ? AND id NOT IN ? AND status = 'selling'", "%"+c.Query("value")+"%", indexes); result.RowsAffected != 0 {
 		for _, data := range products {
 			tempProduct := &product{
 				Id:         data.Id,
