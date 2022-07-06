@@ -1,7 +1,9 @@
-import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/constant/environment.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
 import 'package:chuukohin/widgets/product/product_detail.dart';
+import 'package:provider/provider.dart';
 
 class PreviewScreen extends StatefulWidget {
   const PreviewScreen({Key? key}) : super(key: key);
@@ -13,77 +15,104 @@ class PreviewScreen extends StatefulWidget {
 class _PreviewScreenState extends State<PreviewScreen> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    var padding = MediaQuery.of(context).padding;
-    double screenHeight = height - padding.top - padding.bottom;
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: n.Text('Product name'),
+        title: SizedBox(
+          width: 220,
+          child: n.Text(Provider.of<SellerProvider>(context, listen: false)
+              .productDetail
+              .name)
+            ..overflow = TextOverflow.ellipsis
+            ..textAlign = TextAlign.center,
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          height: screenHeight - 56,
-          padding: const EdgeInsets.only(top: 6, left: 16, right: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              n.Column(
-                [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 18),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        'https://www.pcgamesn.com/wp-content/uploads/2021/07/genshin-impact-kokomi-release-date.jpg',
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.only(top: 6, left: 16, right: 16),
+              child: Column(
+                children: [
+                  n.Column(
+                    [
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 18),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            Provider.of<SellerProvider>(context, listen: false)
+                                    .productDetail
+                                    .picture
+                                    .pictureUrl
+                                    .contains('https')
+                                ? Provider.of<SellerProvider>(context,
+                                        listen: false)
+                                    .productDetail
+                                    .picture
+                                    .pictureUrl
+                                : EnvironmentConstant.internalPrefix +
+                                    Provider.of<SellerProvider>(context,
+                                            listen: false)
+                                        .productDetail
+                                        .picture
+                                        .pictureUrl,
+                            height: 220,
+                            width: double.infinity,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
                       ),
-                    ),
+                      ProductDetail(
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .productDetail
+                            .name,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .productDetail
+                            .brand,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .productDetail
+                            .category
+                            .name,
+                        "Bangkok",
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .productDetail
+                            .price,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .productDetail
+                            .description,
+                      ),
+                    ],
                   ),
-                  const ProductDetail(
-                      "Product name",
-                      "Uniqlo",
-                      "Shirt",
-                      "Bangkok",
-                      5000,
-                      "Kokomi shirt Kokomi shirtKokomi shirtKokomi shirtKokomi shirt Kokomi shirt"),
                 ],
               ),
-              n.Row([
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6),
-                    height: 50,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: ThemeConstant.logOutBtnColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                        ),
-                        child: n.Text("Delete")..fontSize = 16,
-                        onPressed: () {}),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6),
-                    height: 50,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                        ),
-                        child: n.Text("Done")..fontSize = 16,
-                        onPressed: () {}),
-                  ),
-                ),
-              ])
-            ],
+            ),
           ),
-        ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.only(
+                  top: 12, left: 16, right: 16, bottom: 30),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                height: 50,
+                width: double.infinity,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                    child: n.Text("Back")..fontSize = 16,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

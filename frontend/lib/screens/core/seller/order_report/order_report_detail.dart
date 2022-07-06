@@ -1,10 +1,22 @@
+import 'package:chuukohin/constant/environment.dart';
 import 'package:chuukohin/constant/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:niku/namespace.dart' as n;
 
 class OrderReportDetail extends StatefulWidget {
-  const OrderReportDetail({Key? key}) : super(key: key);
+  final String productName;
+  final String orderId;
+  final String orderTime;
+  final String productPicture;
+  const OrderReportDetail(
+      {Key? key,
+      required this.productName,
+      required this.orderId,
+      required this.orderTime,
+      required this.productPicture})
+      : super(key: key);
 
   @override
   State<OrderReportDetail> createState() => _OrderReportDetailState();
@@ -39,8 +51,13 @@ class _OrderReportDetailState extends State<OrderReportDetail> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
-                    'https://cdn.discordapp.com/attachments/749662268576497855/985587737866432594/8FDC299C-4D29-4D66-BFD9-DE106D0E9967.jpg',
+                    widget.productPicture.contains('https')
+                        ? widget.productPicture
+                        : EnvironmentConstant.internalPrefix +
+                            widget.productPicture,
                     height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Container(
@@ -49,14 +66,19 @@ class _OrderReportDetailState extends State<OrderReportDetail> {
                   width: screenWidth / 1.9,
                   child: n.Column(
                     [
-                      n.Text("Sangonomiya Kokomi Kokomi")
+                      n.Text(widget.productName)
                         ..fontWeight = FontWeight.w600
                         ..fontSize = 16
                         ..overflow = TextOverflow.ellipsis,
-                      n.Text("Order ID: ck2000100034")
+                      n.Text("Order ID: " + widget.orderId)
                         ..fontSize = 13
                         ..color = ThemeConstant.orderTextColor,
-                      n.Text("Order Time: 14/03/2022 21:19")
+                      n.Text(
+                        "Order Time: " +
+                            DateFormat("dd/MM/yyyy HH:mm").format(
+                              DateTime.parse(widget.orderTime),
+                            ),
+                      )
                         ..color = ThemeConstant.orderTextColor
                         ..fontSize = 13
                     ],

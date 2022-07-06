@@ -19,7 +19,7 @@ import (
 // @Produce      json
 // @Success      200  {object}  []product_management.product
 // @Failure      400  {object}  responder.ErrorResponse
-// @Router       /me/management/sold/ [get]
+// @Router       /me/management/sold [get]
 func ProductManagementSoldGetHandler(c *fiber.Ctx) error {
 	// * Parse user JWT token
 	token := c.Locals("user").(*jwt.Token)

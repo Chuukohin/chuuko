@@ -1,3 +1,5 @@
+import 'package:chuukohin/models/response/product/product_info.dart';
+
 class MyShopInfoResponse {
   bool success;
   String code;
@@ -16,7 +18,7 @@ class MyShopInfoResponse {
 
 class MyShopInfoData {
   MyShopInfo seller;
-  List<MyShopProducts> products;
+  List<Product> products;
 
   MyShopInfoData({
     required this.seller,
@@ -30,8 +32,8 @@ class MyShopInfoData {
       return MyShopInfoData(
           seller: MyShopInfo.fromJson(json['seller']), products: []);
     }
-    List<MyShopProducts> myShopProductsList =
-        myShopProducts.map((e) => MyShopProducts.fromJson(e)).toList();
+    List<Product> myShopProductsList =
+        myShopProducts.map((e) => Product.fromJson(e)).toList();
     return MyShopInfoData(
         seller: MyShopInfo.fromJson(json['seller']),
         products: myShopProductsList);
@@ -48,32 +50,8 @@ class MyShopInfo {
 
   factory MyShopInfo.fromJson(Map<String, dynamic> json) {
     return MyShopInfo(
-        name: json['token'],
-        totalProduct: json['total_product'],
-        joinDate: json['join_date']);
-  }
-}
-
-class MyShopProducts {
-  int id;
-  String name;
-  String price;
-  String brand;
-  String pictureUrl;
-
-  MyShopProducts(
-      {required this.id,
-      required this.name,
-      required this.price,
-      required this.brand,
-      required this.pictureUrl});
-
-  factory MyShopProducts.fromJson(Map<String, dynamic> json) {
-    return MyShopProducts(
-        id: json['id'],
-        name: json['token'],
-        price: json['price'],
-        brand: json['brand'],
-        pictureUrl: json['picture_url']);
+        name: json['name'] ?? "",
+        totalProduct: json['total_product'] ?? 0,
+        joinDate: json['join_date'] ?? "");
   }
 }

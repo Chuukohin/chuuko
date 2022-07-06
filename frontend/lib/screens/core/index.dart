@@ -1,8 +1,12 @@
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/home/homepage_screen.dart';
 import 'package:chuukohin/screens/core/me/me_screen.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:jwt_decode/jwt_decode.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -13,6 +17,34 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
+  String userType = 'user';
+  late SharedPreferences prefs;
+
+  void readJson() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('user');
+    Map<String, dynamic> payload = Jwt.parseJwt(token!);
+    if (payload['seller_id'] != 0 && payload['seller_id'] != null) {
+      context
+          .read<SellerProvider>()
+          .setSellerId(payload['seller_id'].toString());
+      setState(() {
+        userType = 'seller';
+      });
+    } else {
+      setState(() {
+        userType = 'user';
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeProvider>().getHomeProduct();
+    context.read<ProfileProvider>().getAddressInfo();
+    readJson();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +61,11 @@ class _MainScreenState extends State<MainScreen> {
         behavior: HitTestBehavior.translucent,
         child: Scaffold(
           body: SizedBox(
-            child:
-                _currentIndex == 0 ? const HomePageScreen() : const MeScreen(),
+            child: _currentIndex == 0
+                ? const HomePageScreen()
+                : MeScreen(
+                    userType: userType,
+                  ),
           ),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(

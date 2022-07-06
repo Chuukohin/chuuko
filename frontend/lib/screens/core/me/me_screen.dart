@@ -1,6 +1,7 @@
 import 'package:chuukohin/constant/theme.dart';
-import 'package:chuukohin/models/response/error/error_response.dart';
+import 'package:chuukohin/models/response/me/my_shop/my_shop_response.dart';
 import 'package:chuukohin/screens/start/login_screen.dart';
+import 'package:chuukohin/services/me/myshop.dart';
 import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/utils/widget/divider_insert.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MeScreen extends StatefulWidget {
-  const MeScreen({Key? key}) : super(key: key);
+  final String userType;
+  const MeScreen({Key? key, required this.userType}) : super(key: key);
 
   @override
   State<MeScreen> createState() => _MeScreenState();
@@ -31,25 +33,38 @@ class _MeScreenState extends State<MeScreen> {
     {"name": "Income", "path": "/seller/income"},
   ];
 
-  final String userType = 'seller';
   late SharedPreferences prefs;
 
   void deleteUserData() async {
     prefs = await SharedPreferences.getInstance();
     prefs.remove('user');
+    AppProviders.disposeAllDisposableProviders(context);
   }
 
-  void getAddress() {
-    final response = context.read<ProfileProvider>().getAddressInfo();
-    if (response is ErrorResponse) {
-      context.read<ProfileProvider>().addressFirstTime = true;
+  void readJson() async {
+    final shopResponse = await ShopDataService.getShopData();
+    if (shopResponse is MyShopInfoResponse) {
+      context.read<SellerProvider>().setShopData(shopResponse.data);
+    } else {
+      context.read<SellerProvider>().setShopData(
+            MyShopInfoData(
+                seller: MyShopInfo(name: "", totalProduct: 0, joinDate: ""),
+                products: []),
+          );
     }
+    context.read<SellerProvider>().getSellingProduct();
+    context.read<SellerProvider>().getSoldProduct();
+    context.read<SellerProvider>().getIncome();
+    context.read<ProfileProvider>().getReceiveProduct();
+    context.read<ProfileProvider>().getCompleteProduct();
+    context.read<SellerProvider>().getSendingOrder();
+    context.read<SellerProvider>().getSentOrder();
   }
 
   @override
   void initState() {
     super.initState();
-    getAddress();
+    readJson();
   }
 
   @override
@@ -113,15 +128,21 @@ class _MeScreenState extends State<MeScreen> {
                                   ..color = ThemeConstant.secondaryColor
                                   ..overflow = TextOverflow.ellipsis,
                               ),
-                              n.Text(
-                                "Joined: " +
-                                    DateFormat("dd/MM/yyyy").format(
-                                      DateTime.parse(context
-                                          .watch<ProfileProvider>()
-                                          .medata
-                                          .joinDate),
-                                    ),
-                              ),
+                              context
+                                      .watch<ProfileProvider>()
+                                      .medata
+                                      .joinDate
+                                      .isNotEmpty
+                                  ? n.Text(
+                                      "Joined: " +
+                                          DateFormat("dd/MM/yyyy").format(
+                                            DateTime.parse(context
+                                                .watch<ProfileProvider>()
+                                                .medata
+                                                .joinDate),
+                                          ),
+                                    )
+                                  : Container(),
                             ],
                           )..crossAxisAlignment = CrossAxisAlignment.start
                         ],
@@ -193,7 +214,7 @@ class _MeScreenState extends State<MeScreen> {
                       ),
                     )..crossAxisAlignment = CrossAxisAlignment.start,
                   ),
-                  userType == "seller"
+                  widget.userType == "seller"
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

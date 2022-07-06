@@ -1,5 +1,12 @@
+import 'dart:io';
+
 import 'package:chuukohin/constant/theme.dart';
+import 'package:chuukohin/models/response/error/error_response.dart';
+import 'package:chuukohin/services/product/create_product.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class CreateProductScreen extends StatefulWidget {
   const CreateProductScreen({Key? key}) : super(key: key);
@@ -9,21 +16,65 @@ class CreateProductScreen extends StatefulWidget {
 }
 
 class _CreateProductScreenState extends State<CreateProductScreen> {
+  final nameController = TextEditingController();
+  final priceController = TextEditingController();
+  final brandController = TextEditingController();
+  final descriptionController = TextEditingController();
+
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(child: Text("Men"), value: "Men"),
-      const DropdownMenuItem(child: Text("Women"), value: "Women"),
-      const DropdownMenuItem(child: Text("Tops"), value: "Tops"),
-      const DropdownMenuItem(child: Text("Bottoms"), value: "Bottoms"),
-      const DropdownMenuItem(child: Text("Shoes"), value: "Shoes"),
-      const DropdownMenuItem(child: Text("Innerwear"), value: "Innerwear"),
-      const DropdownMenuItem(child: Text("Sport"), value: "Sport"),
-      const DropdownMenuItem(child: Text("Accessories"), value: "Accessories"),
+      const DropdownMenuItem(child: Text("Men"), value: "11"),
+      const DropdownMenuItem(child: Text("Women"), value: "12"),
+      const DropdownMenuItem(child: Text("Tops"), value: "13"),
+      const DropdownMenuItem(child: Text("Bottoms"), value: "14"),
+      const DropdownMenuItem(child: Text("Shoes"), value: "15"),
+      const DropdownMenuItem(child: Text("Innerwear"), value: "16"),
+      const DropdownMenuItem(child: Text("Sport"), value: "17"),
+      const DropdownMenuItem(child: Text("Accessories"), value: "18"),
     ];
     return menuItems;
   }
 
   String selectedValue = "";
+  // ignore: avoid_init_to_null
+  File? imagefile = null;
+  final ImagePicker _picker = ImagePicker();
+  _getFromGallery() async {
+    XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        imagefile = File(pickedFile.path);
+      });
+    }
+  }
+
+  void createProduct() async {
+    await CreateProductService.createProduct(
+            imagefile!,
+            brandController.text,
+            int.parse(selectedValue),
+            descriptionController.text,
+            nameController.text,
+            int.parse(priceController.text))
+        .then((response) {
+      if (response is ErrorResponse) {
+        var error = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.only(bottom: 60, left: 15, right: 15),
+          content: Text(response.message),
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {},
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(error);
+      } else {
+        context.read<HomeProvider>().getHomeProduct().then((value) {
+          Navigator.pop(context);
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +99,27 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    GestureDetector(
+                      onTap: () {
+                        _getFromGallery();
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        child: imagefile != null
+                            ? Image.file(
+                                imagefile!,
+                                width: double.infinity,
+                                height: 200,
+                                fit: BoxFit.fill,
+                              )
+                            : Image.asset(
+                                'assets/images/product-placeholder.png',
+                                width: double.infinity,
+                                height: 200,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                    ),
                     Container(
                       margin: const EdgeInsets.only(bottom: 18),
                       child: const Text(
@@ -70,6 +142,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             ),
                           ),
                           TextFormField(
+                            controller: nameController,
                             decoration: InputDecoration(
                               hintText: 'Name',
                               border: OutlineInputBorder(
@@ -104,6 +177,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             ),
                           ),
                           TextFormField(
+                            controller: priceController,
                             decoration: InputDecoration(
                               hintText: 'Price',
                               border: OutlineInputBorder(
@@ -138,6 +212,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             ),
                           ),
                           TextFormField(
+                            controller: brandController,
                             decoration: InputDecoration(
                               hintText: 'Brand',
                               border: OutlineInputBorder(
@@ -213,6 +288,8 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             ),
                           ),
                           TextFormField(
+                            controller: descriptionController,
+                            maxLines: 3,
                             decoration: InputDecoration(
                               hintText: 'Description',
                               border: OutlineInputBorder(
@@ -242,7 +319,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          createProduct();
                         },
                         child: const Text(
                           "Publish",

@@ -36,7 +36,7 @@ class ProductManagementData {
   factory ProductManagementData.fromJson(Map<String, dynamic> json) {
     return ProductManagementData(
         id: json['id'],
-        name: json['token'],
+        name: json['name'],
         price: json['price'],
         brand: json['brand'],
         pictureUrl: json['picture_url']);

@@ -1,3 +1,4 @@
+import 'package:chuukohin/constant/environment.dart';
 import 'package:flutter/material.dart';
 import 'package:niku/namespace.dart' as n;
 
@@ -13,6 +14,8 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       width: double.infinity,
       height: 220,
@@ -40,8 +43,10 @@ class ProductCard extends StatelessWidget {
               topLeft: Radius.circular(10.0),
               topRight: Radius.circular(10.0),
             ),
-            child: Image.asset(
-              image,
+            child: Image.network(
+              image.contains('https')
+                  ? image
+                  : EnvironmentConstant.internalPrefix + image,
               width: double.infinity,
               height: 170,
               fit: BoxFit.cover,
@@ -58,14 +63,20 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Container(
                         margin: const EdgeInsets.only(bottom: 2),
+                        width: screenWidth * 0.25,
                         child: n.Text(productname)
                           ..color = const Color(0xff434343)
                           ..fontWeight = FontWeight.w500
-                          ..fontSize = 13,
+                          ..fontSize = 13
+                          ..overflow = TextOverflow.ellipsis,
                       ),
-                      n.Text(brand)
-                        ..color = const Color(0xffC4C4C4)
-                        ..fontSize = 12
+                      SizedBox(
+                        width: screenWidth * 0.25,
+                        child: n.Text(brand)
+                          ..color = const Color(0xffC4C4C4)
+                          ..fontSize = 12
+                          ..overflow = TextOverflow.ellipsis,
+                      )
                     ],
                   ),
                   n.Text(price.toString() + "฿")

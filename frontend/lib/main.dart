@@ -8,9 +8,9 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => ProfileProvider(),
-        ),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
+        ChangeNotifierProvider(create: (_) => SellerProvider()),
+        ChangeNotifierProvider(create: (_) => HomeProvider()),
       ],
       child: const Chuuko(),
     ),
@@ -27,7 +27,7 @@ class Chuuko extends StatelessWidget {
       title: 'Chuuko',
       theme: ThemeConstant.theme,
       routes: RouteConstant.route(),
-      initialRoute: "/home",
+      initialRoute: "/",
     );
   }
 }

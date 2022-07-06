@@ -1,10 +1,12 @@
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/seller/order_report/order_report_detail.dart';
 import 'package:chuukohin/screens/core/seller/order_report/order_detail.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:niku/namespace.dart' as n;
+import 'package:provider/provider.dart';
 
 class OrderReportScreen extends StatefulWidget {
   const OrderReportScreen({Key? key}) : super(key: key);
@@ -28,34 +30,58 @@ class _OrderReportScreenState extends State<OrderReportScreen> {
           padding: const EdgeInsets.only(top: 8, left: 12, right: 12),
           child: _currentIndex == 0
               ? Column(
-                  children: [
-                    for (var i = 0; i < 6; i++)
-                      GestureDetector(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const OrderDetail(),
+                  children: Provider.of<SellerProvider>(context, listen: false)
+                      .sendingOrder
+                      .map(
+                        (order) => GestureDetector(
+                          onTap: () => context
+                              .read<ProfileProvider>()
+                              .getOrderDetail(order.orderId.toString())
+                              .then(
+                                (_) => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const OrderDetail(),
+                                  ),
+                                ),
+                              ),
+                          behavior: HitTestBehavior.translucent,
+                          child: OrderReportDetail(
+                            productName: order.customerName,
+                            orderId: order.orderId.toString(),
+                            orderTime: order.orderTime,
+                            productPicture: order.productPicture,
                           ),
                         ),
-                        behavior: HitTestBehavior.translucent,
-                        child: const OrderReportDetail(),
-                      ),
-                  ],
+                      )
+                      .toList(),
                 )
               : Column(
-                  children: [
-                    for (var i = 0; i < 4; i++)
-                      GestureDetector(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const OrderDetail(),
+                  children: Provider.of<SellerProvider>(context, listen: false)
+                      .sentOrder
+                      .map(
+                        (order) => GestureDetector(
+                          onTap: () => context
+                              .read<ProfileProvider>()
+                              .getOrderDetail(order.orderId.toString())
+                              .then(
+                                (_) => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const OrderDetail(),
+                                  ),
+                                ),
+                              ),
+                          behavior: HitTestBehavior.translucent,
+                          child: OrderReportDetail(
+                            productName: order.customerName,
+                            orderId: order.orderId.toString(),
+                            orderTime: order.orderTime,
+                            productPicture: order.productPicture,
                           ),
                         ),
-                        behavior: HitTestBehavior.translucent,
-                        child: const OrderReportDetail(),
-                      ),
-                  ],
+                      )
+                      .toList(),
                 ),
         ),
       ),

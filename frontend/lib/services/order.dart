@@ -31,7 +31,7 @@ class OrderService {
     final prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('user');
     try {
-      Response response = await Dio().post(
+      Response response = await Dio().get(
           EnvironmentConstant.internalApiPrefix +
               "/order/info/" +
               productId.toString(),
@@ -47,14 +47,12 @@ class OrderService {
     }
   }
 
-  static Future<dynamic> getOrderDetail(int orderId) async {
+  static Future<dynamic> getOrderDetail(String id) async {
     final prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('user');
     try {
-      Response response = await Dio().post(
-          EnvironmentConstant.internalApiPrefix +
-              "/order/detail/" +
-              orderId.toString(),
+      Response response = await Dio().get(
+          EnvironmentConstant.internalApiPrefix + "/order/detail/" + id,
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
       OrderDetailResponse res = OrderDetailResponse.fromJson(response.data);
       return res;

@@ -30,18 +30,18 @@ func OrderUserDetailGetHandler(c *fiber.Ctx) error {
 
 	// * Fetch card detail
 	var cardDetail *models.Card
-	if result := database.Gorm.First(&cardDetail, "user_id = ?", claims.UserId); result.Error != nil {
+	if result := database.Gorm.First(&cardDetail, "user_id = ?", claims.UserId); result.RowsAffected == 0 {
 		return &responder.GenericError{
-			Message: "Please add you credit/debit card to pay",
+			Message: "Please add your credit/debit card to pay",
 			Err:     result.Error,
 		}
 	}
 
 	// * Find address_id in user
 	var user *models.User
-	if result := database.Gorm.Preload("Address").First(&user, "id = ?", claims.UserId); result.Error != nil {
+	if result := database.Gorm.Preload("Address").First(&user, "id = ?", claims.UserId); user.AddressId == nil {
 		return &responder.GenericError{
-			Message: "Unable to find the user",
+			Message: "Please add your address",
 			Err:     result.Error,
 		}
 	}

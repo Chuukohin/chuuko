@@ -10,6 +10,7 @@ class OrderTextSpan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RichText(
+      overflow: TextOverflow.ellipsis,
       text: TextSpan(
         children: [
           TextSpan(
@@ -21,7 +22,9 @@ class OrderTextSpan extends StatelessWidget {
           ),
           TextSpan(
             text: text,
-            style: TextStyle(color: ThemeConstant.secondaryColor),
+            style: TextStyle(
+              color: ThemeConstant.secondaryColor,
+            ),
           ),
         ],
       ),

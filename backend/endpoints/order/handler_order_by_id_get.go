@@ -53,7 +53,7 @@ func OrderByIdGetHandler(c *fiber.Ctx) error {
 		}
 	}
 
-	customerName := *orderDetails.Order.User.Firstname + *orderDetails.Order.User.Lastname
+	customerName := *orderDetails.Order.User.Firstname + " " + *orderDetails.Order.User.Lastname
 	var tempTrackingOrder []*trackingOrderStatus
 	for _, status := range orderDetailDetails.Status {
 		tempTrackingOrder = append(tempTrackingOrder, &trackingOrderStatus{

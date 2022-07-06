@@ -1,8 +1,11 @@
 import 'package:chuukohin/constant/theme.dart';
 import 'package:chuukohin/screens/core/product/product_detail_screen.dart';
+import 'package:chuukohin/services/provider/provider.dart';
 import 'package:chuukohin/widgets/product/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:niku/namespace.dart' as n;
+import 'package:provider/provider.dart';
 
 class MyShopScreen extends StatefulWidget {
   const MyShopScreen({Key? key}) : super(key: key);
@@ -12,6 +15,11 @@ class MyShopScreen extends StatefulWidget {
 }
 
 class _MyShopScreenState extends State<MyShopScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -49,7 +57,7 @@ class _MyShopScreenState extends State<MyShopScreen> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(120),
                                     child: Image.network(
-                                      'https://cdn.discordapp.com/attachments/749662268576497855/985587737866432594/8FDC299C-4D29-4D66-BFD9-DE106D0E9967.jpg',
+                                      'https://chuukohin-pic.mixkoap.com/sibbil.png',
                                       width: 80,
                                       height: 80,
                                       fit: BoxFit.cover,
@@ -61,16 +69,38 @@ class _MyShopScreenState extends State<MyShopScreen> {
                                   child: n.Column([
                                     SizedBox(
                                       width: screenWidth * 0.5,
-                                      child: n.Text("Chuukohin Shop")
+                                      child: n.Text(Provider.of<SellerProvider>(
+                                              context,
+                                              listen: false)
+                                          .shopData
+                                          .seller
+                                          .name)
                                         ..fontWeight = FontWeight.bold
                                         ..fontSize = 16
                                         ..color = ThemeConstant.profileTextColor
                                         ..overflow = TextOverflow.ellipsis,
                                     ),
-                                    n.Text("Joined date: 11/6/2022")
+                                    n.Text(
+                                      "Joined date: " +
+                                          DateFormat("dd/MM/yyyy").format(
+                                            DateTime.parse(
+                                                Provider.of<SellerProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .shopData
+                                                    .seller
+                                                    .joinDate),
+                                          ),
+                                    )
                                       ..fontSize = 13
                                       ..fontWeight = FontWeight.w300,
-                                    n.Text("Products: 400")
+                                    n.Text("Products: " +
+                                        Provider.of<SellerProvider>(context,
+                                                listen: false)
+                                            .shopData
+                                            .products
+                                            .length
+                                            .toString())
                                       ..fontSize = 13
                                       ..fontWeight = FontWeight.w300,
                                   ])
@@ -106,18 +136,49 @@ class _MyShopScreenState extends State<MyShopScreen> {
                   (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProductDetailScreen(),
-                          ),
-                        );
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .getProductDetail(Provider.of<SellerProvider>(
+                                    context,
+                                    listen: false)
+                                .shopData
+                                .products[index]
+                                .id
+                                .toString())
+                            .then(
+                              (_) => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ProductDetailScreen(),
+                                ),
+                              ),
+                            );
                       },
-                      child: const ProductCard(
-                          "T-Shirt", "Uniqlo", 100, 'assets/images/shirt.png'),
+                      child: ProductCard(
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .shopData
+                            .products[index]
+                            .name,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .shopData
+                            .products[index]
+                            .brand,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .shopData
+                            .products[index]
+                            .price,
+                        Provider.of<SellerProvider>(context, listen: false)
+                            .shopData
+                            .products[index]
+                            .pictureUrl,
+                      ),
                     );
                   },
-                  childCount: 10,
+                  childCount:
+                      Provider.of<SellerProvider>(context, listen: false)
+                          .shopData
+                          .products
+                          .length,
                 ),
               ),
             ),

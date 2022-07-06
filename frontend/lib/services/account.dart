@@ -57,7 +57,6 @@ class AccountService {
       String lastname,
       String phone,
       String shopName,
-      String shopDescription,
       String addressLine1,
       String addressLine2,
       String province,
@@ -70,13 +69,13 @@ class AccountService {
       final prefs = await SharedPreferences.getInstance();
       final String? userToken = prefs.getString('user');
       Response response = await Dio().post(
-          EnvironmentConstant.internalApiPrefix + "account/seller/register",
+          EnvironmentConstant.internalApiPrefix + "/account/seller/register",
           data: {
             'firstname': firstname,
             'lastname': lastname,
             'phone': phone,
             'shop_name': shopName,
-            'shop_description': shopDescription,
+            'shop_description': 'shop_description',
             'address_line1': addressLine1,
             'address_line2': addressLine2,
             'province': province,
@@ -87,7 +86,6 @@ class AccountService {
             'bank_name': bankName,
           },
           options: Options(headers: {"Authorization": "Bearer " + userToken!}));
-
       SellerRegisterResponse res =
           SellerRegisterResponse.fromJson(response.data);
       await prefs.setString('user', res.data.token);

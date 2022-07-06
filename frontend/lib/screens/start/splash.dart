@@ -1,4 +1,4 @@
-import 'package:chuukohin/screens/core/home/homepage_screen.dart';
+import 'package:chuukohin/screens/core/index.dart';
 import 'package:chuukohin/screens/start/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: AnimatedSplashScreen(
         splash: 'assets/images/logo.png',
-        nextScreen: login ? const HomePageScreen() : const WelcomeScreen(),
+        nextScreen: login ? const MainScreen() : const WelcomeScreen(),
         splashIconSize: 100,
         pageTransitionType: PageTransitionType.fade,
         duration: 1000,

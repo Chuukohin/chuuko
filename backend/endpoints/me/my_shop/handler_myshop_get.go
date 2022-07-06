@@ -3,8 +3,10 @@ package my_shop
 import (
 	"chuukohin/database"
 	"chuukohin/models"
+	"chuukohin/types/fiber/jwt_claim"
 	"chuukohin/types/responder"
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 // MyShopGetHandler
@@ -16,17 +18,18 @@ import (
 // @Produce      json
 // @Success      200  {object}  my_shop.myShopGetResponse
 // @Failure      400  {object}  responder.ErrorResponse
-// @Router       /me/myshop/info/{shop_id} [get]
+// @Router       /me/myshop/info [get]
 func MyShopGetHandler(c *fiber.Ctx) error {
-	// * Get param
-	shopId := c.Params("shop_id")
+	// * Parse user JWT token
+	token := c.Locals("user").(*jwt.Token)
+	claims := token.Claims.(*jwt_claim.UserClaim)
 
 	shopDetail := new(myShopGetResponse)
 	shopDetail.Seller = new(sellerData)
 
 	// * Search shop's information
 	var shop *models.Shop
-	if result := database.Gorm.First(&shop, "id = ?", shopId); result.RowsAffected != 0 {
+	if result := database.Gorm.First(&shop, "id = ?", claims.SellerId); result.RowsAffected != 0 {
 		shopDetail.Seller.JoinDate = shop.JoinDate
 		shopDetail.Seller.Name = shop.ShopName
 	}
@@ -34,7 +37,7 @@ func MyShopGetHandler(c *fiber.Ctx) error {
 	// * Search products in this shop
 	var products []*models.Product
 	var productsData []*product
-	if result := database.Gorm.Preload("Picture").Find(&products, "seller_id = ?", shopId); result.RowsAffected != 0 {
+	if result := database.Gorm.Preload("Picture").Find(&products, "seller_id = ?", claims.SellerId); result.RowsAffected != 0 {
 		for _, productMap := range products {
 			tempProduct := &product{
 				Id:         productMap.Id,

@@ -1,4 +1,3 @@
-import 'package:chuukohin/constant/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:niku/namespace.dart' as n;
 
@@ -31,14 +30,9 @@ class _IncomeOrderState extends State<IncomeOrder> {
               ..fontSize = 18
               ..fontWeight = FontWeight.w400,
             Container(
-              padding: const EdgeInsets.only(bottom: 1, left: 4, right: 4),
+              padding: const EdgeInsets.only(bottom: 1, left: 4),
               child: n.Text("THB")..fontSize = 12,
             ),
-            Icon(
-              CupertinoIcons.chevron_forward,
-              size: 20,
-              color: ThemeConstant.profileTextColor,
-            )
           ],
         )
           ..mainAxisAlignment = MainAxisAlignment.end
